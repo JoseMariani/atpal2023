@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Edit Study Period
+      </h3>
+      <%= link_to('Back to student page', student_path(@student.id), class: "student_back_link") %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" id="margin-bottom">
+      <%= form_for @study_period, :url => student_study_period_path(student_id: @student.id, :id => @study_period.id), :html => {:id => "new_study_period", :method => :put} do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Save Study Period", :class => 'btn btn-success', :id=>'edit_submit')%>
+
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Atpal Management System</title>
+  <%= javascript_include_tag "https://www.google.com/jsapi" %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+					<div class="navbar-header">
+
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nemu-nav">
+							 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+						</button> <%= link_to "Home", root_path, :class=> "navbar-brand" %>
+					</div>
+
+					<div class="collapse navbar-collapse" id="menu-nav">
+						<ul class="nav navbar-nav">
+							<% if user_signed_in? %>
+                  <% if policy(:public_controller).language? %>
+                      <li>
+                        <%= link_to('Evaluations', course_language_path) %>
+                      </li>
+                  <% end %>
+                  <% if policy(:student).index? %>
+                    <li class="dropdown" id="">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Students<span class="caret"></span></a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><%= link_to "Student Index", students_path %></li>
+                        <li><%= link_to 'Create new student', new_student_path %></li>
+                      </ul>
+                    </li>
+                  <% end %>
+                  <% if policy(:program).index? %>
+                  <li class="dropdown" id="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Programs<span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><%= link_to('Programs Index', programs_path)  %></li>
+                      <li><%= link_to('Create new program', new_program_path)  %></li>
+                      <li><%= link_to('Accelerated Preparation Program Index', fixed_duration_programs_path)  %></li>
+                      <li><%= link_to('Create new APP', new_fixed_duration_program_path)  %></li>
+                    </ul>
+                  </li>
+                  <% end %>
+                  <% if policy(:agency).index? %>
+                  <li class="dropdown" id="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Agencies<span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><%= link_to('Agencies Index', agencies_path)  %></li>
+                      <% if policy(:agency).create? %>
+                      <li><%= link_to('Create new agency', new_agency_path)  %></li>
+                      <% end %>
+                    </ul>
+                  </li>
+                  <% end %>
+                  <% if policy(:accommodation).index? %>
+                  <li class="dropdown" id="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Accommodation<span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><%= link_to('Accommodations Index', accommodations_path)  %></li>
+                      <li><%= link_to('Create new accommodation', new_accommodation_path)  %></li>
+                    </ul>
+                  </li>
+                  <% end %>
+                  <% if policy(:statement).index? %>
+                  <li class="dropdown" id="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Billing<span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <% if policy(:quote).index? %>
+                          <li>
+                            <%= link_to('Quotes', quotes_path)  %>
+                          </li>
+                      <% end %>
+                      <% if policy(:invoice).index? %>
+                          <li>
+                            <%= link_to('Invoices', invoices_path)  %>
+                          </li>
+                      <% end %>
+                      <% if policy(:pro_forma).index? %>
+                          <li>
+                            <%= link_to('Pro Formas', pro_formas_path)  %>
+                          </li>
+                      <% end %>
+                      <% if policy(:payment).index? %>
+                          <li>
+                            <%= link_to('Payment Index', payments_path)  %>
+                          </li>
+                      <% end %>
+                    </ul>
+                  </li>
+                  <% end %>
+                  <% if policy(:promo).index? %>
+                  <li class="dropdown" id="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Student Misc<span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><%= link_to('Promos Index', promos_path)  %></li>
+                      <li><%= link_to('Create new Promo', new_promo_path)  %></li>
+                      <li><%= link_to('Promo region index', regions_path)  %></li>
+                      <li><%= link_to('Create new promo region', new_region_path)  %></li>
+                      <li><%= link_to('Insurance Index', insurances_path)  %></li>
+                      <li><%= link_to('Create new Promo', new_insurance_path)  %></li>
+                      <li><%= link_to('Promo region index', regions_path)  %></li>
+                      <li><%= link_to('Create new promo region', new_promo_path)  %></li>
+                    </ul>
+                  </li>
+                  <% end %>
+                  <li class="dropdown" id="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings<span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <% if policy(:user).index? %>
+                          <li>
+                            <%= link_to('Manage Users', users_path)  %>
+                          </li>
+                      <% end %>
+                      <li>
+                        <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+                      </li>
+                    </ul>
+                  </li>
+                      <% if policy(:user).index? %>
+                          <li>
+                            <%= link_to('Admin Portal', admin_dashboard_path)  %>
+                          </li>
+                      <% end %>
+                  </li>
+							<% else %>
+								<%= render "devise/shared/links" %>
+							<% end %>
+						</ul>
+					</div>
+				</nav>
+				<br />
+				<br />
+				<br />
+				<br />
+        <div class="container">
+          <%= flash_messages %>
+        </div>
+        <div class="spinner" style="display: none">
+          <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+          </div>
+        </div>
+        <div class="content">
+          <%= yield %>
+        </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

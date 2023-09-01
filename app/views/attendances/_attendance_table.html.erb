@@ -1,0 +1,74 @@
+<td class="center-vertically-table-cell empty-table-cell"><%= student.complete_name_cap %></td>
+<% if student.latest_attendance.blank? %>
+    <td class="center-vertically-table-cell empty-table-cell">
+      No attendance recorded
+    </td>
+    <td class="empty-table-cell">
+    </td>
+    <td class="empty-table-cell">
+    </td>
+    <td class="empty-table-cell">
+    </td>
+<% else %>
+    <td class="center-vertically-table-cell">
+      <% if policy(student.latest_attendance).update? %>
+          <%= link_to (l student.latest_attendance.created_at, :format => :short), edit_attendance_path(:id => student.latest_attendance.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+      <% else %>
+          <%= l student.latest_attendance.created_at, :format => :short %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell">
+      <% if policy(student.latest_attendance).update? %>
+          <%= link_to student.latest_attendance.absent, edit_attendance_path(:id => student.latest_attendance.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+      <% else %>
+          <%= student.latest_attendance.absent %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell">
+      <% unless student.latest_attendance.hour.nil? %>
+          <% if policy(student.latest_attendance).update? %>
+              <%= link_to student.latest_attendance.hour.try(:strftime, '%r'), edit_attendance_path(:id => student.latest_attendance.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+          <% else %>
+              <%= student.latest_attendance.hour.try(:strftime, '%r') %>
+          <% end %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell">
+      <% if policy(student.latest_attendance).update? %>
+          <%= link_to student.latest_attendance.try(:grade).to_s, edit_attendance_path(:id => student.latest_attendance.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+      <% else %>
+          <%= student.latest_attendance.try(:grade).to_s %>
+      <% end %>
+    </td>
+<% end %>
+<td class="center-vertically-table-cell">
+  <% if student.latest_evaluation.nil? %>
+      <row>
+        <div class="col-xs-6 text-center no-padding">
+          This student does not have an academic profile
+        </div>
+        <div class="col-xs-6 text-center no-padding">
+          <% if policy(student).update? %>
+              <%= link_to "Edit this student", student_path(:id => student.id), class: "btn btn-default" %>
+          <% end %>
+        </div>
+      </row>
+  <% else %>
+    <% col_width = policy(:attendance).justify_absence? ? "col-xs-4" : "col-xs-6" %>
+      <row>
+        <div class="<%= col_width %> text-center no-padding" title="<%= t('new_attendance') %>" data-toggle='tooltip' data-placement='top'>
+          <%= link_to 'New attendance', "#new_attendance_modal_#{student.id}", 'data-toggle' => 'modal', class: "btn btn-success" %>
+        </div>
+        <div class="<%= col_width %> text-center no-padding">
+          <%= link_to "Attendance details", attendances_path(:evaluation_id=>student.latest_evaluation.id), class: "btn btn-default",
+                      title: t('attendance_datails'), 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+        </div>
+        <% if policy(:attendance).justify_absence? and student.latest_attendance.present? %>
+        <div class="<%= col_width %> text-center no-padding">
+          <%= link_to "justify absence", justify_absence_attendance_path(evaluation_id: student.latest_evaluation.id, id: student.latest_attendance.id),
+                      method: :patch, class: "btn btn-warning", title: t('justify_absence'), 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+        </div>
+        <% end %>
+      </row>
+  <% end %>
+</td>

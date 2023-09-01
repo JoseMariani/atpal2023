@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-5 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Back to Academic Profile index", evaluations_path(:student_id => @evaluation.study_period.student.id) %>
+        </li>
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Back to student Academic Profile", exercises_evaluation_path(:id => @evaluation.id, :student_id => @evaluation.study_period.student.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+	<div class="row">
+		<div class="col-md-12">
+      <%= link_to 'PDF Report', special_activities_path(:evaluation_id=>@evaluation.id, :format => :pdf), :class =>'btn btn-danger btn-inverse' %>
+			<div class="page-header">
+				<h2 class="text-center font-open-sans">
+					Special Activity index for <%= @evaluation.study_period.student.first_name%> <%= @evaluation.study_period.student.last_name%>
+				</h2>
+			</div>
+			<div class="row">
+				<div class="col-md-7">
+					<h3 class="text-center">
+						List
+					</h3>
+					<div class="col-md-12 section-white">
+            <div class="col-md-12 margin-bottom-40">
+              <h4 class="header4-bottom text-center">
+                Special Activities
+              </h4>
+            </div>
+						<div class="col-md-12 margin-top">
+							<table class="table table-striped margin-top" id="sa_index_table">
+								<thead>
+									<tr>
+										<th>
+											#
+										</th>
+										<th >
+											Date
+										</th>
+										<th >
+											Description
+										</th>
+										<th >
+											Research grade
+										</th>
+										<th >
+											Presentation grade
+										</th>
+										<th >
+											Written grade
+										</th>
+										<th >
+											Overall grade
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% count = 0 %>
+									<% @special_activities.each do |sa| %>
+									<tr>
+										<td>
+											<%= count += 1 %>
+										</td>
+										<td>
+											<%= (l sa.date, :format => :long) %>
+										</td>
+										<td>
+											<%= sa.description %>
+										</td>
+										<td>
+											<%= sa.research_grade %>
+										</td>
+										<td>
+											<%= sa.presentation_grade %>
+										</td>
+										<td>
+											<%= sa.written_grade %>
+										</td>
+										<td>
+											<%= sa.letter_grade %>
+										</td>
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<h3 class="text-center">
+						Progress Graphs
+					</h3>
+						<div class="col-md-12">
+							<div class="section-white margin-bottom">
+								<h4 class="text-center header4-bottom">
+									Line Chart
+								</h4>
+								<%= line_chart [{name: "Overall", data: @special_activities.limit(15).map{|t| [t.date, human_abc(t.letter_grade)] }},
+								{name: "Research", data: @special_activities.limit(15).map{|t| [t.date, human_abc(t.research_grade)] }},
+								{name: "Presentation", data: @special_activities.limit(15).map{|t| [t.date, human_abc(t.presentation_grade)] }},
+								{name: "Written", data: @special_activities.limit(15).map{|t| [t.date, human_abc(t.written_grade)] }}], library: {vAxis: {
+                    viewWindow: {
+                        min: 0,
+                        max: 105
+                    },
+                    ticks: [0, 25, 50, 75, 100]}, hAxis: {format: 'dd/MM/yy' }, curveType: 'function', legend: { position: 'right'}} %>
+							</div>
+							<div class="section-white margin-top">
+								<h4 class="text-center header4-bottom">
+									Pie Chart
+								</h4>
+								<%= pie_chart @special_activities.group(:letter_grade).count, library: {legend: {position: 'bottom', textStyle: {color: 'black', fontSize: 14}}, 
+								colors: ['#729f98', '#aa863a', '#e6af4b', '#bcd5d1', '#f6c7b6'], title: "Overall Grade"} %>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

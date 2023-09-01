@@ -1,0 +1,77 @@
+<td class="center-vertically-table-cell empty-table-cell"><%= student.complete_name_cap %></td>
+<% if student.latest_sns.blank? %>
+    <td class="center-vertically-table-cell empty-table-cell empty-td">
+      No Sharp'n Smarts recorded
+    </td>
+    <td class="empty-table-cell empty-td">
+    </td>
+    <td class="empty-table-cell empty-td">
+    </td>
+    <td class="empty-table-cell empty-td">
+    </td>
+<% else %>
+    <td class="center-vertically-table-cell empty-td">
+      <% if student.latest_sns.created_at.nil? %>
+          Not yet determined
+      <% else %>
+          <% if policy(student.latest_sns).update? %>
+              <%= link_to (l student.latest_sns.date, :format => :long), edit_sharp_and_smart_path(:id => student.latest_sns.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+          <% else %>
+              <%= l student.latest_sns.date, :format => :long %>
+          <% end %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell empty-td col-xs-2">
+      <% color = student.latest_sns&.color&.humanize || "" %>
+      <% if policy(student.latest_sns).update? %>
+          <%= link_to color, edit_sharp_and_smart_path(:id => student.latest_sns.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+      <% else %>
+          <%= color %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell empty-td">
+      <% if student.latest_sns.score.nil? %>
+          Not yet determined
+      <% else %>
+          <% if policy(student.latest_sns).update? %>
+              <%= link_to "#{student.latest_sns.score.to_i} / 5", edit_sharp_and_smart_path(:id => student.latest_sns.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+          <% else %>
+              <%= "#{student.latest_sns.score.to_i} / 5" %>
+          <% end %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell empty-td">
+      <% if student.latest_sns.daily_score.blank? %>
+        Not yet determined
+      <% else %>
+        <% if policy(student.latest_sns).update? %>
+          <%= link_to student.latest_sns.daily_score, edit_sharp_and_smart_path(:id => student.latest_sns.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+        <% else %>
+          <%= student.latest_sns&.daily_score %>
+        <% end %>
+      <% end %>
+    </td>
+<% end %>
+<td class="center-vertically-table-cell empty-td">
+  <% if student.latest_evaluation.nil? %>
+      <row>
+        <div class="col-xs-6 text-center no-padding">
+          This student does not have an academic profile
+        </div>
+        <div class="col-xs-6 text-center no-padding">
+          <% if policy(student).update? %>
+              <%= link_to "Edit this student", student_path(:id => student.id), class: "btn btn-default" %>
+          <% end %>
+        </div>
+      </row>
+  <% else %>
+      <row>
+        <div class="col-xs-6 text-center no-padding">
+          <%= link_to 'New S\'nS', "#new_sharp_and_smart_modal_#{student.id}", 'data-toggle' => 'modal', class: "btn btn-primary" %>
+        </div>
+        <div class="col-xs-6 text-center no-padding">
+          <%= link_to "Details", sharp_and_smarts_path(:evaluation_id=>student.latest_evaluation.id), class: "btn btn-default" %>
+        </div>
+      </row>
+  <% end %>
+</td>

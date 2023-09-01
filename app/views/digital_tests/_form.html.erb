@@ -1,0 +1,11 @@
+<div class="form-group">
+  <%= f.label(:level, "Level")%>
+  <%= f.select(:level, options_for_select(@levels.collect { |s| [s[0].humanize, s[0]] }),{}, {:id=>"test_level", :class => 'form-control' }) %>
+</div>
+
+<div class="form-group">
+  <%= f.label(:attachment, "Test file")%>
+  <%= f.file_field(:attachment, :class=>"btn btn-file") %>
+</div>
+
+

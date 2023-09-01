@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Add new agency
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(@agency, :url => agencies_path) do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Add agency", :class => 'btn btn-success')%>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+

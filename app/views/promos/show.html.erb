@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Create promotion", new_promo_path%>
+        </li>
+        <li>
+          <%= link_to "Edit promo", edit_promo_path(:id => @promo.id)%>
+        </li>
+        <li>
+          <%= link_to "Promo index", promos_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Promotion details
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" id="student-table">
+      <table class="table table-bordered table-striped table-hover">
+        <tr>
+          <th>Description</th>
+          <td><%= @promo.description %></td>
+        </tr>
+        <tr>
+          <th>Type of promotion</th>
+          <td><%= @promo.type_of_promo %></td>
+        </tr>
+        <tr>
+          <th>Quantity in decimals</th>
+
+          <td><%= @promo.number %></td>
+        </tr>
+        <tr>
+          <th>Percentage</th>
+          <td><%= @promo.percentage %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

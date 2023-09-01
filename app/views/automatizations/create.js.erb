@@ -1,0 +1,8 @@
+<% if @automatization.errors.any? %>
+$('.container').html("<div class=\"alert alert-warning fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button><%= @automatization.errors.full_messages.join(', ') %></div>\n");
+<% else %>
+$('.container').html("<div class=\"alert alert-success fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button>Automatization created successfully for <%= @student.first_name %></div>\n");
+<% end %>
+$('#student_<%= @student.id %>').html("<%= j render "automatizations/automatization_table", student: @student %>")
+$('#new_automatization_modal_<%= @student.id %>').modal('hide')
+$('#new_automatization_modal_<%= @student.id %>').find('form input[type="text"]').val('')

@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Agency index", agencies_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Edit agency", edit_agency_path(:id => @agency.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row section-white inner-padding padding-top">
+    <h3 class="header3-bottom text-center margin-bottom">Agency info</h3>
+    <div class="col-md-12" id="student-table">
+      <table class="table table-bordered table-striped table-hover margin-top">
+        <tr>
+          <th>Name</th>
+          <td><%= @agency.name %></td>
+        </tr>
+        <tr>
+          <th>Country</th>
+          <td><%= @agency.country %></td>
+        </tr>
+        <tr>
+          <th>Address</th>
+          <td><%= @agency.address %></td>
+        </tr>
+        <tr>
+          <th>Phone number</th>
+          <td><%= @agency.phone_number %></td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td><%= @agency.email %></td>
+        </tr>
+        <tr>
+          <th>Commission</th>
+          <td><%= @agency.commission %></td>
+        </tr>
+        <% if @agency.users.any? %>
+          <tr>
+            <th>Restricted users</th>
+            <td>
+              <Ul class="list-group">
+                <% @agency.users.each do |user|%>
+                  <li class="list-group-item"><%= user.complete_name %></li>
+                <% end %>
+              </Ul>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+
+      <h5 class="header5-bottom margin-bottom"> Contacts</h5>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <th>Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Position</th>
+          <th>Branch</th>
+        </thead>
+        <tbody>
+        <% @agency.contacts.each do |contact| %>
+            <tr>
+              <td><%= contact.name %></td>
+              <td><%= contact.last_name %></td>
+              <td><%= contact.email_address %></td>
+              <td><%= contact.phone_number %></td>
+              <td><%= contact.position %></td>
+              <td><%= contact.branch %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

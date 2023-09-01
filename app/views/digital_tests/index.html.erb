@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Tests
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Store new test", new_digital_test_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 margin-top padding-bottom padding-top section-white" id="student-panel soft-borders">
+      <h3 class="header3-bottom margin-bottom">
+        List of Digital tests
+      </h3>
+      <table class="table  responsive no-wrap table-stu table-striped table-responsive table-hover margin-top" id="program_table">
+        <thead>
+        <tr>
+          <th>
+            Upload date
+          </th>
+          <th>
+            Level
+          </th>
+          <th>
+            File
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @digital_tests.each do |test| %>
+            <tr>
+              <td>
+                <%= test.created_at.to_date.to_formatted_s(:long) %>
+              </td>
+              <td>
+                <%= test.level.humanize %>
+              </td>
+              <td>
+                <%= link_to "Download test", test.attachment_url %>
+              </td>
+              <td><%= button_to "Delete",  digital_test_path(:id => test.id), method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{test.level.humanize}?" %></td>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

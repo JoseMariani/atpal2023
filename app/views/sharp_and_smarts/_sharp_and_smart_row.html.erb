@@ -1,0 +1,37 @@
+<td>
+  <%= (l sns.created_at.to_date, :format => :long) %>
+</td>
+<td>
+  <%= (l sns.date, :format => :long) %>
+</td>
+<td>
+  <%= sns.color&.humanize %>
+</td>
+<td>
+  <%= sns.score %>
+</td>
+<td>
+  <%= sns.daily_sns.count%>
+</td>
+<td>
+  <%= sns.daily_score %>
+</td>
+<td>
+  <% if policy(:sharp_and_smart).edit? %>
+  <div class="col-md-12">
+    <%= link_to "Edit", edit_sharp_and_smart_path(:id => sns.id, :evaluation_id=>@evaluation.id, detail_view: 1),
+                remote: true, class: "btn btn-default link-justify-absence", title: t('justify_absence'), 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+
+  </div>
+  <% end %>
+</td>
+<div class="modal fade" id="edit_sharp_and_smart_modal_<%= sns.evaluation.study_period.student.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Sharp'n Smart</h4>
+      </div>
+    </div>
+  </div>
+</div>

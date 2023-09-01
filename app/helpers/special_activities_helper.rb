@@ -1,0 +1,2 @@
+module SpecialActivitiesHelper
+end

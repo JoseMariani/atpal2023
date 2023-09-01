@@ -1,0 +1,276 @@
+<div id="pro_forma_wizard">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul>
+          <li><a href="#tab1" data-toggle="tab">Student Information</a></li>
+          <li><a href="#tab2" data-toggle="tab">Course Dates</a></li>
+          <li><a href="#tab3" data-toggle="tab">Fees</a></li>
+          <li><a href="#tab4" data-toggle="tab">Program details</a></li>
+          <li><a href="#tab5" data-toggle="tab">Accommodation</a></li>
+          <li><a href="#tab6" data-toggle="tab">Insurance</a></li>
+          <li><a href="#tab7" data-toggle="tab">Agency</a></li>
+          <li><a href="#tab8" data-toggle="tab">Finish</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="bar" class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+  </div>
+  <div class="tab-content">
+    <div class="tab-pane" id="tab1">
+      <div class="form-group field">
+        <%= f.label(:student_id, "Student ID")%>
+        <%= f.text_field(:student_id, :class=>"form-control", :readonly => "true") %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label(:first_name, "First name")%>
+        <%= f.text_field(:first_name, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label(:last_name, "Last name")%>
+        <%= f.text_field(:last_name, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label(:nationality, "Nationality")%>
+        <%= f.text_field(:nationality, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label(:phone_number, "Phone number")%>
+        <%= f.telephone_field(:phone_number, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label(:email_address, "Email address")%>
+        <%= f.text_field(:email_address, :class=>"form-control") %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <div class="form-group field">
+        <%= f.label(:start_date, "Start date")%>
+        <%= f.text_field(:start_date, :class=>"form-control", :id => "student_start_date") %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label(:end_date, "End date")%>
+        <%= f.text_field(:end_date, :class=>"form-control", :id => "student_end_date") %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label(:entire_stay_duration, "Entire stay duration (including vacations)")%>
+        <%= f.text_field(:entire_stay_duration, :class=>"form-control", :id => "entire_weeks") %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab3">
+      <div class="col-md-12 padding-top padding-bottom margin-bottom section-white">
+        <h5 class="margin-bottom header5-bottom">Items</h5>
+        <div class="form-group" id="items">
+          <%= f.fields_for :statement_items do |statement_item| %>
+              <%= render(:partial => 'statement_item_fields', :locals => {:f => statement_item}) %>
+          <% end %>
+          <div class="links">
+            <%= link_to_add_association "Add item", f, :statement_items, class: "btn btn-primary btn-block" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab4">
+      <div class="col-md-12 padding-top padding-bottom margin-top margin-bottom section-white">
+        <h5 class="margin-bottom header5-bottom">Program</h5>
+
+        <div class="form-group field">
+          <%= f.label(:course_language, "Type of course (language)")%>
+          <%= f.text_field(:course_language, :class=>"form-control", :id => "price") %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label(:program, "Type of program")%>
+          <%= f.collection_select :program_id, Program.order('cost DESC'), :id, :title, {:prompt => "Select a program"},  :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <div class="form-group" id="fixed_duration_programs">
+            <%= f.fields_for :fixed_duration_pro_statements do |fixed_duration_pro_statement| %>
+                <%= render(:partial => "fixed_duration_pro_statement_fields", :locals => {:f => fixed_duration_pro_statement}) %>
+            <% end %>
+            <div class="">
+              <%= link_to_add_association 'Add Accelerated preparation program', f, :fixed_duration_pro_statements, class: "btn btn-primary btn-block" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= label_tag 'APP total', nil, {} %>
+          <%= text_field_tag 'app_total', '', {:class=>'form-control'} %>
+        </div>
+
+        <div class="form-group field">
+          <%= f.label(:duration_weeks, "Actual duration of program")%>
+          <%= f.text_field(:duration_weeks, :class=>"form-control", :id => "weeks") %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label(:week_program_range, "Week range")%>
+          <%= f.grouped_collection_select :week_program_range, Program.order(:title), :weeks, :title, :id, :number_and_cost, {:include_blank => true}, {:id=>"pro_forma_program_week_range", :class => 'form-control'} %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label(:region, "Region (for promotion)")%>
+          <%= f.collection_select(:region_id, Region.order(:name), :id, :name, { }, :class=>"form-control")  %>
+        </div>
+
+        <div class="form-group promo_div">
+          <%= f.label(:promo_ids, "Promos")%>
+          <%= f.select(:promo_ids, list_promos(Region.order("name DESC")), {:prompt => "Select promotions" }, { :multiple => true, :class=>"form-control"})  %>
+          <br/>
+          <button type="button", class="btn btn-danger", id="promo_btn">apply</button>
+        </div>
+
+        <div class="form-group">
+          <div class="form-inline">
+            <div class="form-group">
+              <%= f.label(:program_id, "Program cost ")%>
+              <%= f.text_field :program_cost,:class => 'form-control', readonly: "true", :id =>"ro_pro_forma_program_cost" %>
+            </div>
+            X
+            <div class="form-group">
+              <%= f.label(:duration_weeks, "Actual duration of program")%>
+              <%= f.text_field(:duration_weeks, :class=>"form-control", readonly: "true", :id =>"ro_pro_forma_weeks" ) %>
+            </div>
+            =
+            <div class="form-group">
+              <%= f.label(:program_total, "Program total")%>
+              <%= f.text_field(:program_total, :class=>"form-control" ) %>
+              <%= f.hidden_field :post_rebate_program_cost %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="tab-pane" id="tab5">
+      <div class="col-md-12 padding-top padding-bottom margin-top margin-bottom section-white">
+        <h5 class="margin-bottom header5-bottom">Accommodation</h5>
+        <div class="form-group">
+          <%= f.label(:adulthood_id, "Adult or Minor")%>
+          <%= f.collection_select(:adulthood_id, Adulthood.order(:name), :id, :name, {prompt: true}, :class=>"form-control") %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label(:accommodation_id, "Type of accommodation")%>
+          <%= f.grouped_collection_select :accommodation_id, Adulthood.order(:name), :accommodations, :name, :id, :type_of_accommodation, {:include_blank => true}, {:class => 'form-control'} %>
+        </div>
+
+        <div class="form-group field">
+          <%= f.label(:start_date_accommodation, "Start date")%>
+          <%= f.text_field(:start_date_accommodation, :class=>"form-control") %>
+        </div>
+
+        <div class="form-group field">
+          <%= f.label(:end_date_accommodation, "End date")%>
+          <%= f.text_field(:end_date_accommodation, :class=>"form-control") %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label(:accommodation_id, "Accommodation Cost")%>
+          <%= f.collection_select :accommodation_cost, Accommodation.order('cost DESC'), :id, :cost, {}, {:class => 'form-control', readonly: "true"} %>
+        </div>
+
+        <div class="form-group">
+          <div class="form-inline">
+            <div class="form-group">
+              <%= f.label(:accommodation_id, "Accommodation cost ")%>
+              <%= f.text_field :accommodation_cost, :class => 'form-control', readonly: "true", :id =>"ro_pro_forma_accommodation_cost" %>
+            </div>
+            X
+            <div class="form-group">
+              <%= f.label(:accommodation_duration, "Duration of accommodation")%>
+              <%= f.text_field(:accommodation_duration, :class=>"form-control") %>
+            </div>
+            =
+            <div class="form-group">
+              <%= f.label(:accommodation_total, "Accommodation total")%>
+              <%= f.text_field(:accommodation_total, :class=>"form-control" ) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab6">
+      <div class="col-md-12 padding-top padding-bottom margin-top margin-bottom section-white">
+        <h5 class="margin-bottom header5-bottom">Insurance</h5>
+        <div class="form-group">
+          <%= f.label(:insurance_id, "Type of insurance")%>
+          <%= f.collection_select :insurance_id, Insurance.order(:name), :id, :name, {:include_blank => "Select one item"}, {:class => 'form-control'} %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label(:start_date_insurance, "Insurance start date")%>
+          <%= f.text_field(:start_date_insurance, :class=>"form-control") %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label(:end_date_insurance, "Insurance end date")%>
+          <%= f.text_field(:end_date_insurance, :class=>"form-control") %>
+        </div>
+
+        <div class="form-group">
+          <%= label_tag(:insurance_cost_per_week, "Insurance price per week")%>
+          <%= select_tag :insurance_cost_per_week, {}, :class => 'form-control', id: "pro_forma_insurance_cost_per_week", readonly: "true" %>
+        </div>
+
+        <div class="form-group">
+          <% insurance_cover_period = @pro_forma.insurance_cover_period || @pro_forma.study_period.entire_stay_duration %>
+          <%= f.label(:insurance_cover_period, "Insurance coverage period")%>
+          <%= f.text_field :insurance_cover_period, value: insurance_cover_period, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label(:insurance_cost, "Total insurance price")%>
+          <%= f.text_field :insurance_cost, {:class => 'form-control', readonly: "true"} %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab7">
+      <div class="form-group">
+        <%= f.label(:agency_id, "Agency")%>
+        <%= f.collection_select :agency_id, filtered_agencies, :id, :name,
+                                {:include_blank => "Choose an agency"}, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab8">
+      <div class="form-group field">
+        <%= f.label(:date_of_validity, "Valid until")%>
+        <%= f.text_field(:date_of_validity, :class=>"form-control", :id => "valid_until") %>
+      </div>
+
+      <div class="form-group field margin-top">
+        <%= f.label(:total_amount, "Grand Total")%>
+        <%= f.text_field(:total_amount, :class=>"form-control", :id=>"pro_forma_grand_total") %>
+      </div>
+
+      <div class="checkbox">
+        <%= f.label(:update_student) do %>
+            <%= f.check_box(:update_student, :checked => true ) %>
+            Update student with pro forma data?
+        <% end %>
+      </div>
+    </div>
+    <ul class="pager wizard">
+      <li class="previous first" style="display:none;"><a href="#">First</a></li>
+      <li class="previous"><a href="#">Previous</a></li>
+      <li class="next last" style="display:none;"><a href="#">Last</a></li>
+      <li class="next"><a href="#">Next</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+

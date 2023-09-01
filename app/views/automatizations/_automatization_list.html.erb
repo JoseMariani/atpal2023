@@ -1,0 +1,104 @@
+
+<div class="container-fluid section-white margin-top">
+  <div class="row" id="margin-top">
+    <div class="col-md-12">
+      <div class="col-md-5 " id="soft-borders">
+        <h3>
+          <%= link_to '<i class="glyphicon glyphicon-plus-sign text-success"></i>'.html_safe,
+                      '#new_automatization_modal', 'data-toggle' => 'modal' %>
+          <%= link_to 'Automatization', automatizations_path(:evaluation_id=>@evaluation.id) %>
+        </h3>
+      </div>
+      <div class="col-md-1 col-md-offset-6" >
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" >
+      <div class="row">
+        <div class="col-wrap white-text margin-sides" id="soft-borders">
+          <div class="col-md-6 col text-center" id="soft-borders">
+            <h3 id="med">
+              Average Automatization grade in the 7 days
+            </h3>
+            <p id="big">
+              <%= @evaluation.automatizations_teacher_eval_week %>
+            </p>
+          </div>
+          <div class="col-md-6 col text-center" id="soft-borders">
+            <h3 id="med">
+              Average Automatization grade overall
+            </h3>
+            <p id="big">
+              <%= @evaluation.automatizations_teacher_eval_overall %>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-12 target-placeholder">
+          <table class="table table-striped" id="soft-borders" >
+            <thead>
+            <tr>
+              <th>
+                #
+              </th>
+              <th>
+                First entered
+              </th>
+              <th>
+                Automatization:
+              </th>
+              <th class="text-center">
+                Letter Grade
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <% count = 0 %>
+            <% @evaluation.automatizations.newest_first.limit(10).each do |automatization| %>
+                <tr>
+                  <td>
+                    <% if policy(automatization).update? %>
+                        <%= link_to count += 1, edit_automatization_path(:id => automatization.id, :evaluation_id=>@evaluation.id), remote: true%>
+                    <% else %>
+                        <%= count += 1 %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if automatization.date.nil? %>
+                        Not yet determined
+                    <% else %>
+                        <% if policy(automatization).update? %>
+                            <%= link_to (l automatization.date, :format => :long), edit_automatization_path(:id => automatization.id, :evaluation_id=>@evaluation.id), remote: true%>
+                        <% else %>
+                            <%= l automatization.date, :format => :long %>
+                        <% end %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if policy(automatization).update? %>
+                        <%= link_to automatization.description, edit_automatization_path(:id => automatization.id, :evaluation_id=>@evaluation.id), remote: true%>
+                    <% else %>
+                        <%= automatization.description %>
+                    <% end %>
+                  </td>
+                  <td class="text-center">
+                    <% if automatization.letter_grade.nil? %>
+                        Not yet determined
+                    <% else %>
+                        <% if policy(automatization).update? %>
+                            <%= link_to automatization.letter_grade, edit_automatization_path(:id => automatization.id, :evaluation_id=>@evaluation.id), remote: true%>
+                        <% else %>
+                            <%= automatization.letter_grade %>
+                        <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<body id="page2">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <%= image_tag "logo3.png", :id=>"center_logo" %>
+          <h3 class="text-center main-title">
+            School Management System
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h5 class="main-subtitle">
+                Evaluation options for <%= @evaluation.study_period.student.first_name %> <%= @evaluation.study_period.student.last_name %>
+              </h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <% if policy(:evaluation).daily? %>
+              <%= link_to daily_evaluation_path(:student_id => @evaluation.study_period.student.id, :id => @evaluation.id, study_period_id: @evaluation.study_period.id) do %>
+                  <figure class="box fig-adm-eval">
+                    <h4>Daily Exercises</h4>
+                    <div class="ipc">
+                      <%= image_tag "fast_exercises.png", :id=>"img-format-aca" %>
+                    </div>
+                  </figure>
+              <% end %>
+              <% end %>
+            </div>
+            <div class="col-md-4">
+              <%= link_to regular_evaluation_path(:student_id => @evaluation.study_period.student.id, :id => @evaluation.id, study_period_id: @evaluation.study_period.id)do %>
+                  <figure class="box fig-adm-eval">
+                    <h4><p>Quiz</p><p>Test</p><p>Special Activity</p></h4>
+                    <div class="ipc">
+                      <%= image_tag "regular.png", :id=>"img-format-aca" %>
+                    </div>
+                  </figure>
+              <% end %>
+            </div>
+            <div class="col-md-4">
+              <% if policy(:test).index? %>
+              <%= link_to tests_path(:evaluation_id => @evaluation.id)do %>
+                  <figure class="box fig-adm-eval">
+                    <h4><p>Edit and upload</p><p>Tests</p></h4>
+                    <div class="ipc">
+                      <%= image_tag "student_test_upload.png", :id=>"img-format-aca" %>
+                    </div>
+                  </figure>
+              <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

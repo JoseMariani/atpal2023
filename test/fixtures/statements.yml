@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 
+  first_name: MyString
+  last_name: MyString
+  date_of_birth: 2016-05-02
+  nacionality: MyString
+  gender: MyString
+  start_date: 2016-05-02
+  end_date: 2016-05-02
+  duration_weeks: 1
+  age: MyString
+  phone_number: MyString
+  email_address: MyString
+  type_of_accomodation: MyString
+  type_of_program: MyString
+  number_of_books: MyString
+  number_of_hours: MyString
+  registration_fee: 9.99
+  placement_fee: 9.99
+  custodianship_letter: 
+  airport_pickup: 
+
+two:
+  student_id: 
+  first_name: MyString
+  last_name: MyString
+  date_of_birth: 2016-05-02
+  nacionality: MyString
+  gender: MyString
+  start_date: 2016-05-02
+  end_date: 2016-05-02
+  duration_weeks: 1
+  age: MyString
+  phone_number: MyString
+  email_address: MyString
+  type_of_accomodation: MyString
+  type_of_program: MyString
+  number_of_books: MyString
+  number_of_hours: MyString
+  registration_fee: 9.99
+  placement_fee: 9.99
+  custodianship_letter: 
+  airport_pickup: 

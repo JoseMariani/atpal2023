@@ -1,0 +1,23 @@
+<div class="form-group field col-xs-12">
+	<div class="">
+		<%= f.label(:date, "Date of entry")%>
+		<%= f.text_field(:date, :class=>"form-control datepicker", id: "") %>
+	</div>
+	
+	<div class="">
+		<%= f.label(:description, "Description")%>
+		<%= f.text_field(:description, :class=>"form-control", :id=>"description") %>
+	</div>
+	
+	<div class="">
+		<%= f.label(:student_input, "Student feedback")%>
+		<%= f.text_field(:student_input, :class=>"form-control", :id=>"student_input") %>
+	</div>
+</div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "A", :id=>"target_a" %> <%= f.label :letter_grade, "A"%></div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "B", :id=>"target_b" %> <%= f.label :letter_grade, "B"%></div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "C", :id=>"target_c" %> <%= f.label :letter_grade, "C"%></div>
+<div class="col-xs-12"><label for="target[letter_grade]" class="error" style="display:none;">Please choose one.</label></div>

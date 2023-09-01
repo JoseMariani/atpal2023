@@ -1,0 +1,11 @@
+<h4 class="text-center header4-bottom">
+  Grade and student input
+</h4>
+<% limit = charted_targets.size > 31? 15 : charted_targets.size %>
+<%= line_chart [{name: "Grade", data: charted_targets.limit(limit).map{|t| [t.date, human_abc(t.letter_grade)] }},
+  {name: "Student Input", data: charted_targets.limit(limit).map{|t| [t.date, t.student_input] }}], library: {vAxis: {
+    viewWindow: {
+        min: -3,
+        max: 105
+    },
+    ticks: [0, 25, 50, 75, 100]}, hAxis: {format: 'dd/MM/yy' }, curveType: 'function', legend: { position: 'right'}} %>

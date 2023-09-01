@@ -1,0 +1,6 @@
+<h5 class="text-center header4-bottom">
+  Grade pie Chart
+</h5>
+<% letter_grade_hash = @charted_sns.group(:date).flat_map { |e| e.letter_grade }.compact.group_by(&:itself).map { |k,v| [k, v.count] }.to_h %>
+<%= pie_chart letter_grade_hash, library: {legend: {position: 'bottom', textStyle: {color: 'black', fontSize: 14}},
+                                                             colors: ['#729f98', '#aa863a', '#e6af4b', '#bcd5d1', '#f6c7b6']} %>

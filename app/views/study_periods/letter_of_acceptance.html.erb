@@ -1,0 +1,203 @@
+<body id="page1">
+<div class="container">
+  <span style="float: right"><%= link_to 'To PDF', letter_of_acceptance_student_study_period_path(student_id: @student.id, id: @study_period.id, :format => :pdf), :class =>'btn btn-danger btn-inverse' %></span>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4">
+          <%= image_tag('logo3.png', class: 'statement_logo') %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+      <p class="letter_of_acceptance_date">
+        Montreal <%= l Time.now.to_date, :format => :long %>
+      </p>
+    </div>
+  </div>
+  <div class="row margin-top">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4 accreditation">
+      <p class="text-center letter_of_acceptance_date">
+        Accredited by the Government of Quebec </br>
+        Accreditation Number 99-06-2376
+      </p>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center acceptance">
+      LETTER OF ACCEPTANCE
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-10 letter-content ">
+      We hereby certify that the person identified below is registered in this school and
+      admitted as a regular student in a <%= get_full_or_part_time(@study_period) %> <%= get_course(@study_period) %>
+      <%= get_program_hours(@study_period) %> session.
+    </div>
+    <div class="col-md-1">
+
+    </div>
+  </div>
+  <div class="row margin-top">
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-10 letter-content">
+      <table>
+        <tbody>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-3">
+              Name of Student:
+            </td>
+            <td class="col-md-9">
+              <%= @student.first_name %> <%= @student.last_name %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Date of Birth:
+            </td>
+            <td class="col-md-10">
+              <%= @student.date_of_birth %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Nationality:
+            </td>
+            <td class="col-md-10">
+              <%= @student.nationality %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Gender:
+            </td>
+            <td class="col-md-10">
+              <%= @student.gender %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Institution:
+            </td>
+            <td class="col-md-10">
+              ATPAL Westminster
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Registration number:
+            </td>
+            <td class="col-md-10">
+              <%= @student.try(:student_id) %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2 address-vertical-align">
+               Address:
+            </td>
+            <td class="col-md-10">
+              1117 St. Catherine W, Suite 507 Montreal, Qc H3B 1H9 • (514) 840 9075
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Name of Program:
+            </td>
+            <td class="col-md-10">
+              <%= get_name_of_program(@study_period) %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Type of Program:
+            </td>
+            <td class="col-md-10">
+              <%= get_type_of_program(@study_period) %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Program Start Date:
+            </td>
+            <td class="col-md-10">
+              <%= @study_period.start_date %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Program End Date:
+            </td>
+            <td class="col-md-10">
+              <%= @study_period.end_date %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Total weeks:
+            </td>
+            <td class="col-md-10">
+              <%= @study_period.try(:duration_weeks) %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-md-12">
+            <td class="col-md-2">
+              Total hours:
+            </td>
+            <td class="col-md-10">
+              <%= @study_period.try(:total_hours) %>
+            </td>
+          </div>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-1">
+
+    </div>
+  </div>
+</div>
+</body>

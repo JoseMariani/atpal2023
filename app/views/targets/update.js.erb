@@ -1,0 +1,7 @@
+<% if @target.errors.any? %>
+$('.container').html("<div class=\"alert alert-warning fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button><%= @target.errors.full_messages.join(', ') %></div>\n");
+<% else %>
+$('.container').html("<div class=\"alert alert-success fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button>Target updated successfully for <%= @student.first_name %></div>\n");
+<% end %>
+$('#student_<%= @student.id %>').html("<%= j render "targets/target_table", student: @student %>")
+$('#edit_target_modal_<%= @student.id %>').modal('hide')

@@ -1,0 +1,104 @@
+
+<div class="container-fluid section-white margin-top">
+	<div class="row" id="margin-top">
+		<div class="col-md-12">
+		<div class="col-md-5 " id="soft-borders">
+			<h3>
+				<%= link_to '<i class="glyphicon glyphicon-plus-sign text-success"></i>'.html_safe, 
+					'#new_sharp_and_smart_modal', 'data-toggle' => 'modal' %>
+				<%= link_to "Sharp'n Smart", sharp_and_smarts_path(:evaluation_id=>@evaluation.id) %>
+			</h3>
+		</div>
+			<div class="col-md-1 col-md-offset-6" >
+				
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" >
+			<div class="row">
+				<div class="col-wrap white-text margin-sides" id="soft-borders">
+					<div class="col-md-6 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average sharp and smart grade in the 7 days
+						</h3>
+						<p id="big">
+							<%= @evaluation.sharpnsmart_teacher_eval_week %>
+						</p>
+					</div>
+					<div class="col-md-6 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average grade overall
+						</h3>
+						<p id="big">
+							<%= @evaluation.sharpnsmart_teacher_eval_overall %>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-12 target-placehoder">
+					<table class="table table-striped" id="soft-borders" >
+					<thead>
+						<tr>
+							<th>
+								#
+							</th>
+							<th>
+								First entered
+							</th>
+							<th>
+								Sharp'n Smart:
+							</th>
+							<th class="text-center">
+								Score
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% count = 0 %>
+						<% @evaluation.sharp_and_smarts.newest_first.limit(10).each do |sns| %>
+						<tr>
+							<td>
+                <% if policy(sns).update? %>
+                    <%= link_to count += 1, edit_sharp_and_smart_path(:id => sns.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= count += 1 %>
+                <% end %>
+							</td>
+							<td>
+								<% if sns.created_at.nil? %>
+								  Not yet determined
+								<% else %>
+                  <% if policy(sns).update? %>
+                      <%= link_to (l sns.date, :format => :long), edit_sharp_and_smart_path(:id => sns.id, :evaluation_id=>@evaluation.id), remote: true%>
+                  <% else %>
+                      <%= l sns.date, :format => :long %>
+                  <% end %>
+								<% end %>
+							</td>
+							<td>
+                <% if policy(sns).update? %>
+                    <%= link_to sns.description, edit_sharp_and_smart_path(:id => sns.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= sns.description %>
+                <% end %>
+							</td>
+							<td class="text-center">
+								<% if sns.score.nil? %>
+                  Not yet determined
+								<% else %>
+                  <% if policy(sns).update? %>
+                      <%= link_to "#{sns.score.to_i} / 5", edit_sharp_and_smart_path(:id => sns.id, :evaluation_id=>@evaluation.id), remote: true%>
+                  <% else %>
+                      <%= "#{sns.score.to_i} / 5" %>
+                  <% end %>
+								<% end %>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

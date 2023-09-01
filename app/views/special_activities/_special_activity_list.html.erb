@@ -1,0 +1,86 @@
+<div class="container-fluid section-white margin-top">
+	<div class="row" id="margin-top">
+		<div class="col-md-12">
+			<div class="col-md-9" id="soft-borders">
+				<h3><%= link_to '<i class="glyphicon glyphicon-plus-sign text-success"></i>'.html_safe, '#new_activity_modal', 'data-toggle' => 'modal' %>
+					<%= link_to "Special Activity", special_activities_path(:evaluation_id=>@evaluation.id) %>
+				</h3>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" >
+			<div class="row">
+				<div class="col-wrap white-text margin-sides" id="soft-borders">
+					<div class="col-md-12 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average Special Activity letter grade in the last 2 months
+						</h3>
+						<p id="big">
+							<%= @evaluation.special_activity_average_letter_grade_bimonthly %>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<table class="table table-striped" id="soft-borders" >
+					<thead>
+						<tr>
+							<th>
+								#
+							</th>
+							<th>
+								Date:
+							</th>
+							<th>
+								Overall Grade
+							</th>
+							<th>
+								Description
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% count = 0 %>
+						<% @evaluation.special_activities.newest_first.limit(10).each do |sa| %>
+						<tr>
+							<td>
+                <% if policy(sa).update? %>
+                    <%= link_to count += 1, edit_special_activity_path(:id => sa.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                  <%= count += 1 %>
+                <% end %>
+							</td>
+							<td>
+                <% if policy(sa).update? %>
+                    <%= link_to (l sa.date, :format => :long), edit_special_activity_path(:id => sa.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= l sa.date, :format => :long %>
+                <% end %>
+							</td>
+							<td>
+								<% if sa.letter_grade.nil? %>
+                    'Not yet assigned'
+								<% else %>
+                    <% if policy(sa).update? %>
+                        <%= link_to sa.letter_grade, edit_special_activity_path(:id => sa.id, :evaluation_id=>@evaluation.id), remote: true%>
+                    <% else %>
+                        <%= sa.letter_grade %>
+                    <% end %>
+								<% end %>
+							</td>
+							<td>
+                <% if policy(sa).update? %>
+                    <%= link_to sa.description, edit_special_activity_path(:id => sa.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= sa.description %>
+                <% end %>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

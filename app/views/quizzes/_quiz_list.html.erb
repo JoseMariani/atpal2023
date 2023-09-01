@@ -1,0 +1,107 @@
+<div class="container-fluid section-white margin-top">
+	<div class="row" id="margin-top">
+		<div class="col-md-12">
+			<div class="col-md-7" id="soft-borders">
+				<h3><%= link_to '<i class="glyphicon glyphicon-plus-sign text-success"></i>'.html_safe, '#new_quiz_modal', 'data-toggle' => 'modal' %>
+					<%= link_to "Quiz", quizzes_path(:evaluation_id=>@evaluation.id) %>	</h3>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" >
+			<div class="row">
+				<div class="col-wrap white-text margin-sides" id="soft-borders">
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average grade % overall
+						</h3>
+						<p id="big">
+							<%= number_with_precision(@evaluation.quiz_grade_percentage_overall, :precision => 2) %> %
+						</p>
+					</div>
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average quiz grade % in the last 7 days
+						</h3>
+						<p id="big">
+							<%= number_with_precision(@evaluation.quiz_grade_percentage_last_week, :precision => 2) %>%
+						</p>
+					</div>
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average Quiz Grade in the last 7 days
+						</h3>
+						<p id="big">
+							<%= @evaluation.quiz_average_letter_grade_week %>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<table class="table table-striped" id="soft-borders" >
+					<thead>
+						<tr>
+							<th>
+								#
+							</th>
+							<th>
+								Date:
+							</th>
+							<th>
+								Letter Grade
+							</th>
+							<th>
+								Grade %
+							</th>
+							<th>
+								Chapter
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% count = 0 %>
+						<% @evaluation.quizzes.newest_first.limit(10).each do |quiz| %>
+						<tr>
+							<td>
+                <% if policy(quiz).update? %>
+                    <%= link_to count += 1, edit_quiz_path(:id => quiz.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= count += 1 %>
+                <% end %>
+							</td>
+							<td>
+                <% if policy(quiz).update? %>
+                    <%= link_to (l quiz.date, :format => :long), edit_quiz_path(:id => quiz.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= l quiz.date, :format => :long %>
+                <% end %>
+							</td>
+							<td >
+                <% if policy(quiz).update? %>
+                    <%= link_to quiz.letter_grade, edit_quiz_path(:id => quiz.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= quiz.letter_grade %>
+                <% end %>
+							</td>
+							<td>
+                <% if policy(quiz).update? %>
+                    <%= link_to "#{quiz.grade_percentage}%", edit_quiz_path(:id => quiz.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= "#{quiz.grade_percentage}%" %>
+                <% end %>
+							</td>
+							<td>
+                <% if policy(quiz).update? %>
+                    <%= link_to quiz.chapter, edit_quiz_path(:id => quiz.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= quiz.chapter %>
+                <% end %>
+              </td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

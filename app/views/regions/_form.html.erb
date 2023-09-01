@@ -1,0 +1,10 @@
+<div class="form-group">
+  <%= f.label(:mame, "Region name")%>
+  <%= f.text_field(:name, :class=>"form-control") %>
+</div>
+
+<div class="form-group">
+  <%= f.label(:promo, "Choose a promo")%>
+  <%= f.collection_select :promo_ids, Promo.order('description DESC'), :id, :description, {:include_blank => "Select promos" }, {:class => 'form-control', :multiple => true }  %>
+</div>
+

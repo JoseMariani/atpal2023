@@ -1,0 +1,16 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel">Edit Attendance</h4>
+    </div>
+    <div class="modal-body">
+    <%= form_for(:attendance, :url => attendance_path(:evaluation_id => @evaluation.id, :attendance_id => @attendance.id, detail_view: @detail_view), remote:true, :html => {:method => :put, :id =>"edit_attendance_form"}) do |f| %>
+        <%= render(:partial => "attendances/edit_form", :locals => {:f => f})%>
+    </div>
+    <div class="modal-footer">
+        <%= submit_tag("Save Attendance", :class => 'btn btn-success', :id=>"update_attendance") %>
+    </div>
+    <% end %>
+  </div>
+</div>

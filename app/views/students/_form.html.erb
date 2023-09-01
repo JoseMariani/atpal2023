@@ -1,0 +1,215 @@
+<% if @student.errors.full_messages.any? %>
+    <% @student.errors.full_messages.each do |error_message| %>
+        <div class="notice flash-notice margin-top">
+          <%= error_message if @student.errors.full_messages.first == error_message %><br />
+        </div>
+    <% end %>
+<% end %>
+
+<div id="new_student_wizard">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul>
+          <li><a href="#tab1" data-toggle="tab">Basic information (1)</a></li>
+          <li><a href="#tab2" data-toggle="tab">Basic information (2)</a></li>
+          <li><a href="#tab3" data-toggle="tab">Emergency Contact</a></li>
+          <li><a href="#tab4" data-toggle="tab">Immigration</a></li>
+          <li><a href="#tab5" data-toggle="tab">Others</a></li>
+          <li><a href="#tab6" data-toggle="tab">Accommodation & Status</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <div class="tab-pane" id="tab1">
+      <div class="form-group">
+        <%= f.label(:first_name, "First name")%>
+        <%= f.text_field(:first_name, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:last_name, "Last name")%>
+        <%= f.text_field(:last_name, :class=>"form-control") %>
+      </div>
+
+      <%= f.hidden_field(:complete_name, :id=>'hidden_complete_name') %>
+
+      <div class="form-group">
+        <%= f.label(:date_of_birth, "Date of birth")%>
+        <%= f.text_field(:date_of_birth, :class=>"form-control", :id => "student_date_of_birth") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:age, "Age")%>
+        <%= f.text_field(:age, :class=>"form-control", :id => 'age') %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:adulthood_id, "Adult or Minor (only for setting accommodation)")%>
+        <%= f.collection_select(:adulthood_id, Adulthood.order(:name), :id, :name, { :prompt => true },
+                                :class=>"form-control") %>
+      </div>
+
+      <div class="form-group margin-top margin-bottom">
+        <button id="button" type="button" class="btn btn-primary"
+                data-toggle="collapse" data-target="#picture">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button> <strong> Student Picture</strong>
+
+        <div id="picture" class="col-md-12 collapse soft-borders">
+          <div class="form-group margin-top margin-bottom">
+            <%= f.label(:image, "Student picture")%>
+            <%= image_tag(@student.image_url(:thumb).to_s) if @student.image? %>
+            <%= f.file_field(:image, :class=>"btn btn-file") %>
+            <label>
+              <%= f.check_box :remove_image %>
+              Remove picture
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:email_address, "Email address")%>
+        <%= f.text_field(:email_address, :class=>"form-control") %>
+      </div>
+
+    </div>
+    <div class="tab-pane" id="tab2">
+      <div class="form-group">
+        <%= f.label(:gender, "Gender")%>
+        <%= f.select(:gender, ['Male', 'Female'], {}, :class=>"form-control") %>
+      </div>
+      <div class="form-group">
+        <%= f.label(:nationality, "Nationality")%>
+        <%= f.text_field(:nationality, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:region, "Region (for promotion)")%>
+        <%= f.collection_select(:region_id, Region.order(:name), :id, :name, { :prompt => true },
+                                :class=>"form-control")  %>
+      </div>
+      <div class="form-group margin-top margin-bottom">
+        <button id="button" type="button" class="btn btn-primary"
+                data-toggle="collapse" data-target="#passport">
+          <span class="glyphicon glyphicon-plus"></span>
+        </button> <strong> Passport Picture</strong>
+
+        <div id="passport" class="col-md-12 collapse soft-borders">
+          <div class="form-group margin-top margin-bottom">
+            <%= f.label(:passport_picture, "Passport picture")%>
+            <%= image_tag(@student.passport_picture_url(:thumb).to_s) if @student.passport_picture? %>
+            <%= f.file_field(:passport_picture, :class=>"btn btn-file") %>
+            <label>
+              <%= f.check_box :remove_passport_picture %>
+              Remove picture
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:passport_number, "Passport number")%>
+        <%= f.text_field(:passport_number, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:student_phone_number, "Student's phone number")%>
+        <%= f.text_field(:student_phone_number, :class=>"form-control") %>
+      </div>
+
+    </div>
+    <!--emergency contact-->
+    <div class="tab-pane" id="tab3">
+      <div class="form-group margin-top">
+        <%= f.label(:emergency_contact, "Emergency contact")%>
+        <%= f.text_area(:emergency_contact, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:phone_number, "Phone number")%>
+        <%= f.telephone_field(:phone_number, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:emergency_email, "Emergency contact email address")%>
+        <%= f.text_field(:emergency_email, :class=>"form-control") %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab4">
+      <div class="form-group hidden">
+        <%= f.label(:level, "Level")%>
+        <%= f.select(:level, options_for_select(@levels.collect { |s| [s[0].humanize, s[0]] }, selected: @student.level), :class=>"form-control") %>
+      </div>
+      <div class="form-group">
+        <%= f.label(:caq, "C.A.Q.?")%>
+        <%= f.select(:caq, ['C.A.Q. granted', 'C.A.Q. not granted', 'Pending Decision', 'Not Applicable'], {:include_blank => "Choose one option"}, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:study_permit, "Study Permit?")%>
+        <%= f.select(:study_permit, ['Study Permit granted', 'Study Permit not granted', 'Pending Decision', 'Not Applicable'], {:include_blank => "Choose one option"}, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:visa, "Visa?")%>
+        <%= f.select(:visa, ['Visa granted', 'Visa not granted', 'Pending Decision', 'Not Applicable'], {:include_blank => "Choose one option"}, :class=>"form-control") %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab5">
+      <div class="form-group">
+        <%= f.label(:insurance, "Insurance?")%>
+        <%= f.select(:insurance, ['Insured', 'Not insured', 'Not Applicable'], {:include_blank => "Choose one option"}, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:airport_transfer, "Airport transfer?")%>
+        <%= f.select(:airport_transfer, ['Airport - MTL', 'MTL - Airport', 'None', 'Both'], {:include_blank => "Choose one option"}, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group itinerary">
+        <%= f.label(:itinerary, "Itinerary picture")%>
+        <%= image_tag(@student.itinerary_url(:thumb).to_s) if @student.itinerary? %>
+        <%= f.file_field(:itinerary, :class=>"btn btn-file") %>
+        <% if @student.itinerary? %>
+          <label>
+            <%= f.check_box :remove_itinerary %>
+            Remove picture
+          </label>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab6">
+
+      <div class="form-group">
+        <%= f.label(:address_in_canada, "Address in Canada")%>
+        <%= f.text_area(:address_in_canada, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:status, "Status")%>
+        <%= f.select :status, [['Inquire'], ['Active'], ['Graduate'], ['Never Started'], ['Registered'], ['No Show']], {:include_blank => "Choose a status"}, {:class=>"form-control"} %>
+      </div>
+      <div class="form-group">
+        <%= f.label(:agency_id, "Agency")%>
+        <%= f.collection_select :agency_id, filtered_agencies, :id, :name,
+                                {:include_blank => "Choose an agency"}, :class => 'form-control' %>
+      </div>
+    </div>
+    <ul class="pager wizard">
+      <li class="previous first" style="display:none;"><a href="#">First</a></li>
+      <li class="previous"><a href="#">Previous</a></li>
+      <li class="next last" style="display:none;"><a href="#">Last</a></li>
+      <li class="next"><a href="#">Next</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+
+
+

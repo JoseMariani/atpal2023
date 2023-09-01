@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Add a new study period
+      </h3>
+      <%= link_to('Back to student page', student_path(@study_period.student_id), class: "student_back_link") %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 margin-bottom">
+      <%= form_for @study_period, :url => student_study_periods_path do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Create study period", :class => 'btn btn-success', :id=>'new_study_period_submit')%>
+
+      <% end %>
+    </div>
+  </div>
+</div>

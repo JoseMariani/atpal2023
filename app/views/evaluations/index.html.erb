@@ -1,0 +1,134 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 margin-bottom">
+      <h3 class="text-center">
+        Academic Profiles
+      </h3>
+      <p style="text-align: center">
+        Please note that this is a list of academic profiles. Therefore, a student with more than one academic profile will appear more than once in the list.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12 section-white margin-top">
+          <h3 class="margin-bottom">
+            Student Grades
+          </h3>
+          <table class="table table-hover margin-top" id="program_table">
+            <thead>
+            </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Course Language
+              </th>
+              <th>
+                Attendance
+              </th>
+              <th>
+                Daily targets
+              </th>
+              <th>
+                Quizzes
+              </th>
+              <th>
+                Tests
+              </th>
+              <th>
+                Special Activities
+              </th>
+              <th>
+                Level
+              </th>
+              <th>
+                End Date
+              </th>
+              <th>
+                Status
+              </th>
+              <th>
+                Actions
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @eval_count = 0 %>
+            <% @evaluations.each do |eval| %>
+                <tr>
+                  <td>
+                    <%= link_to eval.study_period.student.complete_name_cap, exercises_evaluation_path(:id => eval.id,
+                      :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                  </td>
+                  <td>
+                    <%= link_to eval.language, exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id,
+                      :study_period_id => eval.study_period.id) %>
+                  </td>
+                  <td>
+                    <% if eval.overall_grade.nil? %>
+                        <%= link_to "Not yet determined", exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id,
+                          :study_period_id => eval.study_period.id) %>
+                    <% else %>
+                        <%= link_to number_with_precision(eval.overall_grade, :precision => 2), exercises_evaluation_path(:id => eval.id,
+                          :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if eval.target_teacher_eval_overall.nil? %>
+                        <%= link_to "Not yet determined", exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id,
+                          :study_period_id => eval.study_period.id) %>
+                    <% else %>
+                        <%= link_to eval.target_teacher_eval_overall, exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id,
+                          :study_period_id => eval.study_period.id) %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if eval.quiz_grade_percentage_overall.nil? %>
+                        <%= link_to "Not yet determined", exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                    <% else %>
+                        <%= link_to eval.quiz_grade_percentage_overall, exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                    <% end %>
+                  <td>
+                    <% if eval.test_grade_percentage_overall.nil? %>
+                        <%= link_to "Not yet determined", exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                    <% else %>
+                        <%= link_to number_with_precision(eval.test_grade_percentage_overall, :precision => 2), exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to eval.special_activity_average_letter_grade_bimonthly, exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                  </td>
+                  <td>
+                    <% if eval.study_period.student.level.nil? %>
+                        <%= link_to "Not yet determined", exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                    <% else %>
+                        <%= link_to eval.study_period.student.level.humanize, exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                    <% end %>
+                  </td>
+                  <td>
+                  <% if eval.end_date.nil? %>
+                      <%= link_to "Not yet determined", exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                  <% else %>
+                      <%= link_to eval.end_date, exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                  <% end %>
+                </td>
+                  <td>
+                    <%= link_to eval.is_current_active.capitalize, exercises_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %>
+                  </td>
+                  <td>
+                    <%= link_to "Evaluation Report", report_evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id) %> |
+                    <%= link_to "Set to Active", set_evaluation_to_active_evaluation_path(id: eval.id,
+                      :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id, is_active: true), method: :put %> |
+                    <%= link_to "Delete Evaluation", evaluation_path(:id => eval.id, :student_id=>eval.study_period.student_id, :study_period_id => eval.study_period.id), :method => :delete %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

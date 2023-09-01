@@ -1,0 +1,32 @@
+<div class="form-group field col-xs-12">
+	<% if policy(:attendance).edit? %>
+	<div class="">
+		<%= f.label(:hour, "Date")%>
+	</div>
+	<div class="">
+		<%= f.text_field(:created_at, :class=>"form-control", :id=>"edit-date-field") %>
+	</div>
+	<% end %>
+	<div class="">
+		<%= f.label(:hour, "Hour of arrival")%>
+	</div>
+	<div class="">
+		<%= f.text_field(:hour, :class=>"form-control", :id=>"edit_time-field") %>
+	</div>
+	<br />
+	
+	<div class="">
+		<%= f.label(:penalty, "Penalty %")%>
+		<%= f.text_field(:penalty, :class=>"form-control", :id=>"penalty", :readonly => true) %>
+	</div>
+	
+	<div class="">
+		<%= f.label(:grade, "Grade %")%>
+		<%= f.text_field(:grade, :class=>"form-control", :id=>"grade", :readonly => true) %>
+	</div>
+</div>
+
+<div class="col-xs-12"><%= f.radio_button :absent, 'Absent', :checked => true, :id=>"att_abs" %> <%= f.label :absent, "Absent", :value => true %></div>
+
+<div class="col-xs-12"><%= f.radio_button :absent, 'Present', :id=>"att_pres" %> <%= f.label :absent, "Present", :value => false %></div>
+

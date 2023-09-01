@@ -1,0 +1,161 @@
+<div class="container-fluid">
+  <div class="col-md-12">
+    <div class="row inner-padding padding-top">
+      <div class="col-md-8 col-md-offset-2 section-white">
+        <h3 class="header3-bottom text-center margin-bottom">
+          Student Information
+        </h3>
+        <div class="col-md-9 col-md-offset-1">
+        <ul class="nav nav-tabs red" id="margin-top">
+          <li class="dropdown" id="soft-borders">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Options<span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Edit student", edit_student_path(:id => @student.id) %></li>
+              <li><%= link_to "Delete student", delete_student_path(:id => @student.id) %></li>
+            </ul>
+          </li>
+          <li class="dropdown" id="soft-borders">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quotes<span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Create quote", new_student_quote_path(:student_id => @student.id) %></li>
+              <li><%= link_to "Quotes for this student", student_quotes_path(:student_id => @student.id) %></li>
+            </ul>
+          </li>
+          <li class="dropdown" id="soft-borders">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pro Formas<span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Create Pro forma", new_student_pro_forma_path(:student_id => @student.id) %></li>
+              <li><%= link_to "Pro formas for this student", student_pro_formas_path(:student_id => @student.id) %></li>
+            </ul>
+          </li>
+          <li class="dropdown" id="soft-borders">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoices<span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Create Invoice", new_student_invoice_path(:student_id => @student.id) %></li>
+              <li><%= link_to "Invoices for this student", student_invoices_path(:student_id => @student.id) %></li>
+            </ul>
+          </li>
+          <li class="nav-item" id="soft-borders">
+            <% if @student.has_evaluation? %>
+                <%= link_to "View evaluation page", exercises_evaluation_path(:student_id => @student.id)%>
+            <% else %>
+                <%= link_to "Create Academic Profile", evaluations_path(:student_id => @student.id), :method => :post%>
+            <% end %>
+          </li>
+        </ul>
+        <div class="row student-header section-white" id="soft-borders">
+          <div class="col-md-9">
+            <h2>
+              <%= @student.first_name %> <%= @student.last_name %>
+            </h2>
+          </div>
+          <div class="col-md-3">
+            <%= image_tag @student.image_url(:thumb).to_s, :id => "wide-borders" %>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom margin-top soft-borders" id="report-final">
+      <div class="col-md-7" id="student-table">
+        <h3 class="text-center margin-bottom">
+          Tests
+        </h3>
+        <div class="col-md-12 report-table">
+          <table class="table table-bordered table-hover vertical-align section-white" id="report-final">
+            <tr id="report">
+                <th>Latest Test</th>
+                <td></td>
+                <tr>
+                <% if @evaluation.tests.last.nil? %>
+                  <td>No tests taken</td>
+                <% else %>
+                  <th>Grade %</th>
+                  <td><%= @evaluation.tests.last.grade_percentage %></td>
+                <% end %>
+                </tr>
+                <tr>
+                  <% if !@evaluation.tests.last.nil? %>
+                  <th>Level</th>
+                  <td><%= @evaluation.tests.last.level.humanize %></td>
+                  <% end %>
+                </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <h3 class="text-center">
+            All Grades
+          </h3>
+          <div class="col-md-12">
+            <div class="section-white margin-top">
+              <h4 class="text-center header4-bottom">
+                Pie Chart
+              </h4>
+              <%= pie_chart @evaluation.tests.group(:letter_grade).count, library: {legend: {position: 'bottom', textStyle: {color: 'black', fontSize: 14}},
+                                                                         colors: ['#729f98', '#aa863a', '#e6af4b', '#bcd5d1', '#f6c7b6']} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom margin-top soft-borders" id="report-final">
+      <div class="col-md-7" id="student-table">
+        <h3 class="text-center margin-bottom">
+          Attendance
+        </h3>
+        <div class="col-md-12 report-table">
+          <table class="table table-bordered table-hover vertical-align section-white" id="report-final">
+            <tr id="report">
+              <th>Attendance grade</th>
+              <td><%= number_with_precision @evaluation.overall_grade, :precision => 2 %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <h3 class="text-center">
+          All Attendance
+        </h3>
+        <div class="col-md-12">
+          <div class="section-white margin-top">
+            <h4 class="text-center header4-bottom">
+              Pie Chart
+            </h4>
+            <%= pie_chart @evaluation.attendances.group(:absent).count, library: {legend: {position: 'bottom', textStyle: {color: 'black', fontSize: 12}},
+                                                                                          colors: ['#729f98', '#aa863a', '#e6af4b', '#bcd5d1', '#f6c7b6']} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom margin-top soft-borders" id="report-final">
+      <div class="col-md-7" id="student-table">
+        <h3 class="text-center margin-bottom">
+          Targets
+        </h3>
+        <div class="col-md-12 report-table">
+          <table class="table table-bordered table-hover vertical-align section-white" id="report-final">
+            <tr id="report">
+              <th>Targets grade</th>
+              <td><%= @evaluation.target_teacher_eval_overall %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <h3 class="text-center">
+          Target graph
+        </h3>
+        <div class="col-md-12">
+          <div class="section-white margin-top">
+            <h4 class="text-center header4-bottom">
+              Pie Chart
+            </h4>
+            <%= line_chart [{name: "Grade", data: @evaluation.targets.map{|t| [t.date, human_abc(t.letter_grade)] }},
+                            {name: "Student Input", data: @evaluation.targets.map{|t| [t.date, t.student_input] }}],
+                           library: {hAxis: {format: 'd/M/yy' }, curveType: 'function', legend: { position: 'right'}} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

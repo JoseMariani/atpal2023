@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Edit Test
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <%= form_for(:test, :url => test_path(:id => @test.id), :html => { :id=>'tests-form', :multipart => true, :method => :put }) do |f| %>
+        <%= render(:partial => "tests/edit_form", :locals => {:f => f})%>
+
+        <div class="form-group">
+          <%= submit_tag("Save Test", :class => 'btn btn-success', :id=>"") %>
+        </div>
+    <% end %>
+  </div>
+</div>

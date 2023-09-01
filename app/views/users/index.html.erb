@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="col-xs-12 post-index-title">
+    <h3 class="text-center">Admin Index</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Create User", new_user_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-12 users_index soft-borders">
+    <div class="col-xs-12">
+      <h3 class="page_subtitle">List</h3>
+    </div>
+
+    <div class="results-found margin-top margin-bottom paragraph text-center">
+      <p><%= pluralize(@users.size, 'user') %> found</p>
+    </div>
+    <div class="table">
+      <table class ="table table-bordered table-hover" id="program_table">
+        <thead>
+        <tr class="header">
+          <th class="listing_header" data-hide="phone">First name</th>
+          <th class="listing_header" data-hide="phone">Last name</th>
+          <th class="listing_header">Username</th>
+          <th class="listing_header" data-hide="phone">Email</th>
+          <th class="listing_header" data-hide="phone">Role</th>
+          <th class="listing_header" data-hide="phone">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+            <tr class="<%= cycle('impar', 'par')%>" id="joder" >
+              <td class ="listing_def"><%= user.first_name %></td>
+              <td class ="listing_def"><%= user.last_name %></td>
+              <td class ="listing_def"><%= user.user_name %></td>
+              <td class ="listing_def"><%= user.email %></td>
+              <td class ="listing_def"><%= user.role %></td>
+              <td class="actions">
+                <%= link_to "Edit user", edit_user_path(:id => user.id), :class => 'action edit' %>
+                <%= link_to("Delete user", delete_user_path(user.id), :class => 'action delete')%>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

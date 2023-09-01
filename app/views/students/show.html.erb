@@ -1,0 +1,553 @@
+<div class="container">
+  <div class="col-md-12 section-white">
+    <div class="row inner-padding padding-top">
+      <div class="col-md-12">
+        <h3 class="header3-bottom text-center margin-bottom">
+          Student Information
+        </h3>
+        <% lastest_study_period = @student.current_study_period_with_active_eval.present? ? @student.current_study_period_with_active_eval : @student.study_periods.last %>
+        <ul class="nav nav-tabs red student-nav-tabs" id="margin-top">
+          <li class="dropdown" id="soft-borders">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Options<span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Edit student", edit_student_path(:id => @student.id)%></li>
+              <li><%= link_to "Delete student", delete_student_path(:id => @student.id) %></li>
+            </ul>
+          </li>
+          <% if @student.study_periods.any? %>
+          <li class="dropdown" id="soft-borders">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quotes<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><%= link_to "Create quote", new_student_quote_path(:student_id => @student.id)%></li>
+                <li><%= link_to "Quotes for this student", student_quotes_path(:student_id => @student.id) %></li>
+              </ul>
+          </li>
+          <li class="dropdown" id="soft-borders">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pro Formas<span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Create Pro forma", new_student_pro_forma_path(:student_id => @student.id)%></li>
+              <li><%= link_to "Pro formas for this student", student_pro_formas_path(:student_id => @student.id) %></li>
+            </ul>
+          </li>
+          <li class="dropdown" id="soft-borders">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Invoices<span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Create Invoice", new_student_invoice_path(:student_id => @student.id)%></li>
+              <li><%= link_to "Invoices for this student", student_invoices_path(:student_id => @student.id) %></li>
+            </ul>
+          </li>
+          <% end %>
+            <% if @student.has_evaluation? %>
+              <li class="nav-item" id="soft-borders">
+                <%= link_to "Academic Profiles", evaluations_path(:student_id => @student.id)%>
+              </li>
+            <% end %>
+          <% if @student.study_periods.any? %>
+          <li class="nav-item" id="soft-borders">
+            <%= link_to "Create Academic Profile", new_evaluation_path(:student_id => @student.id)%>
+          </li>
+          <li class="nav-item" id="soft-borders">
+            <%= link_to "Letter of acceptance", letter_of_acceptance_student_study_period_path(:student_id => @student.id, id: lastest_study_period.id) %>
+          </li>
+          <li class="nav-item" id="soft-borders">
+            <%= link_to "Edit current study period", edit_student_study_period_path(:student_id => @student.id, id: lastest_study_period.id)%>
+          </li>
+          <% end %>
+          <li class="nav-item" id="soft-borders">
+            <% if @student.id.nil? || @student.id.blank? || @student.status.downcase != 'active' %>
+              <%= link_to "Activate Student", activate_students_path(id: @student.id), method: 'patch' %>
+            <% else %>
+              <%= link_to "Deactivate Student", deactivate_students_path(id: @student.id), method: 'patch' %>
+            <% end %>
+          </li>
+          <li class="nav-item" id="soft-borders">
+            <%= link_to "Create new period", new_student_study_period_path(:student_id => @student.id)%>
+          </li>
+          <li class="nav-item" id="soft-borders">
+            <%= link_to "Study Periods", student_study_periods_path(:student_id => @student.id) %>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row student-header section-white" id="soft-borders">
+        <div class="col-md-9">
+          <h2>
+            <%= @student.first_name.titleize %> <%= @student.last_name.titleize %>
+          </h2>
+        </div>
+        <div class="col-md-3" id="margin-vertical">
+          <%= image_tag @student.image_url(:thumb).to_s, :id => "wide-borders" %>
+        </div>
+      </div>
+      <div class="row margin-top">
+        <button id="button" type="button" class="btn btn-primary"
+                data-toggle="collapse" data-target="#demo">
+          <span class="glyphicon glyphicon-plus"></span>  Pictures
+        </button>
+
+        <div id="demo" class="col-md-12 collapse ">
+          <div class="col-md-6" id="margin-vertical">
+            <figure>
+              <%= image_tag @student.passport_picture_url(:small).to_s, :id => "wide-borders", :class => 'img-responsive' %>
+              <figcaption>Passport picture</figcaption>
+            </figure>
+          </div>
+          <div class="col-md-6" id="margin-vertical">
+            <% if @student.study_periods.any? %>
+            <figure>
+              <%= image_tag lastest_study_period.certificate_picture_url(:small).to_s, :id => "wide-borders", :class => 'img-responsive' %>
+              <figcaption>Certificate picture</figcaption>
+            </figure>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top">
+        <button id="button2" type="button" class="btn btn-primary"
+                data-toggle="collapse" data-target="#notes-section">
+          <span class="glyphicon glyphicon-plus"></span>  Notes
+        </button>
+        <div id="notes-section" class="col-md-12 collapse">
+          <ol id="notes" class="col-md-12">
+            <div class="">
+              <%= render @notes %>
+            </div>
+          </ol>
+          <%= form_for(:note, :url => notes_path(:student_id => @student.id), remote: true)  do |f| %>
+
+              <%= render(:partial => "notes/form", :locals => {:f => f})%>
+
+              <%= submit_tag("Create note", :class => 'btn btn-success', :id=>"create-quote") %>
+
+          <% end %>
+        </div>
+      </div>
+      <div class="row" id="margin-top">
+        <div class="col-md-3" id="soft-borders">
+          <h3>Student File</h3>
+        </div>
+        <div class="col-md-9"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" id="student-table">
+          <table class="no-margin-top table table-bordered table-striped table-hover">
+            <tr>
+              <th>Registration date</th>
+              <td><%= l @student.created_at, :format => :long %></td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td><%= @student.status.capitalize %></td>
+            </tr>
+            <tr>
+              <th>Id</th>
+              <td><%= @student.student_id %></td>
+            </tr>
+            <tr>
+              <th>Name</th>
+              <td><%= @student.first_name.capitalize %></td>
+            </tr>
+            <tr>
+              <th>Last Name</th>
+              <td><%= @student.last_name.capitalize %></td>
+            </tr>
+            <tr>
+              <th>Complete Name</th>
+              <td><%= @student.complete_name_cap %></td>
+            </tr>
+            <tr>
+              <th>Date of Birth</th>
+              <% if @student.date_of_birth.nil?%>
+                  <td>Unknown</td>
+              <% else %>
+                  <td><%= @student.date_of_birth.to_formatted_s(:long)  %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Nationality</th>
+              <td><%= @student.nationality.capitalize %></td>
+            </tr>
+            <tr>
+              <th>Gender</th>
+              <% if @student.gender.nil?%>
+                  <td>Unknown</td>
+              <% else %>
+                  <td><%= @student.gender.capitalize %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Start Date</th>
+              <% if @student.study_periods.empty? or lastest_study_period.start_date.nil? %>
+                  <td>Unknown</td>
+              <% else %>
+                  <td><%= lastest_study_period.start_date.to_formatted_s(:long) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>End Date</th>
+              <% if @student.study_periods.empty? or lastest_study_period.end_date.nil? %>
+                  <td>Unknown</td>
+              <% else %>
+                  <td><%= lastest_study_period.end_date.to_formatted_s(:long) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Duration of programs (in weeks)</th>
+              <% if !@student.study_periods.any? %>
+                  <td>Unknown</td>
+              <% else %>
+                  <td><%= lastest_study_period.try(:duration_weeks) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Entire stay duration (in weeks including vacations)</th>
+              <% if !@student.study_periods.any? %>
+                  <td>Unknown</td>
+              <% else %>
+                  <td><%= lastest_study_period.try(:entire_stay_duration) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Age</th>
+              <td><%= @student.age %></td>
+            </tr>
+            <tr>
+              <th>Phone number</th>
+              <td><%= @student.student_phone_number %></td>
+            </tr>
+            <tr>
+              <th>Email Address</th>
+              <td><%= @student.email_address %></td>
+            </tr>
+            <tr>
+              <th>Passport number</th>
+              <td><%= @student.passport_number %></td>
+            </tr>
+            <tr>
+              <% if @student.study_periods.any? && lastest_study_period.accommodation.present? %>
+                <th>Type of accommodation</th>
+                <td><%= lastest_study_period.accommodation.type_of_accommodation.capitalize %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Accommodation start date</th>
+              <% if !@student.study_periods.any? %>
+                <td>Unknown</td>
+              <% else %>
+                <td><%= lastest_study_period.try(:start_date_accommodation) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Accommodation end date</th>
+              <% if !@student.study_periods.any? %>
+                <td>Unknown</td>
+              <% else %>
+                <td><%= lastest_study_period.try(:end_date_accommodation) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Accommodation duration (in weeks)</th>
+              <% if !@student.study_periods.any? %>
+                <td>Unknown</td>
+              <% else %>
+                <td><%= lastest_study_period.try(:accommodation_duration) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Type of program</th>
+              <td>
+              <% if !@student.study_periods.any? or lastest_study_period.program.nil? %>
+                  Not chosen
+              <% else %>
+                <%= lastest_study_period.program.title.capitalize %>
+              <% end %>
+              </td>
+            </tr>
+            <tr>
+              <th>Other Programs</th>
+              <td>
+                <% if !@student.study_periods.any? %>
+                    None
+                <% else %>
+                    <ul style="list-style-position: inside">
+                    <% lastest_study_period.fixed_duration_programs.each do |fdp| %>
+                      <li>
+                        <%= fdp.name %>
+                      </li>
+                    <% end %>
+                    </ul>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <th>Type of course</th>
+              <td>
+                <% if !@student.study_periods.any? %>
+                    Not chosen
+                <% else %>
+                    <%= lastest_study_period.try(:course_language).try(:capitalize) %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <th>Emergency contact</th>
+              <td><%= @student.emergency_contact %></td>
+            </tr>
+            <tr>
+              <th>Emergency phone number</th>
+              <td><%= @student.phone_number %></td>
+            </tr>
+            <tr>
+              <th>Emergency email address</th>
+              <td><%= @student.emergency_email %></td>
+            </tr>
+            <tr>
+              <th>Residential address</th>
+              <td><%= @student.residential_address %></td>
+            </tr>
+            <tr>
+              <th>Address in Canada</th>
+              <td><%= @student.address_in_canada %></td>
+            </tr>
+            <tr>
+              <th>Total number of hours</th>
+              <td>
+              <% if !@student.study_periods.any? %>
+                  Unknown
+              <% else %>
+                  <%= lastest_study_period.total_hours %>
+              <% end %>
+              </td>
+            </tr>
+            <tr>
+              <% if @student.study_periods.any? && lastest_study_period.insurance.present? %>
+                <th>Name of Insurance</th>
+                <td><%= lastest_study_period.insurance.name %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Insurance start date</th>
+              <% if !@student.study_periods.any? %>
+                <td>Unknown</td>
+              <% else %>
+                <td><%= lastest_study_period.try(:start_date_insurance) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Insurance end date</th>
+              <% if !@student.study_periods.any? %>
+                <td>Unknown</td>
+              <% else %>
+                <td><%= lastest_study_period.try(:end_date_insurance) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Insurance coverage period (in weeks)</th>
+              <% if !@student.study_periods.any? %>
+                <td>Unknown</td>
+              <% else %>
+                <td><%= lastest_study_period.try(:insurance_cover_period) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>C.A.Q. ?</th>
+              <td><%= @student.caq %></td>
+            </tr>
+            <tr>
+              <th>Study permit</th>
+              <td><%= @student.study_permit %></td>
+            </tr>
+            <tr>
+              <th>Visa?</th>
+              <td><%= @student.visa %></td>
+            </tr>
+            <tr>
+              <th>Air ticket?</th>
+              <td><%= @student.air_ticket %></td>
+            </tr>
+            <tr>
+              <th>Airport transfer?</th>
+              <td id="show_air_trans"><%= @student.airport_transfer %>
+                <br/><br/>
+              <button id="button" type="button" class="btn btn-primary"
+                      data-toggle="collapse" data-target="#itinerary">
+                <span class="glyphicon glyphicon-plus"></span>  Pictures
+              </button>
+
+              <div id="itinerary" class="col-md-12 collapse ">
+                <div class="col-md-12 margin-top">
+
+                    <%= image_tag @student.itinerary_url(:small).to_s, :id => "wide-borders", :class => 'img-responsive' %>
+
+                </div>
+              </div>
+              </td>
+            </tr>
+            <tr>
+              <th>Arrival date</th>
+              <% if !@student.study_periods.any? or lastest_study_period.program.nil? or lastest_study_period.arrival_date.nil? %>
+                  <td>Unknown</td>
+              <% else %>
+                  <td><%= lastest_study_period.arrival_date.to_formatted_s(:long) %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Certificate issued?</th>
+              <% if !@student.study_periods.any? %>
+                  <td>Unknown</td>
+              <% else %>
+                  <td><%= lastest_study_period.certificate_issued %></td>
+              <% end %>
+            </tr>
+            <tr>
+              <th>Region</th>
+              <td>
+                <% if @student.region.nil? or @student.region.blank? or @student.region == "" %>
+                    Not defined
+                <% else %>
+                    <%= @student.region.name %>
+                <% end %>
+              </td>
+            </tr>
+            <% if @student.study_periods.any?%>
+              <% lastest_study_period.items.each do |item| %>
+              <tr>
+                <th><%= item.name %></th>
+                <td>
+                  <%= item.quantity %>
+                </td>
+              </tr>
+              <% end %>
+            <% end %>
+          </table>
+
+          <div class="col-md-12 soft-borders margin-bottom margin-top">
+            <h3 class="header4-bottom margin-bottom"> Financial</h3>
+
+            <h5>Items</h5>
+            <table class="table table-bordered table-striped table-hover table-responsive">
+              <thead>
+                <th class="col-md-3">Name</th>
+                <th class="col-md-3">Quantity</th>
+                <th class="col-md-4">Price per unit</th>
+                <th class="col-md-2">Total</th>
+              </thead>
+              <tbody>
+              <% if @student.study_periods.any?%>
+                <% lastest_study_period.items.each do |item| %>
+                  <tr>
+                    <td>
+                      <%= item.name %>
+                    </td>
+                    <td>
+                      <%= item.quantity %>
+                    </td>
+                    <td>
+                      <%= to_cad(item.price_per_unit) %>
+                    </td>
+                    <td>
+                      <%= to_cad(item.total) %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+              </tbody>
+            </table>
+
+            <% if @student.study_periods.any?%>
+              <h5>Resume</h5>
+                <table class="table table-bordered table-striped table-hover table-responsive">
+                  <tr>
+                    <th class="col-md-10">Accommodation cost</th>
+                    <td><%= to_cad(lastest_study_period.accommodation_total) %></td>
+                  </tr>
+                  <% if lastest_study_period.fixed_duration_programs.any? %>
+                    <tr>
+                      <th class="col-md-10">Fixed duration programs cost</th>
+                      <% total = 0 %>
+                      <% lastest_study_period.fixed_duration_programs.each do |fdp| %>
+                          <% total += fdp.cost %>
+                      <% end %>
+                      <td><%= to_cad(total) %></td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <th class="col-md-10">Insurance cost</th>
+                    <td><%= to_cad(lastest_study_period.insurance_cost) %></td>
+                  </tr>
+                  <tr>
+                    <th class="col-md-10">Program cost</th>
+                    <td><%= to_cad(lastest_study_period.program_total) %></td>
+                  </tr>
+                  <tr>
+                    <th class="col-md-10">Grand Total</th>
+                    <td><%= to_cad(lastest_study_period.total_amount) %></td>
+                  </tr>
+                </table>
+                <table class="table table-bordered table-striped table-hover table-responsive">
+                  <thead>
+                  <th>Payment #</th>
+                    <th>
+                      Date
+                    </th>
+                    <th>
+                      Amount
+                    </th>
+                  </thead>
+                  <tbody>
+                  <% @payment = 0 %>
+                  <% lastest_study_period.payments.each do |payment| %>
+                  <% @payment += 1 %>
+                      <tr>
+                        <td class="col-md-3">Payment <%= @payment %></td>
+                        <td class="col-md-7"><%= payment.date %></td>
+                        <td class="col-md-2"><%= payment.amount %></td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              <table class="table table-bordered table-striped table-hover table-responsive">
+                <tr>
+                  <th class="col-md-10">Balance</th>
+                  <td class="col-md-2"><%= to_cad(lastest_study_period.balance) %></td>
+                </tr>
+              </table>
+            <% end %>
+          </div>
+
+
+          <% unless @student.agency.nil? or @student.agency.blank? or @student.agency == "" %>
+            <div class="col-md-12 soft-borders margin-top margin-bottom">
+              <h3 class="header4-bottom margin-bottom"> Agency</h3>
+              <div class="col-md-12 soft-borders margin-top margin-bottom">
+                <table class="table table-bordered table-striped table-hover table-responsive margin-top">
+                  <thead>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Commission</th>
+                    <th>Link</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><%= @student.agency.name %></td>
+                      <td><%= @student.agency.country %></td>
+                      <td><%= @student.agency.address %></td>
+                      <td><%= @student.agency.phone_number %></td>
+                      <td><%= @student.agency.email %></td>
+                      <td><%= @student.agency.commission %></td>
+                      <td><%= link_to @student.agency.name, agency_path(@student.agency.id) %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

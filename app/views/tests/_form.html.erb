@@ -1,0 +1,23 @@
+<div class="form-group field col-xs-12">
+	<div class="">
+		<%= f.label(:date, "Date of entry")%>
+		<%= f.text_field(:date, :class=>"form-control", :id=>"test_date") %>	
+	</div>
+	
+	<div class="">
+		<%= f.label(:level, "Level")%>
+		<%= f.select(:level, options_for_select(@levels.collect { |s| [s[0].humanize, s[0]] }),{include_blank: 'Select one option'}, {:id=>"test_level", :class => 'form-control' }) %>
+	</div>
+	
+	<div class="">
+		<%= f.label(:grade_percentage, "Grade %")%>
+		<%= f.text_field(:grade_percentage, :class=>"form-control", :id=>"test_grade") %>
+	</div>
+</div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "A", :id=>"letter_a" %> <%= f.label :letter_grade, "A"%></div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "B", :id=>"letter_b" %> <%= f.label :letter_grade, "B"%></div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "C", :id=>"letter_c" %> <%= f.label :letter_grade, "C"%></div>
+<div class="col-xs-12"><label for="test[letter_grade]" class="error" style="display:none;">Please choose one.</label></div>

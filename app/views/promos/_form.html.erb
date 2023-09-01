@@ -1,0 +1,19 @@
+<div class="form-group">
+  <%= f.label(:description, "Description")%>
+  <%= f.text_area(:description, :class=>"form-control") %>
+</div>
+
+<div class="form-group">
+  <%= f.label(:type_of_promo, "Type of promo")%>
+  <%= f.select(:type_of_promo, ['Rebate', 'Special','Special rebate','None'], {}, :class=>"form-control") %>
+</div>
+
+<div class="form-group">
+  <%= f.label(:percentage, "Percentage (whole numbers)")%>
+  <%= f.text_field(:percentage, :class=>"form-control") %>
+</div>
+
+<div class="form-group">
+  <%= f.label(:valid_until, "Valid until")%>
+  <%= f.text_field(:valid_until, :class=>"form-control") %>
+</div>

@@ -1,0 +1,47 @@
+<h2 class="text-center main-title"> Type of evaluation </h2>
+
+<div class="text-center row ">
+  <div class="col-md-6 col-xs-12 type-divs">
+    <%= link_to course_language_group_type_attendances_path(language: @language, group: @group)do %>
+        <figure class="box-type fig_adm">
+          <h4>Attendance</h4>
+          <div class="ipc">
+            <%= image_tag "attendance.png", :class=>"img-format-type" %>
+          </div>
+        </figure>
+    <% end %>
+  </div>
+
+  <div class="col-md-6 col-xs-12 type-divs">
+    <%= link_to course_language_group_type_targets_path(language: @language, group: @group)do %>
+        <figure class="box-type fig_adm">
+          <h4>Target</h4>
+          <div class="ipc">
+            <%= image_tag "target.png", :class=>"img-format-type" %>
+          </div>
+        </figure>
+    <% end %>
+  </div>
+
+  <div class="col-md-6 col-xs-12 type-divs">
+    <%= link_to course_language_group_type_sharp_and_smarts_path(language: @language, group: @group)do %>
+        <figure class="box-type fig_adm">
+          <h4>Sharp 'n Smart</h4>
+          <div class="ipc">
+            <%= image_tag "sharp-n-smart.png", :class=>"img-format-type" %>
+          </div>
+        </figure>
+    <% end %>
+  </div>
+
+  <div class="col-md-6 col-xs-12 type-divs">
+    <%= link_to course_language_group_type_automatizations_path(language: @language, group: @group)do %>
+        <figure class="box-type fig_adm">
+          <h4>Automatization</h4>
+          <div class="ipc">
+            <%= image_tag "automatization.png", :class=>"img-format-type" %>
+          </div>
+        </figure>
+    <% end %>
+  </div>
+</div>

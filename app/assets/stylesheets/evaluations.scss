@@ -1,0 +1,170 @@
+$bootstrapBlue: #337ab7;
+$atpalGreen: #A2BB26;
+$atpalPurple: #9F4FBC;
+$atpalGrey: #646464;
+
+#big {
+  font-size:20px;
+}
+
+#med {
+  font-size:16px;
+}
+
+#small{
+  font-size:12px;
+}
+
+.div-fill-height{
+  height: 100%;
+}
+
+.col{
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+    background-color:$bootstrapBlue;
+}
+
+.col-wrap{
+    overflow: hidden; 
+}
+
+.vertical-align{
+  vertical-align: text-bottom;
+}
+
+.white-text{
+  color:white;
+}
+
+#report-final{
+  padding: 10px 10px 30px 10px !important;
+  font-size: 20px;
+}
+
+.report-table{
+  margin-top: 10px;
+}
+
+.dropdown-graph-dates{
+  margin: 20px auto 25px auto;
+  display: table;
+}
+
+.graph-title{
+  margin-left: 20px;
+}
+
+.div-centered{
+  display: table;
+  margin: 0 auto;
+}
+
+.graph-update-btn{
+  margin-top: 5px;
+  padding: 4px 15px !important;
+}
+
+.graph-input{
+  padding: 2px;
+}
+
+.options-icon{
+  margin-left: 20px;
+  color: green;
+}
+
+.btn span.icon {
+  background: url(logo3.png) no-repeat;
+  float: left;
+  width: 10px;
+  height: 40px;
+}
+
+.level-links{
+  padding: 23px 60px;
+  border: 3px $atpalPurple solid;
+  border-radius: 35px;
+  color: $atpalGrey;
+  background-color: transparent;
+  font-size: 18px;
+  font-family: 'ntailub';
+  -webkit-transition: all 2s; /* Safari */
+  transition: all .5s;
+}
+.level-links:hover {
+  color: $atpalPurple;
+  background-color: $atpalGrey;
+}
+
+.level-lower-links{
+  padding: 23px 75px;
+  border: 3px $atpalPurple solid;
+  border-radius: 35px;
+  color: $atpalGrey;
+  background-color: $atpalGreen;
+  font-size: 18px;
+  font-family: 'ntailub';
+  transition: all .5s;
+}
+
+.level-lower-links:hover{
+  color: $atpalGreen;
+  background-color: $atpalGrey;
+}
+
+.level-divs{
+  margin-top: 50px;
+}
+
+.type-divs{
+  margin-top: 50px;
+}
+
+.hidden-td{
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.empty-td{
+  border: 1px solid #ddd !important;
+}
+
+.type-icon{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.batch-table{
+  margin-top: 55px;
+}
+
+.add-record{
+  border: 1px solid black;
+  padding: 3px 20px;
+  margin: 0;
+  border-radius: 15px;
+  background-color: $bootstrapBlue;
+  color: white;
+}
+
+.center-vertically-table-cell{
+  display: table-cell; /* comportement visuel de cellule */
+  vertical-align: middle !important;
+}
+
+.empty-table-cell{
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+  .type-divs{
+    margin-top: 30px;
+  }
+}

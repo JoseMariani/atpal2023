@@ -1,0 +1,23 @@
+#notes-section{
+  //display: none;
+}
+
+#note-title{
+  font-size: 18px;
+  color: #337ab7;
+  margin-bottom: 15px !important;
+}
+
+#note-text{
+  font-size: 16px;
+  margin-bottom: 50px !important;
+}
+
+.auto-text-area{
+  min-height: 40px;
+  overflow: hidden;
+  resize: none;
+  padding: 4px;
+  word-wrap: break-word;
+  font-size:16px;
+}

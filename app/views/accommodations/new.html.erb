@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="col-md-4 col-center margin-top margin-bottom">
+    <ul class="nav nav-tabs nav-justified red" id="margin-top">
+      <li>
+        <%= link_to "Accommodation index", accommodations_path %>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col-md-12 margin-bottom">
+      <h3 class="text-center">
+        Add new Accommodation
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(@accommodation, :url => accommodations_path, :html => {:validates => true}) do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Add accommodation", :class => 'btn btn-success')%>
+
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  evaluation_id: 
+  description: MyString
+  date: 2016-05-04
+  letter_grade: MyString
+  student_input: MyString
+
+two:
+  evaluation_id: 
+  description: MyString
+  date: 2016-05-04
+  letter_grade: MyString
+  student_input: MyString

@@ -1,0 +1,4 @@
+$('#attendance_<%= @attendance.id %>').html("<%= j render "attendances/attendance_row", attendance: @attendance %>")
+$('#attendance_line_chart').html("<%= j render "attendances/chart_partials/line_chart", charted_attendances: @charted_attendances %>")
+$('#attendance_pie_chart').html("<%= j render "attendances/chart_partials/pie_chart", charted_attendances: @charted_attendances %>")
+$('#edit_attendance_modal_<%= @student.id %>').modal('hide')

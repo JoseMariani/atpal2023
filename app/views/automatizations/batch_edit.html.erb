@@ -1,0 +1,63 @@
+<h2 class="batch-table text-center">Automatizations</h2>
+
+<h3 class="batch-table text-center">List of <%= @list_data[:group].humanize.split.map(&:capitalize).join(' ') %> <%= @list_data[:language].capitalize %> students </h3>
+
+<div>
+  <table class="table table-bordered batch-table table-striped" id="soft-borders">
+    <thead>
+    <tr>
+      <th>Student</th>
+      <th colspan="3">Latest Automatization</th>
+      <th >Register new Automatization</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th >Date</th>
+      <th >Description</th>
+      <th >Letter grade</th>
+      <th></th>
+    </tr>
+    </thead>
+    <% @students.each do |student| %>
+      <tbody>
+        <tr id='student_<%= student.id %>'>
+          <%= render 'automatizations/automatization_table', student: student %>
+        </tr>
+        <tr>
+          <td class="hidden-td">
+            <div class="modal fade" id="new_automatization_modal_<%= student.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Automatization</h4>
+                  </div>
+                  <% if student.latest_evaluation.present? %>
+                    <div class="modal-body">
+                      <%= form_for(:automatization, :url => automatizations_path(:evaluation_id => student.latest_evaluation.id), remote:true, :html => { :id=>"automatization-form" }) do |f| %>
+                        <%= render(:partial => "automatizations/form", :locals => {:f => f})%>
+                        </div>
+                        <div class="modal-footer">
+                          <%= submit_tag("Add automatization", :class => 'btn btn-success') %>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+              </div>
+            </div>
+            <div class="modal fade" id="edit_automatization_modal_<%= student.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Automatization</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</div>

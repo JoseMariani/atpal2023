@@ -1,0 +1,16 @@
+<div class="nested-fields">
+	<div class="field">
+		<%= f.label(:number, "number of weeks", :class=>"control-label")%>
+    </br>
+		<%= f.text_field(:number, :class=>"form-control") %>
+    </br>
+    <%= f.label(:cost, "cost", :class=>"control-label")%>
+    </br>
+    <%= f.text_field(:cost, :class=>"form-control") %>
+    </br>
+	</div>
+
+  <div class="margin-bottom">
+  <%= link_to_remove_association "Remove", f, class: "btn btn-danger" %>
+  </div>
+</div>

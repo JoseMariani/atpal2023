@@ -1,0 +1,16 @@
+<div class="nested-fields fixed_duration_pro_statement_fields">
+  <table class="table table-bordered table-striped fixed_duration_program_from_list">
+    <thead>
+    <tr>
+      <th><%= f.label(:fixed_duration_program, 'Accelerated Preparation Program')%></th>
+      <th>Remove Item</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><%= f.collection_select(:fixed_duration_program_id, FixedDurationProgram.order(:cost), :id, :combined_value, { }, {:class=>"form-control", :id=>"program_desc"})  %></td>
+      <td><%= link_to_remove_association 'Remove', f, class: "btn btn-danger item_remove", :id=>"remove_btn" %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Invoices
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 margin-top padding-bottom padding-top section-white" id="student-panel soft-borders">
+      <h3 class="header3-bottom margin-bottom">
+        List of Invoices
+      </h3>
+      <table class="table  responsive no-wrap table-stu table-striped table-responsive table-hover margin-top" id="program_table">
+        <thead>
+        <tr>
+          <th>
+            Student Name
+          </th>
+          <th>
+            Student Nationality
+          </th>
+          <th>
+            Date of creation
+          </th>
+          <th>
+            Total
+          </th>
+          <th>
+            Balance
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @invoices.each do |invoice| %>
+            <tr>
+              <td>
+                <%= link_to invoice.student.complete_name_cap, student_invoice_path(student_id: invoice.student.id, id: invoice.id) %>
+              </td>
+              <td>
+                <%= invoice.student.nationality %>
+              </td>
+              <td>
+                <%= l invoice.created_at, :format => :long %>
+              </td>
+              <td>
+                <%= to_cad(number_with_precision(invoice.total_amount, :precision => 2)) %>
+              </td>
+              <td>
+                <%= to_cad(number_with_precision(invoice.balance, :precision => 2)) %>
+              </td>
+              <td>
+                <%= link_to 'delete', delete_statement_path(invoice.id) %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

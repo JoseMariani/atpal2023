@@ -1,0 +1,155 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="text-center margin-bottom">
+				Student Index
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class=" col-md-12 column-hide margin-bottom section-white padding-bottom" id="">
+				<h3 class="header4-bottom margin-bottom text-center">
+					List 
+				</h3>
+				<h5>
+					Toggle Column:
+				</h5>
+				<ul class="nav nav nav-pills">
+					<li id="soft-borders"><%= link_to "Passport No.", "#", { :class=> 'toggle-vis', :"data-column" => '3' } %></li>
+					<li id="soft-borders"><%= link_to "Date of birth.", "#", { :class=> 'toggle-vis', :"data-column" => '4' } %></li>
+					<li id="soft-borders"><%= link_to "Type of course", "#", { :class=> 'toggle-vis', :"data-column" => '7' } %></li>
+					<li id="soft-borders"><%= link_to "Insurance", "#", { :class=> 'toggle-vis', :"data-column" => '8' } %></li>
+					<li id="soft-borders"><%= link_to "Home Address", "#", { :class=> 'toggle-vis', :"data-column" => '9' } %></li>
+					<li id="soft-borders"><%= link_to "Canada Address", "#", { :class=> 'toggle-vis', :"data-column" => '10' } %></li>
+					<li id="soft-borders"><%= link_to "C.A.Q.", "#", { :class=> 'toggle-vis', :"data-column" => '11' } %></li>
+					<li id="soft-borders"><%= link_to "Airport", "#", { :class=> 'toggle-vis', :"data-column" => '12' } %></li>
+          <li id="soft-borders"><%= link_to "Duration", "#", { :class=> 'toggle-vis', :"data-column" => '13' } %></li>
+					<li id="soft-borders"><%= link_to "Visa", "#", { :class=> 'toggle-vis', :"data-column" => '16' } %></li>
+					<li class="hidden" id="soft-borders"><%= link_to "Air ticket", "#", { :class=> 'toggle-vis', :"data-column" => '17' } %></li>
+          <li id="soft-borders"><%= link_to "Email", "#", { :class=> 'toggle-vis', :"data-column" => '19' } %></li>
+          <li id="soft-borders"><%= link_to "Certificate issued", "#", { :class=> 'toggle-vis', :"data-column" => '20' } %></li>
+					<li id="soft-borders"><%= link_to "Gender", "#", { :class=> 'toggle-vis', :"data-column" => '21' } %></li>
+					<li id="soft-borders"><%= link_to "Age", "#", { :class=> 'toggle-vis', :"data-column" => '22' } %></li>
+					<li id="soft-borders"><%= link_to "Phone No.", "#", { :class=> 'toggle-vis', :"data-column" => '23' } %></li>
+          <li id="soft-borders"><%= link_to "Number of hours", "#", { :class=> 'toggle-vis', :"data-column" => '25' } %></li>
+          <li id="soft-borders"><%= link_to "Region", "#", { :class=> 'toggle-vis', :"data-column" => '26' } %></li>
+          <li id="soft-borders"><%= link_to "Agency", "#", { :class=> 'toggle-vis', :"data-column" => '27' } %></li>
+          <li id="soft-borders"><%= link_to "Accommodation", "#", { :class=> 'toggle-vis', :"data-column" => '28' } %></li>
+          <li id="soft-borders"><%= link_to "Total amount", "#", { :class=> 'toggle-vis', :"data-column" => '30' } %></li>
+          <li id="soft-borders"><%= link_to "Registration date", "#", { :class=> 'toggle-vis', :"data-column" => '31' } %></li>
+          <li id="soft-borders"><%= link_to "Emergency email", "#", { :class=> 'toggle-vis', :"data-column" => '32' } %></li>
+				</ul>
+			</div>
+			<div class="col-md-12 margin-top padding-bottom padding-top section-white">
+				<table class="table  responsive no-wrap table-stu table-striped table-responsive table-hover margin-top" id="student_table" width="100%">
+					<thead>
+						<tr>
+							<th>
+								Last Name
+							</th>
+							<th>
+								First Name
+							</th>
+							<th>
+								Nationality
+							</th>
+							<th>
+								Passport No.
+							</th>
+							<th>
+								Date of birth
+							</th>
+							<th>
+								Starting date
+							</th>
+							<th>
+								End date
+							</th>
+							<th>
+								Type of course
+							</th>
+							<th>
+								Insurance?
+							</th>
+							<th>
+								Home address
+							</th>
+							<th>
+								Address in Canada
+							</th>
+							<th>
+								C.A.Q.?
+							</th>
+							<th>
+								Airport Transfer
+							</th>
+							<th>
+								Duration in weeks
+							</th>
+							<th>
+								Student Id
+							</th>
+							<th>
+								Balance
+							</th>
+							<th>
+								Visa?
+							</th>
+							<th class="hidden">
+								Air ticket?
+							</th>
+							<th>
+								Arrival Date
+							</th>
+							<th>
+								Email
+							</th>
+							<th>
+								Certificate issued?
+							</th>
+							<th>
+								Gender
+							</th>
+							<th>
+								Age
+							</th>
+							<th>
+								Phone No.
+							</th>
+							<th>
+								Type of program
+							</th>
+							<th>
+								Number of hours
+							</th>
+              <th>
+                Region
+              </th>
+              <th>
+                Agency
+              </th>
+              <th>
+                Type of Accommodation
+              </th>
+              <th>
+                Status
+              </th>
+              <th>
+                Total Amount
+              </th>
+              <th>
+                Registration date
+              </th>
+              <th>
+                Emergency email
+              </th>
+						</tr>
+					</thead>
+					<tbody class="">
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Study periods for #{@student.complete_name} index", student_study_periods_path(student_id: @student.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <% if @study_period.errors.full_messages.any? %>
+    <% @study_period.errors.full_messages.each do |error_message| %>
+      <div class="notice flash-notice margin-top">
+        <%= error_message if @study_period.errors.full_messages.first == error_message %><br />
+      </div>
+    <% end %>
+  <% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center" id="margin-bottom">
+        Delete Study Period
+      </h3>
+    </div>
+  </div>
+  <div class="row" id="soft-borders">
+    <div class="col-md-6">
+      <% if @study_period.has_associations %>
+        You cannot delete this study periods because there are records, like statements, items, and evaluations
+        associated to it.
+      <% else %>
+        <h3>
+          Are you sure you want to delete <%= @study_period.id %>?
+        </h3>
+        <p id="margin-top">
+          <%= form_for(:study_period, :url => student_study_period_path(:id => @study_period.id), :html => { :method => :delete }) do |f| %>
+
+            <%= submit_tag("Delete study period", :class=>"btn btn-danger") %>
+
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

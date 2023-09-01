@@ -1,0 +1,275 @@
+$dark-gray: #363636;
+
+.header4-bottom{
+  padding: 20px 0px 20px 0px;
+  border-bottom: 2px solid #DDD;
+  width: 97%;
+  margin:auto;
+}
+
+.header5-bottom{
+  padding: 20px 0px 20px 0px;
+  border-bottom: 2px solid #DDD;
+  width: 97%;
+  margin:auto;
+  font-size: 20px;
+}
+
+.margin-bottom-40{
+  margin-bottom: 60px;
+}
+
+.header3-bottom{
+  padding: 20px 0px 20px 0px;
+  border-bottom: 2px solid #DDD;
+  width: 97%;
+  font-size: 16px;
+  margin:auto;
+}
+
+body {
+     background-color:  #FCFCFC !important;
+     font-family: 'ntailu', sans-serif !important;
+}
+
+.section-white{
+  background-color: white;
+  border: 1px solid #DDD;
+}
+
+.section-white-no-border{
+  background-color: white;
+
+  .glyphicon-ok, .glyphicon-remove {
+    padding: 12px 0 0 28px;
+  }
+  .glyphicon-ok:before {
+    color: green;
+    border: 3px solid;
+    border-radius: 26px;
+    padding: 4px 6px;
+  }
+
+  .glyphicon-remove:before {
+    color: darkred;
+    border: 3px solid;
+    border-radius: 26px;
+    padding: 4px 6px;
+  }
+}
+
+.font-open-sans{
+  font-family: 'Open Sans', sans-serif;
+}
+
+.font-open-sans-bold{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+}
+
+.margin-sides{
+  margin-left: 13px;
+  margin-right: 13px;
+}
+
+.padding-sides{
+  padding-left: 20px !important;
+  padding-right: 20px;
+}
+
+.padding-bottom{
+  padding-bottom: 20px !important;
+}
+
+.padding-top{
+  padding-top: 20px !important;
+}
+
+.inner-padding{
+  padding: 20px 20px 0px 20px !important;
+}
+
+.no-margin-top{
+  margin-top: 0px;
+}
+
+.text-right{
+  text-align: right;
+}
+
+.no-padding{
+  padding: 0px 0px 0px 0px !important;
+}
+
+body#page1{background-color:white !important;}
+
+div#page1{background-color:white !important;}
+
+.field_with_errors {
+  display: inline;
+}
+
+.field_with_errors .message {
+  display: inline;
+  color: red;
+  padding-left: 5px;
+  font-size: 12px;
+}
+
+.strong-borders{
+  border: 5px solid #DDD !important;
+}
+
+.col-center{
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+
+.paragraph{
+  font-size: 16px;
+}
+
+div.alwaysbreak { page-break-before: always; }
+div.alwaysbreak { page-break-before: always; }
+div.nobreak:before { clear:both; }
+div.nobreak{ page-break-inside: avoid; }
+
+.error{
+  color: red;
+  display: inline-block;
+}
+
+.statement_logo {
+  height: 80%;
+  width: 80%;
+  align: left;
+}
+
+.ntailu{
+  font-family: 'ntailu';
+}
+
+.ntailub{
+  font-family: 'ntailub';
+}
+
+.statement_title{
+  font-size: 120%;
+  line-height: 130px;
+  color: grey;
+}
+
+.pdf-sub-title{
+  font-size: 65%;
+  line-height: 95px;
+  color: grey;
+}
+
+.pdf-letter-sub-title{
+  font-size: 150%;
+  line-height: 95px;
+  color: $dark-gray;
+}
+
+.statement_subtitle{
+  font-size: 75%;
+  color: grey;
+  text-transform: uppercase;
+}
+
+.pdf_statement_subtitle{
+  font-size: 55%;
+  color: grey;
+  text-transform: uppercase;
+}
+
+.pdf_letter_subtitle{
+  font-size: 105%;
+  color: $dark-gray;
+  text-transform: uppercase;
+}
+
+.horizontal_align{
+  text-align: center;
+}
+
+.statement_date{
+  text-transform: uppercase;
+  font-size: 100%;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  color: grey;
+}
+
+.text-align-right{
+  text-align: right;
+}
+
+.pdf_statement_date{
+  text-transform: uppercase;
+  font-size: 61%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: grey;
+  text-align: right;
+}
+
+.footer{
+  font-size: 120%;
+  color: grey;
+}
+
+.dotted-border{
+  border-style: dashed;
+  color: grey;
+}
+
+.width-eighty{
+  width: 93%;
+  margin: auto;
+}
+
+.width-eighty-seven{
+  width: 87%;
+  margin: auto;
+}
+
+.paragraph_letter{
+   font-size: 85%;
+   color: grey;
+ }
+
+.pdf_paragraph_letter{
+  font-size: 62%;
+  color: grey;
+}
+
+.pdf_paragraph_letter_acceptance{
+  font-size: 130%;
+  color: $dark-gray;
+}
+
+.note_letter{
+  font-size: 55%;
+  color: grey;
+}
+
+.small-margin-top{
+  margin-top: 7px;
+}
+
+.small-vertical-margin{
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.margin-top-signature{
+  margin-top: 70px;
+}
+
+.address-vertical-align{
+  vertical-align: baseline;
+}

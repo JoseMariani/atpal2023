@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Accommodation Index
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li>
+          <%= link_to "Create accommodation", new_accommodation_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 margin-top padding-bottom padding-top section-white" id="student-panel soft-borders">
+      <h3 class="header3-bottom margin-bottom">
+        List of Accommodation
+      </h3>
+      <table class="table table-hover" id="program_table">
+        <thead>
+        <tr>
+          <th>
+            #
+          </th>
+          <th>
+            Adult?
+          </th>
+          <th>
+            Type
+          </th>
+          <th>
+            Cost per week
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @count = 0 %>
+        <% @accommodations.order('type_of_accommodation ASC').each do |accommodation|%>
+            <tr>
+              <td>
+                <%= @count += 1 %>
+              </td>
+              <td>
+                <%= accommodation.adulthood.name %>
+              </td>
+              <td>
+                <%= accommodation.type_of_accommodation %>
+              </td>
+              <td>
+                <%= to_cad(accommodation.cost) %>
+              </td>
+              <td>
+                <%= link_to "Edit accommodation", edit_accommodation_path(accommodation.id) %>
+
+                <%= link_to "Delete accommodation", delete_accommodation_path(accommodation.id) %>
+
+                <%= link_to "Show accommodation",  accommodation_path(accommodation.id) %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

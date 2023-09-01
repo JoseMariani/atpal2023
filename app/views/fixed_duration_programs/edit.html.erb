@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Accelerated Preparation Programs index", fixed_duration_programs_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Show APP", fixed_duration_program_path(:id => @fixed_duration_program.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Edit APP
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" id="margin-bottom">
+      <%= form_for(@fixed_duration_program, :url => fixed_duration_program_path, :html => {:method => :put}) do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Save APP", :class => 'btn btn-success', :id=>"margin-top")%>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+

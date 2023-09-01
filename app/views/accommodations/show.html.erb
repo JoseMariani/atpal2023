@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li>
+          <%= link_to "Create accommodation", new_accommodation_path %>
+        </li>
+        <li>
+          <%= link_to "Accommodation index", accommodations_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row section-white inner-padding padding-top">
+    <h3 class="header3-bottom text-center margin-bottom">Accommodation info</h3>
+    <div class="col-md-12" id="student-table">
+      <table class="table table-bordered table-striped table-hover margin-top">
+        <tr>
+          <th>Adult?</th>
+          <td><%= @accommodation.adulthood.name %></td>
+        </tr>
+        <tr>
+          <th>Type</th>
+          <td><%= @accommodation.type_of_accommodation %></td>
+        </tr>
+        <tr>
+          <th>Cost per week</th>
+          <td><%= @accommodation.cost %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+

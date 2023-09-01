@@ -1,0 +1,119 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Quotes", student_quotes_path(study_period_id: @study_period.id) %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Pro formas", student_pro_formas_path(study_period_id: @study_period.id) %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Invoices", student_invoices_path(study_period_id: @study_period.id) %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Evaluations", evaluations_path(student_id: @student.id, study_period_id: @study_period.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row section-white inner-padding padding-top">
+    <h3 class="header3-bottom text-center margin-bottom">Program info</h3>
+    <div class="col-md-12" id="student-table">
+      <table class="table table-bordered table-striped table-hover margin-top">
+        <tr>
+          <th>Start date</th>
+          <td><%= @study_period.start_date %></td>
+        </tr>
+        <tr>
+          <th>End date</th>
+          <td><%= @study_period.end_date %></td>
+        </tr>
+        <tr>
+          <th>Duration</th>
+          <td><%= @study_period.duration_weeks %></td>
+        </tr>
+        <tr>
+          <th>Total hours</th>
+          <td><%= @study_period.total_hours %></td>
+        </tr>
+        <tr>
+          <th>Program</th>
+          <td><%= @study_period&.program&.title %></td>
+        </tr>
+        <tr>
+          <th>Course language</th>
+          <td><%= @study_period.course_language %></td>
+        </tr>
+        <tr>
+          <th>Certificate issued?</th>
+          <td><%= @study_period.certificate_issued %></td>
+        </tr>
+        <tr>
+          <th><button id="button" type="button" class="btn btn-primary"
+                      data-toggle="collapse" data-target="#demo">
+              <span class="glyphicon glyphicon-plus"></span>  Certificate picture
+            </button>
+          </th>
+          <td>
+            <div id="demo" class="col-md-12 collapse ">
+              <div class="col-md-12" id="margin-vertical">
+                <% if @study_period.certificate_picture? %>
+                <figure>
+                  <%= image_tag(@study_period.certificate_picture_url(:small).to_s) if @study_period.certificate_picture? %>
+                  <figcaption>Certificate picture</figcaption>
+                </figure>
+                <% else %>
+                <p>No picture uploaded</p>
+                <% end %>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <% if @student.study_periods.any? %>
+          <tr>
+            <th>Fixed duration programs</th>
+            <td>
+              <ul style="list-style-position: inside">
+              <% @student.study_periods.last.fixed_duration_programs.each do |fdp| %>
+                <li>
+                  <%= fdp.name %>
+                </li>
+              </ul>
+            </td>
+            <% end %>
+          </tr>
+        <% end %>
+        <tr>
+          <th>Total</th>
+          <td><%= @study_period.total_amount %></td>
+        </tr>
+        <tr>
+          <th>Balance</th>
+          <td><%= @study_period.balance %></td>
+        </tr>
+        <tr>
+          <th>Arrival date</th>
+          <td><%= @study_period.arrival_date %></td>
+        </tr>
+        <tr>
+          <th>Accommodation</th>
+          <td><%= @study_period.accommodation.type_of_accommodation %></td>
+        </tr>
+        <tr>
+          <th>Accommodation start date</th>
+          <td><%= @study_period.start_date_accommodation %></td>
+        </tr>
+        <tr>
+          <th>Accommodation end date</th>
+          <td><%= @study_period.end_date_accommodation %></td>
+        </tr>
+        <tr>
+          <th>Accommodation duration</th>
+          <td><%= @study_period.accommodation_duration %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+

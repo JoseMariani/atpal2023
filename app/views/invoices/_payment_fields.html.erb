@@ -1,0 +1,20 @@
+<div class="nested-fields">
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th><%= f.label(:date, "Date")%></th>
+      <th><%= f.label(:amount, "Amount")%></th>
+      <th>Remove Item</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><%= f.text_field(:date, :class=>"form-control payment_date", :id=>"payment_date") %></td>
+      <td><%= f.text_field(:amount, :class=>"form-control item_quantity", :id=>"payment_amount") %></td>
+      <%= f.hidden_field :student_id, :value => @student.id%>
+      <%= f.hidden_field :study_period_id, :value => @invoice.study_period.id%>
+      <td><%= link_to_remove_association "Remove", f, class: "btn btn-danger item_remove", :id=>"remove_btn" %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

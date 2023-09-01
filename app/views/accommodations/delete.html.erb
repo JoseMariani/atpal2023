@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Accommodation index", accommodations_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Edit accommodation", edit_accommodation_path(:id => @accommodation.id) %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Show accommodation", accommodation_path(:id => @accommodation.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <% if @accommodation.errors.full_messages.any? %>
+      <% @accommodation.errors.full_messages.each do |error_message| %>
+          <div class="notice flash-notice margin-top">
+            <%= error_message if @accommodation.errors.full_messages.first == error_message %><br />
+          </div>
+      <% end %>
+  <% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center" id="margin-bottom">
+        Delete Accommodation
+      </h3>
+    </div>
+  </div>
+  <div class="row" id="soft-borders">
+    <div class="col-md-6" id="soft-borders">
+      <table class="table table-striped" id="margin-top">
+        <tr>
+          <th>Type</th>
+          <td><%= @accommodation.type_of_accommodation %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h3>
+        Are you sure you want to delete <%= @accommodation.type_of_accommodation %>?
+      </h3>
+      <p id="margin-top">
+        <%= form_for(:accommodation, :url => accommodation_path(:id => @accommodation.id), :html => { :method => :delete }) do |f| %>
+
+            <%= submit_tag("Delete Accommodation", :class=>"btn btn-danger") %>
+
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

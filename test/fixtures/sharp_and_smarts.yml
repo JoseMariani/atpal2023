@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  descrption: MyString
+  date: 2016-06-20
+  letter_grade: MyString
+  evaluation_id: 
+
+two:
+  descrption: MyString
+  date: 2016-06-20
+  letter_grade: MyString
+  evaluation_id: 

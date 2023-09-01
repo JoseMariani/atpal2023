@@ -1,0 +1,77 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 margin-bottom">
+      <h3 class="text-center">
+        Region Index
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Create region", new_region_path %>
+        </li>
+        <li>
+          <%= link_to "View promotions", promos_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 margin-bottom margin-top"  id="">
+      <div class="col-md-12 section-white">
+        <h3 class="header3-bottom margin-bottom">
+          List of Regions
+        </h3>
+        <table class="table table-hover" id="program_table">
+          <thead>
+          <tr>
+            <th>
+              #
+            </th>
+            <th>
+              name
+            </th>
+            <th>
+              promos
+            </th>
+            <th>
+              links
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @count = 0 %>
+          <% @regions.order('name DESC').each do |region|%>
+              <tr>
+                <td>
+                  <%= @count += 1 %>
+                </td>
+                <td>
+                  <%= region.name %>
+                </td>
+                <td>
+                  <ul>
+                <% region.promos.each do |promo| %>
+                        <li>
+                          <%= simple_format(promo.description) %>
+                        </li>
+                <% end %>
+                  </ul>
+                </td>
+                <td>
+                  <%= link_to "Edit region", edit_region_path(region.id) %>
+
+                  <%= link_to "Delete region", delete_region_path(region.id) %>
+
+                  <%= link_to "Show region",  region_path(region.id) %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

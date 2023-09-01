@@ -1,0 +1,153 @@
+<%= javascript_tag do %>
+    window.adulthood = "<%= @student.adulthood.name %>"
+<% end %>
+
+<% if @study_period.errors.full_messages.any? %>
+    <% @study_period.errors.full_messages.each do |error_message| %>
+        <div class="notice flash-notice margin-top">
+          <%= error_message if @study_period.errors.full_messages.first == error_message %><br />
+        </div>
+    <% end %>
+<% end %>
+
+<div id="study_period_wizard">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul>
+          <li><a href="#tab1" data-toggle="tab">Programs</a></li>
+          <li><a href="#tab2" data-toggle="tab">Dates and duration</a></li>
+          <li><a href="#tab3" data-toggle="tab">Accommodation</a></li>
+          <li><a href="#tab4" data-toggle="tab">Insurance</a></li>
+          <li><a href="#tab5" data-toggle="tab">Documents</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <div class="tab-pane" id="tab1">
+      <div class="form-group">
+        <%= f.label(:course_language, "Type of course (language)")%>
+        <%= f.text_field(:course_language, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:program, "Type of program")%>
+        <%= f.collection_select :program_id, Program.order('cost DESC'), :id, :title,
+                                {:include_blank  => "Select a program"},  :class => 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <div class="form-group" id="fixed_duration_programs">
+          <%= f.fields_for :study_period_fixed_programs do |fixed_duration_pro_student| %>
+              <%= render(:partial => "study_period_fixed_program_fields", :locals => {:f => fixed_duration_pro_student}) %>
+          <% end %>
+          <div class="">
+            <%= link_to_add_association "Add Accelerated preparation program", f, :study_period_fixed_programs, class: "btn btn-primary btn-block" %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label(:week_program_hours, "Hours per week for this program")%>
+        <%= f.grouped_collection_select :week_program_hours, Program.order(:title), :hours, :title, :id,
+                                        :number, {:include_blank => true}, {:class => 'form-control'} %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <div class="form-group">
+        <%= f.label(:arrival_date, "Arrival Date")%>
+        <%= f.text_field(:arrival_date, :class=>"form-control", :id=>"student_arrival_date") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:start_date, "Start date")%>
+        <%= f.text_field(:start_date, :class=>"form-control", :id => "student_start_date") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:end_date, "End date")%>
+        <%= f.text_field(:end_date, :class=>"form-control", :id => "student_end_date") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:duration_weeks, "Program duration in weeks")%>
+        <%= f.text_field(:duration_weeks, :class=>"form-control", :id => "weeks") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:entire_stay_duration, "Entire stay duration")%>
+        <%= f.text_field(:entire_stay_duration, :class=>"form-control", :id => "entire_weeks") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:total_hours, "Total number of hours")%>
+        <%= f.text_field(:total_hours, :class=>"form-control") %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab3">
+      <div class="form-group">
+        <%= f.label(:accommodation_id, "Type of accommodation")%>
+        <%= f.grouped_collection_select :accommodation_id, Adulthood.order(:name), :accommodations, :name, :id,
+                                        :type_of_accommodation, {:include_blank  => true}, {:class => 'form-control'} %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:start_date_accommodation, "Accommodation start date")%>
+        <%= f.text_field(:start_date_accommodation, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:end_date_accommodation, "Accommodation end date")%>
+        <%= f.text_field(:end_date_accommodation, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:accommodation_duration, "Accommodation duration")%>
+        <%= f.text_field(:accommodation_duration, :class=>"form-control", :id => "acco_weeks") %>
+      </div>
+
+    </div>
+    <div class="tab-pane" id="tab4">
+      <div class="form-group">
+        <%= f.label(:insurance_id, "Insurance")%>
+        <%= f.collection_select :insurance_id, Insurance.all, :id, :name, {:include_blank  => true}, :class => 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:start_date_insurance, "Insurance start date")%>
+        <%= f.text_field(:start_date_insurance, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:end_date_insurance, "Insurance end date")%>
+        <%= f.text_field(:end_date_insurance, :class=>"form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label(:insurance_cover_period, "Insurance coverage period")%>
+        <%= f.text_field(:insurance_cover_period, :class=>"form-control") %>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab5">
+      <div class="form-group">
+        <%= f.label(:certificate_issued, "Certificate issued?")%>
+        <%= f.select :certificate_issued, ['Certificate not issued', 'Certificate issued'], {:include_blank => "Choose one option"}, {:class=>"form-control"} %>
+      </div>
+      <div class="form-group certificate_picture">
+        <%= f.label(:certificate_picture, "Certificate picture")%>
+        <%= image_tag(@study_period.certificate_picture_url(:thumb).to_s) if @study_period.certificate_picture? %>
+        <%= f.file_field(:certificate_picture, :class=>"btn btn-file") %>
+        <label>
+          <%= f.check_box :remove_certificate_picture %>
+          Remove picture
+        </label>
+      </div>
+    </div>
+    <ul class="pager wizard">
+      <li class="previous first" style="display:none;"><a href="#">First</a></li>
+      <li class="previous"><a href="#">Previous</a></li>
+      <li class="next last" style="display:none;"><a href="#">Last</a></li>
+      <li class="next"><a href="#">Next</a></li>
+    </ul>
+  </div>
+</div>

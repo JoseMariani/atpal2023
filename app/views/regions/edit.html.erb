@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Show region", region_path(:id=> @region.id) %>
+        </li>
+        <li>
+          <%= link_to "Region index", regions_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Edit Region
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" id="margin-bottom">
+      <%= form_for(:region, :url => region_path, :html => {:method => :put, :class=>"regions_id"}) do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Save region", :class => 'btn btn-success', :id=>"margin-top")%>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+

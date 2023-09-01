@@ -1,0 +1,11 @@
+<h5 class="text-center header4-bottom">
+  Grade flow chart
+</h5>
+<% limit = charted_automatizations.size > 31? 15 : charted_automatizations.size %>
+<%= line_chart [{name: "Grade", data: charted_automatizations.limit(limit).map{|t| [t.date, human_abc(t.letter_grade)] }}],
+               library: {vAxis: {
+                   viewWindow: {
+                       min: -3,
+                       max: 102
+                   },
+                   ticks: [0, 25, 50, 75, 100]}, hAxis: {format: 'dd/MM/yy' }, curveType: 'function', legend: { position: 'right'}} %>

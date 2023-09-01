@@ -1,0 +1,91 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Promos Index
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Create promotion", new_promo_path%>
+        </li>
+        <li>
+          <%= link_to "View promo regions", regions_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 section-white"  id="student-panel">
+      <h3 class="header3-bottom margin-bottom">
+        List of Promos
+      </h3>
+      <table class="table responsive no-wrap table-stu table-striped table-responsive table-hover margin-top" id="program_table">
+        <thead>
+        <tr>
+          <th>
+            #
+          </th>
+          <th>
+            Description
+          </th>
+          <th>
+            Type of promotion
+          </th>
+          <th>
+            Quantity (in decimals)
+          </th>
+          <th>
+            percentage
+          </th>
+          <th>
+            valid until
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @count = 0 %>
+        <% @promos.each do |promo|%>
+            <tr>
+              <td>
+                <%= @count += 1 %>
+              </td>
+              <td>
+                <%= simple_format(promo.description) %>
+              </td>
+              <td>
+                <%= promo.type_of_promo %>
+              </td>
+              <td>
+                <%= promo.number %>
+              </td>
+              <td>
+                <%= promo.percentage %>
+              </td>
+              <td>
+                <% if promo.valid_until.nil? %>
+                    Not defined
+                <% else %>
+                  <%= promo.valid_until.to_formatted_s(:long)  %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to "Edit promo", edit_promo_path(promo.id)%>
+
+                <%= link_to "Delete promo", delete_promo_path(promo.id) %>
+
+                <%= link_to "Show promo",  promo_path(promo.id) %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

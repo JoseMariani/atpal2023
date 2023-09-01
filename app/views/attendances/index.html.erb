@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-5 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Back to Academic Profile index", evaluations_path(:student_id => @evaluation.study_period.student.id) %>
+        </li>
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Back to student Academic Profile", exercises_evaluation_path(:id => @evaluation.id, :student_id => @evaluation.study_period.student.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+	<div class="row">
+		<div class="col-md-12">
+      <%= link_to "PDF Report", attendances_path(:evaluation_id=>@evaluation.id, :format => :pdf), :class =>'btn btn-danger btn-inverse' %>
+			<div class="page-header">
+				<h2 class="text-center font-open-sans">
+					Attendance index for <%= @evaluation.study_period.student.first_name%> <%= @evaluation.study_period.student.last_name%>
+				</h2>
+			</div>
+			<div class="row">
+				<div class="col-md-7">
+					<h3 class="text-center">
+						List
+					</h3>
+					<div class="col-md-12 section-white">
+            <div class="col-md-12 margin-bottom-40">
+              <h4 class="header4-bottom margin-bottom text-center">
+                Attendance
+              </h4>
+            </div>
+						<div class="col-md-12 margin-top">
+						<table class="table table-striped margin-top" id="attendance_index_table">
+							<thead>
+								<tr>
+                  <th>
+                    Date
+                  </th>
+									<th>
+										Time of arrival
+									</th>
+									<th>
+										Status
+									</th>
+									<th>
+										Attendance
+									</th>
+                  <th>
+                    Action
+                  </th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @attendances.each do |attendance| %>
+								<tr id="attendance_<%= attendance.id %>">
+                  <%= render "attendance_row",  attendance: attendance  %>
+								</tr>
+								<% end %>
+							</tbody>
+						</table>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<h3 class="text-center">
+						Progress Graphs
+            <span class="glyphicon glyphicon-plus-sign options-icon" ></span>
+          </h3>
+          <div class="dropdown dropdown-graph-dates hidden">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+              <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <%= form_tag attendances_path(format: :html), method: :get do %>
+                  <%= text_field_tag :start_date, '',{id: 'start-date-graph', class: 'div-centered graph-input'} %>
+                  <%= text_field_tag :end_date, '' ,{id: 'end-date-graph', class: 'div-centered graph-input'} %>
+                  <%= hidden_field_tag :evaluation_id, @evaluation.id %>
+                  <div class="text-center">
+                    <%= submit_tag 'Update graph', class: 'btn btn-default graph-update-btn' %>
+                  </div>
+              <% end %>
+            </ul>
+          </div>
+						<div class="col-md-12">
+							<div id="attendance_line_chart" class="section-white margin-bottom">
+								<%= render 'attendances/chart_partials/line_chart', charted_attendances: @charted_attendances %>
+							</div>
+							<div id="attendance_pie_chart" class="section-white margin-top">
+                <%= render 'attendances/chart_partials/pie_chart', charted_attendances: @charted_attendances %>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

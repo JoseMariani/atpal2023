@@ -1,0 +1,20 @@
+<h3>Edit checked students</h3>
+
+<%= form_tag update_multiple_students_path, method: :put, html: {id: 'update_multiple_student'} do %>
+  <% @students.each do |student| %>
+    <div class="student_mass_assignment">
+      <h3><%= student.complete_name_cap %></h3>
+      <%= fields_for 'students[]', student do |f| %>
+        <div class="form-group row">
+          <%= f.label(:level, "Proficiency level", class: "col-xs-2")%>
+          <%= f.select(:level, options_for_select(@data[:levels].collect { |s| [s[0].humanize, s[0]] }, selected: student.level), {}, :class=>"col-xs-2 select_menu") %>
+        </div>
+        <div class="form-group row">
+          <%= f.label(:group, "Class group", class: "col-xs-2")%>
+          <%= f.select(:group, options_for_select(@data[:groups].collect { |s| [s[0].humanize, s[0]] }, selected: student.group), {}, :class=>"col-xs-2 select_menu") %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+    <%= submit_tag 'Update' %>
+<% end %>

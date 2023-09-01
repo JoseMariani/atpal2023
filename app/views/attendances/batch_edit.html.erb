@@ -1,0 +1,60 @@
+<h2 class="batch-table text-center">Attendance</h2>
+
+<h3 class="batch-table text-center">List of <%= @list_data[:group].humanize.split.map(&:capitalize).join(' ') %> <%= @list_data[:language].capitalize %> students </h3>
+
+<div class="attendances">
+  <table class="table table-bordered batch-table table-striped" id="soft-borders">
+    <thead>
+    <tr>
+      <th>Student</th>
+      <th colspan="4">Latest Attendance</th>
+      <th >Register Today's attendance</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th >Date</th>
+      <th >Presence</th>
+      <th >Hour of arrival</th>
+      <th >Grade</th>
+      <th></th>
+    </tr>
+    </thead>
+      <tbody>
+      <% @students.each do |student| %>
+        <tr id='student_<%= student.id %>'>
+          <%= render 'attendances/attendance_table', student: student %>
+        </tr>
+        <div class="modal fade" id="new_attendance_modal_<%= student.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Attendance</h4>
+              </div>
+              <% if student.latest_evaluation.present? %>
+                <div class="modal-body">
+                  <%= form_for(:attendance, :url => attendances_path(:evaluation_id => student.latest_evaluation.id), remote:true, :html => {:id=>"att-form"}) do |f| %>
+                      <%= render(:partial => "attendances/form", :locals => {:f => f, :grade => 85.00})%>
+                      </div>
+                      <div class="modal-footer">
+                        <%= submit_tag("Create attendance record", :class => 'btn btn-success') %>
+                      </div>
+                  <% end %>
+                </div>
+              <% end %>
+          </div>
+        </div>
+        <div class="modal fade" id="edit_attendance_modal_<%= student.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Edit Attendance</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      </tbody>
+  </table>
+</div>

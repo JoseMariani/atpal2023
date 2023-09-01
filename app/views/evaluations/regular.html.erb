@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-5 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Back to Academic Profile index", evaluations_path(:student_id => @student.id) %>
+        </li>
+        <li class="nav-item pagination-centered text-center" id="">
+          <%= link_to "Back to student Academic Profile", exercises_evaluation_path(:student_id => @student.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Regular Evaluations
+      </h3>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-md-6 col-md-offset-3 margin-top margin-bottom" id="soft-borders">
+      <div class="col-md-11" >
+        <h2>
+          <%= @evaluation.study_period.student.first_name %> <%= @evaluation.study_period.student.last_name %>
+        </h2>
+      </div>
+      <div class="col-md-1">
+        <%= image_tag @evaluation.study_period.student.image_url(:thumb).to_s %>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="col-md-4 quizzes">
+      <%= render "quizzes/quiz_list" %>
+    </div>
+    <div class="col-md-4 tests">
+      <%= render "tests/test_list" %>
+    </div>
+    <div class="col-md-4 special_activities">
+      <%= render "special_activities/special_activity_list" %>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="new_quiz_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Quiz</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(:quiz, :url => quizzes_path(:evaluation_id => @evaluation.id), remote:true, :html => {:id=>"quiz-form"}) do |f| %>
+            <%= render(:partial => "quizzes/form", :locals => {:f => f})%>
+            </div>
+            <div class="modal-footer">
+              <%= submit_tag("Add Quiz", :class => 'btn btn-success') %>
+            </div>
+        <% end %>
+        </div>
+  </div>
+</div>
+<div class="modal fade" id="new_test_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Test</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(:test, :url => tests_path(:evaluation_id => @evaluation.id), remote:true, :html => { :id=>"tests-form" }) do |f| %>
+            <%= render(:partial => "tests/form", :locals => {:f => f})%>
+            </div>
+            <div class="modal-footer">
+              <%= submit_tag("Add Test", :class => 'btn btn-success') %>
+            </div>
+        <% end %>
+        </div>
+  </div>
+</div>
+<div class="modal fade" id="new_activity_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Special Activity</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for(:special_activity, :url => special_activities_path(:evaluation_id => @evaluation.id), remote:true, :html => { :id=>"sa-form" }) do |f| %>
+            <%= render(:partial => "special_activities/form", :locals => {:f => f})%>
+            </div>
+            <div class="modal-footer">
+              <%= submit_tag("Add Special Activity", :class => 'btn btn-success') %>
+            </div>
+        <% end %>
+        </div>
+  </div>
+</div>
+<div class="modal fade" id="edit_activity_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+<div class="modal fade" id="edit_quiz_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>

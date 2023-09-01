@@ -1,0 +1,16 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel">Automatization</h4>
+    </div>
+    <div class="modal-body">
+      <%= form_for(:automatization, :url => automatization_path(:evaluation_id => @evaluation.id, :id => @automatization.id, detail_view: @detail_view), remote:true, :html => {:method => :put, :id=>"edit-automatization-form" }) do |f| %>
+          <%= render(:partial => "automatizations/edit_form", :locals => {:f => f})%>
+          </div>
+          <div class="modal-footer">
+            <%= submit_tag("Edit automatization", :class => 'btn btn-success', :id=>"edit-automatization") %>
+          </div>
+      <% end %>
+      </div>
+</div>

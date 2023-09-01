@@ -1,0 +1,63 @@
+<td class="center-vertically-table-cell empty-table-cell"><%= student.complete_name_cap %></td>
+<% if student.latest_automatization.blank? %>
+    <td class="center-vertically-table-cell empty-table-cell empty-td">
+      No automatizations recorded
+    </td>
+    <td class="empty-table-cell empty-td">
+    </td>
+    <td class="empty-table-cell empty-td">
+    </td>
+<% else %>
+    <td class="center-vertically-table-cell empty-td">
+      <% if policy(student.latest_automatization).update? %>
+        <% if student.latest_automatization.date.nil? %>
+            <%= link_to "Not yet determined", edit_automatization_path(:id => student.latest_automatization.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+        <% else %>
+          <%= link_to (l student.latest_automatization.date, :format => :long), edit_automatization_path(:id => student.latest_automatization.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+        <% end %>
+      <% else %>
+          <%= l student.latest_automatization.date, :format => :long %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell empty-td">
+      <% if policy(student.latest_automatization).update? %>
+          <%= link_to student.latest_automatization.description, edit_automatization_path(:id => student.latest_automatization.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+      <% else %>
+          <%= student.latest_automatization.description %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell empty-td">
+      <% if policy(student.latest_automatization).update? %>
+        <% if student.latest_automatization.letter_grade.nil? %>
+            <%= link_to "Not yet determined", edit_automatization_path(:id => student.latest_automatization.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+        <% else %>
+          <%= link_to student.latest_automatization.letter_grade, edit_automatization_path(:id => student.latest_automatization.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+        <% end %>
+      <% else %>
+          <%= student.latest_automatization.letter_grade %>
+      <% end %>
+    </td>
+<% end %>
+<td class="center-vertically-table-cell empty-td">
+  <% if student.latest_evaluation.nil? %>
+      <row>
+        <div class="col-xs-6 text-center no-padding">
+          This student does not have an academic profile
+        </div>
+        <div class="col-xs-6 text-center no-padding">
+          <% if policy(student).update? %>
+              <%= link_to "Edit this student", student_path(:id => student.id), class: "btn btn-default" %>
+          <% end %>
+        </div>
+      </row>
+  <% else %>
+      <row>
+        <div class="col-xs-6 text-center no-padding">
+          <%= link_to 'New automatization', "#new_automatization_modal_#{student.id}", 'data-toggle' => 'modal', class: "btn btn-primary" %>
+        </div>
+        <div class="col-xs-6 text-center no-padding">
+          <%= link_to 'Automatizations details', automatizations_path(:evaluation_id=>student.latest_evaluation.id), class: "btn btn-default" %>
+        </div>
+      </row>
+  <% end %>
+</td>

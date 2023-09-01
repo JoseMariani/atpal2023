@@ -1,0 +1,88 @@
+<div class="container-fluid section-white margin-top">
+	<div class="row" id="margin-top">
+		<div class="col-md-12">
+			<div class="col-md-7" id="soft-borders">
+				<h3><% if policy(@evaluation.tests).new? %><%= link_to '<i class="glyphicon glyphicon-plus-sign text-success"></i>'.html_safe, '#new_test_modal', 'data-toggle' => 'modal' %><% end %>
+					<%= link_to "Test", tests_path(:evaluation_id=>@evaluation.id) %>
+				</h3>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" >
+			<div class="row">
+				<div class="col-wrap white-text margin-sides" id="soft-borders">
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average Test Grade in the last 7 days
+						</h3>
+						<p id="big">
+							<%= @evaluation.test_average_letter_grade_week %>
+						</p>
+					</div>
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average test grade % in the last 7 days
+						</h3>
+						<p id="big">	
+							<%= number_with_precision(@evaluation.test_grade_percentage_last_week , :precision => 2) %>%
+						</p>
+					</div>
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average test grade % overall
+						</h3>
+						<p id="big">
+							<%= number_with_precision(@evaluation.test_grade_percentage_overall , :precision => 2) %>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<table class="table table-striped" id="soft-borders" >
+					<thead>
+						<tr>
+							<th>
+								#
+							</th>
+							<th>
+								Date:
+							</th>
+							<th>
+								Letter Grade
+							</th>
+							<th>
+								Grade
+							</th>
+							<th>
+								Level
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @count = 0 %>
+						<% @evaluation.tests.newest_first.limit(10).each do |test| %>
+						<tr>
+							<td>
+								<%= @count += 1 %>
+							</td>
+							<td>
+								<%= l test.created_at, :format => :short %>
+							</td>
+							<td class="text-center">
+								<%= test.letter_grade %>
+							</td>
+							<td>
+								<%= test.grade_percentage %>%
+							</td>
+							<td>
+								<%= test.level.humanize %>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

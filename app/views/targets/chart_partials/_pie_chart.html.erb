@@ -1,0 +1,5 @@
+<h4 class="text-center header4-bottom">
+  Pie Chart
+</h4>
+<%= pie_chart charted_targets.group(:letter_grade).count, library: {legend: {position: 'bottom', textStyle: {color: 'black', fontSize: 14}},
+colors: ['#729f98', '#aa863a', '#e6af4b', '#bcd5d1', '#f6c7b6']} %>

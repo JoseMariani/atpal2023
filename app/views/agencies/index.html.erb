@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Agency Index
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Create Agency", new_agency_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 margin-top padding-bottom padding-top section-white" id="student-panel soft-borders">
+      <h3 class="header3-bottom margin-bottom">
+        List of Agencies
+      </h3>
+      <table class="table table-hover margin-top" id="program_table">
+        <thead>
+        <tr>
+          <th>
+            #
+          </th>
+          <th>
+            Name
+          </th>
+          <th>
+            Country
+          </th>
+          <th>
+            Phone
+          </th>
+          <th>
+            Email
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @count = 0 %>
+      <% @agencies.each do |agency| %>
+          <tr>
+            <td>
+              <%= @count += 1 %>
+            </td>
+            <td>
+              <%= agency.name %>
+            </td>
+            <td>
+              <%= agency.country %>
+            </td>
+            <td>
+              <%= agency.phone_number %>
+            </td>
+            <td>
+              <%= agency.email %>
+            </td>
+            <td>
+              <%= link_to "Edit Agency", edit_agency_path(agency.id) %>
+
+              <%= link_to "Delete Agency", delete_agency_path(agency.id) %>
+
+              <%= link_to "Show Agency",  agency_path(agency.id) %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

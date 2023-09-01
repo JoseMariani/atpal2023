@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Accelerated preparation programs index", fixed_duration_programs_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Edit APP", edit_fixed_duration_program_path(:id => @fixed_duration_program.id) %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Show APP", edit_fixed_duration_program_path(:id => @fixed_duration_program.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <% if @fixed_duration_program.errors.full_messages.any? %>
+      <% @fixed_duration_program.errors.full_messages.each do |error_message| %>
+          <div class="notice flash-notice margin-top">
+            <%= error_message if @fixed_duration_program.errors.full_messages.first == error_message %><br />
+          </div>
+      <% end %>
+  <% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center" id="margin-bottom">
+        Delete APP
+      </h3>
+    </div>
+  </div>
+  <div class="row" id="soft-borders">
+    <div class="col-md-6" id="soft-borders">
+      <table class="table table-striped" id="margin-top">
+        <tr>
+          <th>Type</th>
+          <td><%= @fixed_duration_program.name %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h3>
+        Are you sure you want to delete <%= @fixed_duration_program.name %>?
+      </h3>
+      <p id="margin-top">
+        <%= form_for(:program, :url => fixed_duration_program_path(:id => @fixed_duration_program.id), :html => { :method => :delete }) do |f| %>
+
+            <%= submit_tag("Delete App", :class=>"btn btn-danger") %>
+
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

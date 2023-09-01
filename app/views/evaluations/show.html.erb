@@ -1,0 +1,140 @@
+<div class="container-fluid">
+	<div class="row" >
+		<div class="col-md-12">
+			<h3 class="text-center">
+        Academic Profile
+			</h3>
+		</div>
+	</div>
+	<div class="row" >
+    <div class="col-md-6 col-md-offset-3 margin-top margin-bottom" id="soft-borders">
+      <div class="col-md-11" >
+        <h2>
+          <%= @evaluation.study_period.student.first_name %> <%= @evaluation.study_period.student.last_name %>
+        </h2>
+      </div>
+      <div class="col-md-1">
+        <%= image_tag @evaluation.study_period.student.image_url(:thumb).to_s %>
+      </div>
+    </div>
+	</div>
+	<div class="row">
+		<div class="col-md-6 attendances" >
+			<%= render "attendances/attendance_list" %>
+		</div>
+		<div class="col-md-6 targets">
+			<%= render "targets/target_list" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 quizzes">
+			<%= render "quizzes/quiz_list" %>
+		</div>
+		<div class="col-md-4 tests">
+			<%= render "tests/test_list" %>
+		</div>
+		<div class="col-md-4 special_activities">
+			<%= render "special_activities/special_activity_list" %>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="new_quiz_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Quiz</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(:quiz, :url => quizzes_path(:evaluation_id => @evaluation.id), remote:true, :html => {:id=>"quiz-form"}) do |f| %>
+        <%= render(:partial => "quizzes/form", :locals => {:f => f})%>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag("Add Quiz", :class => 'btn btn-success') %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="new_test_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Test</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(:test, :url => tests_path(:evaluation_id => @evaluation.id), remote:true, :html => { :id=>"tests-form" }) do |f| %>
+        <%= render(:partial => "tests/form", :locals => {:f => f})%>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag("Add Test", :class => 'btn btn-success') %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="new_activity_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Special Activity</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(:special_activity, :url => special_activities_path(:evaluation_id => @evaluation.id), remote:true, :html => { :id=>"sa-form" }) do |f| %>
+        <%= render(:partial => "special_activities/form", :locals => {:f => f})%>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag("Add Special Activity", :class => 'btn btn-success') %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="new_target_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Daily Target</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(:target, :url => targets_path(:evaluation_id => @evaluation.id), remote:true, :html => {:id=>"target-form"}) do |f| %>
+        <%= render(:partial => "targets/form", :locals => {:f => f})%>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag("Add Daily Target", :class => 'btn btn-success') %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="new_attendance_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Attendance</h4>
+      </div>
+      <div class="modal-body">
+      <%= form_for(:attendance, :url => attendances_path(:evaluation_id => @evaluation.id), remote:true, :html => {:id=>"att-form"}) do |f| %>
+        <%= render(:partial => "attendances/form", :locals => {:f => f, :grade => 85.00})%>
+      </div>
+      <div class="modal-footer">
+        <%= submit_tag("Create attendance record", :class => 'btn btn-success') %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="edit_target_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Target</h4>
+      </div>
+    </div>
+  </div>
+</div>

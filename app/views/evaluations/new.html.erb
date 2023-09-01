@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="col-xs-12 post-index-title margin-bottom-40">
+    <h3 class="text-center">Create Academic Profile</h3>
+  </div>
+
+
+  <div class="col-xs-12 user_create">
+    <div class="col-xs-8 col-xs-offset-2">
+      <p class="section-white margin-bottom-40 margin-top">Please note that creating a new Academic Profile will set all other existing
+        Academic Profiles to the "old" status and set the new one as "current". Only perform
+        this action if you are absolutely sure that the student has finished the last evaluation
+        and is about to start a new one.</p>
+      <%= form_for(:evaluation, url: evaluations_path(student_id: @student.id), html: {id: 'new_evaluation'}) do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <div class="form-buttons pad">
+            <%= submit_tag("Add evaluation", :class => 'btn btn-success')%>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

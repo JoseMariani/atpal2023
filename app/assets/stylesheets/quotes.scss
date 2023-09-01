@@ -1,0 +1,87 @@
+$atpalGreen: #A2BB26;
+$grey: #e8e7e3;
+
+.promotion {
+  background-color: $atpalGreen;
+  
+  h3 {
+   margin: 0;
+   font-size: 20px;
+    padding-bottom: 5px;
+  }
+}
+
+#email {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 16px;
+}
+
+#website{
+  margin-bottom: 20px;
+}
+
+#date{
+  margin-top: 15px;
+  text-align: right;
+}
+
+.cocoon{
+  border: 1px solid #DDD;
+  padding-bottom: 20px;
+  background-color: $grey;
+}
+
+#add-item{
+  padding: 20px 0 0 10px;
+  display:inline-block;
+}
+
+.soft-borders{
+  border: 1px solid;
+}
+
+.margin-bottom{
+  margin-bottom:20px;
+}
+
+.no-row-borders td {
+  border-top: none !important;
+}
+
+.no-padding-sides{
+  padding: 0 0 0 0 !important; 
+}
+
+.no-margin-bottom{
+  margin-bottom:0px !important;
+}
+
+.margin-top{
+  margin-top:20px;
+}
+
+.statements-title{
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 30px;
+}
+
+.vertical-center{
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.student-details{
+  margin: 5px 0px 5px 0px !important;
+}
+
+.statement-font{
+  font-size: 16px !important;
+}
+
+.payment-info-font{
+  font-size: 17px !important;
+}
+
+

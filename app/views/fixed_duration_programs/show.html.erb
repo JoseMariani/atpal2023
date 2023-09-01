@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Accelerated Preparation Program index", fixed_duration_programs_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Edit APP", edit_fixed_duration_program_path(:id => @fixed_duration_program.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row section-white inner-padding padding-top">
+    <h3 class="header3-bottom text-center margin-bottom">APP info</h3>
+    <div class="col-md-12" id="student-table">
+      <table class="table table-bordered table-striped table-hover margin-top">
+        <tr>
+          <th>type</th>
+          <td><%= @fixed_duration_program.name %></td>
+        </tr>
+        <tr>
+          <th>Duration in weeks</th>
+          <td><%= @fixed_duration_program.duration_weeks %></td>
+        </tr>
+        <tr>
+          <th>Cost</th>
+          <td><%= @fixed_duration_program.cost %></td>
+        </tr>
+        <tr>
+          <th>Time table</th>
+          <td><%= @fixed_duration_program.time_table %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+

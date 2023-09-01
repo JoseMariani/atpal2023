@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li>
+          <%= link_to "Insurance index", insurances_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Add new Insurance
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(@insurance, :url => insurances_path) do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Add insurance", :class => 'btn btn-success')%>
+
+      <% end %>
+    </div>
+  </div>
+</div>

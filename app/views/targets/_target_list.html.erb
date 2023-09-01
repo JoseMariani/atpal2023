@@ -1,0 +1,118 @@
+
+<div class="container-fluid section-white margin-top">
+	<div class="row" id="margin-top">
+		<div class="col-md-12">
+		<div class="col-md-5 " id="soft-borders">
+			<h3>
+				<%= link_to '<i class="glyphicon glyphicon-plus-sign text-success"></i>'.html_safe, 
+					'#new_target_modal', 'data-toggle' => 'modal' %>  
+				<%= link_to "Daily Targets", targets_path(:evaluation_id=>@evaluation.id) %>	
+			</h3>
+		</div>
+			<div class="col-md-1 col-md-offset-6" >
+				
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" >
+			<div class="row">
+				<div class="col-wrap white-text margin-sides" id="soft-borders">
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average teacher evaluation in the last 7 recorded targets
+						</h3>
+						<p id="big">
+							<%= @evaluation.target_teacher_eval_week %>
+						</p>
+					</div>
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average student feedback in the last 7 recorded targets
+						</h3>
+						<p id="big">
+							<%= number_with_precision(@evaluation.target_student_input_week, :precision => 2) %>
+						</p>
+					</div>
+					<div class="col-md-4 col text-center" id="soft-borders">
+						<h3 id="med">
+							Average grade overall
+						</h3>
+						<p id="big">
+							<%= @evaluation.target_teacher_eval_overall %>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-12 target-placehoder">
+					<table class="table table-striped" id="soft-borders" >
+					<thead>
+						<tr>
+							<th>
+								#
+							</th>
+							<th>
+								First entered
+							</th>
+							<th>
+								Target:
+							</th>
+							<th class="text-center">
+								Student Feedback
+							</th>
+							<th class="text-center">
+								Letter Grade
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% count = 0 %>
+						<% @evaluation.targets.newest_first.limit(10).each do |target| %>
+						<tr>
+							<td>
+                <% if policy(target).update? %>
+                    <%= link_to count += 1, edit_target_path(:id => target.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= count += 1 %>
+                <% end %>
+							</td>
+							<td>
+								<% unless target.letter_grade.nil? %>
+                    <% if policy(target).update? %>
+                        <%= link_to (l target.created_at, :format => :short), edit_target_path(:id => target.id, :evaluation_id=>@evaluation.id), remote: true%>
+                    <% else %>
+                        <%= l target.created_at, :format => :short %>
+                    <% end %>
+								<% end %>
+							</td>
+							<td>
+                <% if policy(target).update? %>
+                    <%= link_to target.description, edit_target_path(:id => target.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= target.description %>
+                <% end %>
+							</td>
+							<td class="text-center">
+                <% if policy(target).update? %>
+                    <%= link_to target.student_input, edit_target_path(:id => target.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= target.student_input %>
+                <% end %>
+							</td>
+							<td class="text-center">
+								<% unless target.letter_grade.nil? %>
+                    <% if policy(target).update? %>
+                        <%= link_to target.letter_grade, edit_target_path(:id => target.id, :evaluation_id=>@evaluation.id), remote: true%>
+                    <% else %>
+                        <%= target.letter_grade %>
+                    <% end %>
+                <% end %>
+							</td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

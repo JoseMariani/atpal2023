@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Agency index", agencies_path %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Edit agency", edit_agency_path(:id => @agency.id) %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Show agency", agency_path(:id => @agency.id) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <% if @agency.errors.full_messages.any? %>
+      <% @agency.errors.full_messages.each do |error_message| %>
+          <div class="notice flash-notice margin-top">
+            <%= error_message if @agency.errors.full_messages.first == error_message %><br />
+          </div>
+      <% end %>
+  <% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center" id="margin-bottom">
+        Delete agency
+      </h3>
+    </div>
+  </div>
+  <div class="row" id="soft-borders">
+    <div class="col-md-6" id="soft-borders">
+      <table class="table table-striped" id="margin-top">
+        <tr>
+          <th>name</th>
+          <td><%= @agency.name %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h3>
+        Are you sure you want to delete <%= @agency.name %>?
+      </h3>
+      <p id="margin-top">
+        <%= form_for(:agency, :url => agency_path(:id => @agency.id), :html => { :method => :delete }) do |f| %>
+
+            <%= submit_tag("Delete agency", :class=>"btn btn-danger") %>
+
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>

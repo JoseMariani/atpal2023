@@ -1,0 +1,23 @@
+<div class="form-group field col-xs-12">
+	<div class="">
+		<%= f.label(:date, "Date of entry")%>
+		<%= f.text_field(:date, :class=>"form-control", :id=>"quiz_edit_date") %>
+	</div>
+	
+	<div class="">
+		<%= f.label(:chapter, "Chapter")%>
+		<%= f.text_field(:chapter, :class=>"form-control", :id=>"quiz_chapter") %>
+	</div>
+	
+	<div class="">
+		<%= f.label(:grade_percentage, "Grade %")%>
+		<%= f.text_field(:grade_percentage, :class=>"form-control", :id=>"quiz_grade") %>
+	</div>
+</div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "A", :id=>"quiz_letter_a" %> <%= f.label :letter_grade, "A"%></div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "B", :id=>"quiz_letter_b" %> <%= f.label :letter_grade, "B"%></div>
+
+<div class="col-xs-12"><%= f.radio_button :letter_grade, "C", :id=>"quiz_letter_c" %> <%= f.label :letter_grade, "C"%></div>
+<div class="col-xs-12"><label for="quiz[letter_grade]" class="error" style="display:none;">Please choose one.</label></div>

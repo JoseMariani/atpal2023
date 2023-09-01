@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  evaluation_id: 
+  hour: 2016-05-04 14:04:13
+  absent: false
+
+two:
+  evaluation_id: 
+  hour: 2016-05-04 14:04:13
+  absent: false

@@ -1,0 +1,45 @@
+<div class="form-group field col-xs-12">
+	<div class="">
+		<%= f.label(:date, "Date of entry")%>
+		<%= f.text_field(:date, :class=>"form-control", :id=>"sa_date") %>	
+	</div>
+	
+	<div class="">
+		<%= f.label(:description, "Description")%>
+		<%= f.text_field(:description, :class=>"form-control", :id=>"sa_description") %>
+	</div>
+</div>
+
+<div class="col-xs-3">Research</div>
+
+<div class="col-xs-3"><%= f.radio_button :research_grade, "A", :id=>"sar_a" %> <%= f.label :research, "A"%></div>
+
+<div class="col-xs-3"><%= f.radio_button :research_grade, "B", :id=>"sar_b" %> <%= f.label :research, "B"%></div>
+
+<div class="col-xs-3"><%= f.radio_button :research_grade, "C", :id=>"sar_c" %> <%= f.label :research, "C"%></div>
+<div class="col-xs-12"><label for="special_activity[research_grade]" class="error" style="display:none;">Please choose one.</label></div>
+
+<div class="col-xs-3">Presentation</div>
+
+<div class="col-xs-3"><%= f.radio_button :presentation_grade, "A", :id=>"sap_a" %> <%= f.label :presentation, "A"%></div>
+
+<div class="col-xs-3"><%= f.radio_button :presentation_grade, "B", :id=>"sap_b" %> <%= f.label :presentation, "B"%></div>
+
+<div class="col-xs-3"><%= f.radio_button :presentation_grade, "C", :id=>"sap_c" %> <%= f.label :presentation, "C"%></div>
+<div class="col-xs-12"><label for="special_activity[presentation_grade]" class="error" style="display:none;">Please choose one.</label></div>
+<div class="col-xs-3">Written</div>
+
+<div class="col-xs-3"><%= f.radio_button :written_grade, "A", :id=>"saw_a" %> <%= f.label :written, "A"%></div>
+
+<div class="col-xs-3"><%= f.radio_button :written_grade, "B", :id=>"saw_b" %> <%= f.label :written, "B"%></div>
+
+<div class="col-xs-3"><%= f.radio_button :written_grade, "C", :id=>"saw_c" %> <%= f.label :written, "C"%></div>
+<div class="col-xs-12"><label for="special_activity[written_grade]" class="error" style="display:none;">Please choose one.</label></div>
+<div class="col-xs-3">Overall</div>
+
+<div class="col-xs-3"><%= f.radio_button :letter_grade, "A", :id=>"sa_a" %> <%= f.label :letter_grade, "A"%></div>
+
+<div class="col-xs-3"><%= f.radio_button :letter_grade, "B", :id=>"sa_b" %> <%= f.label :letter_grade, "B"%></div>
+
+<div class="col-xs-3"><%= f.radio_button :letter_grade, "C", :id=>"sa_c" %> <%= f.label :letter_grade, "C"%></div>
+<div class="col-xs-12"><label for="special_activity[letter_grade]" class="error" style="display:none;">Please choose one.</label></div>

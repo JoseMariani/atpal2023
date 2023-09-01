@@ -1,0 +1,4 @@
+$('#sharp_and_smart_<%= @sharp.id %>').html("<%= j render "sharp_and_smarts/sharp_and_smart_row", sns: @sharp %>")
+$('#sns_line_chart').html("<%= j render "sharp_and_smarts/chart_partials/line_chart", charted_sns: @charted_sns %>")
+$('#sns_pie_chart').html("<%= j render "sharp_and_smarts/chart_partials/pie_chart", charted_sns: @charted_sns %>")
+$('#edit_sharp_and_smart_modal_<%= @student.id %>').modal('hide')

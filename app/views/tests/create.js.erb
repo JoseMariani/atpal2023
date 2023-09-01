@@ -1,0 +1,8 @@
+<% if @test.errors.any? %>
+$('.container').html("<div class=\"alert alert-warning fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button><%= @test.errors.full_messages.join(', ') %></div>\n");
+<% else %>
+$('.container').html("<div class=\"alert alert-success fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button>Test created successfully</div>\n");
+<% end %>
+$('.tests').html("<%= j render "tests/test_list" %>")
+$('#new_test_modal').modal('hide')
+$('#new_test_modal').find('form input[type="text"]').val('')

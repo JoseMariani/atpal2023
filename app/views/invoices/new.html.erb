@@ -1,0 +1,19 @@
+<div class="container invoice-forms">
+  <div class="row">
+    <div class="col-md-12 margin-bottom padding-bottom">
+      <h3 class="text-center" value="pro" id="title">Add New Invoice</h3>
+    </div>
+    <%= link_to('Back to student page', student_path(@student.id), class: "student_back_link") %>
+  </div>
+  <div class="row padding-bottom margin-bottom">
+    <div class="col-md-12">
+      <%= form_for(@invoice, :url => student_invoices_path(:student_id => @student.id)) do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Create Invoice", :class => 'btn btn-success', :id=>"create-invoice") %>
+
+      <% end %>
+    </div>
+  </div>
+</div>

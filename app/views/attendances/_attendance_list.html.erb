@@ -1,0 +1,102 @@
+<div class="container-fluid section-white margin-top">
+	<div class="row" id="margin-top">
+		<div class="col-md-12">
+			<div class="col-md-5" id="soft-borders">
+				<h3><%= link_to '<i class="glyphicon glyphicon-plus-sign text-success"></i>'.html_safe, '#new_attendance_modal', 'data-toggle' => 'modal' %>
+					<%= link_to "Attendance", attendances_path(:evaluation_id=>@evaluation.id) %></h3>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-wrap white-text margin-sides" id="soft-borders">
+					<div class="col-md-6 col text-center" id="soft-borders">
+						<h3 class="vertical-align" id="med">
+							Attendance
+						</h3>
+						<p id="big">
+							<%= number_with_precision(@evaluation.overall_grade, :precision => 2) %>
+						</p>
+					</div>
+					<div class="col-md-6 col text-center" id="soft-borders">
+						<h3 id="med">
+							Total Absences
+						</h3>
+						<p class="vertical-align" id="big">
+							<%= @evaluation.absences_count %>
+						</p>
+					</div>
+				</div>
+				<div class="col-md-12 target-placehoder">
+				<table class="table table-striped" id="soft-borders">
+					<thead>
+						<tr>
+							<th>
+								#
+							</th>
+							<th>
+								Date:
+							</th>
+							<th>
+								Status
+							</th>
+							<th>
+								Hour of arrival
+							</th>
+							<th>
+								Attendance
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% count = 0 %>
+						<% @evaluation.attendances.newest_first.limit(10).each do |attendance| %>
+						<tr>
+							<td>
+                <% if policy(attendance).update? %>
+                    <%= link_to count += 1, edit_attendance_path(:id => attendance.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= count += 1 %>
+                <% end %>
+							</td>
+							<td>
+                <% if policy(attendance).update? %>
+                    <%= link_to (l attendance.created_at, :format => :short), edit_attendance_path(:id => attendance.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= l attendance.created_at, :format => :short %>
+                <% end %>
+							</td>
+							<td>
+                <% if policy(attendance).update? %>
+                    <%= link_to attendance.absent, edit_attendance_path(:id => attendance.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= attendance.absent %>
+                <% end %>
+              </td>
+							<td>
+                <% unless attendance.hour.nil? %>
+                    <% if policy(attendance).update? %>
+                        <%= link_to attendance.hour.try(:strftime, '%r'), edit_attendance_path(:id => attendance.id, :evaluation_id=>@evaluation.id), remote: true%>
+                    <% else %>
+                        <%= attendance.hour.try(:strftime, '%r') %>
+                    <% end %>
+                <% end %>
+              </td>
+							<td>
+                <% if policy(attendance).update? %>
+                    <%= link_to attendance.try(:grade).to_s, edit_attendance_path(:id => attendance.id, :evaluation_id=>@evaluation.id), remote: true%>
+                <% else %>
+                    <%= attendance.grade %>
+                <% end %>
+              </td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		

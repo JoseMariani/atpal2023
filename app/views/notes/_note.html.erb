@@ -1,0 +1,7 @@
+<li id="note_<%= note.id %>" class="margin-top">
+  <div class="row soft-borders margin-top margin-bottom padding-top">
+    <p id="note-title" class="col-md-10"><%= note.created_at.to_formatted_s(:long) %> </p>
+    <span class="col-md-2"><%= button_to "Delete",  note_path(:id => note.id, :student_id => @student.id), method: :delete, remote:true, class: "btn btn-danger" %></span>
+    <p id="note-text" class="col-md-12"><%= note.text %></p>
+  </div>
+</li>

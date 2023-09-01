@@ -1,0 +1,199 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 margin-bottom">
+      <h3 class="text-center">
+        Active Students - Assign level
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12 section-white margin-top">
+          <h3 class="margin-bottom">
+            Students starting in the future (must be active to appear)
+          </h3>
+          <%= form_tag edit_multiple_students_path, method: :get do %>
+              <table class="table table-hover margin-top display">
+                <thead>
+                <tr>
+                  <th>
+                  </th>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Starting date
+                  </th>
+                  <th>
+                    End date
+                  </th>
+                  <th>
+                    Age
+                  </th>
+                  <th>
+                    Nationality
+                  </th>
+                  <th>
+                    Gender
+                  </th>
+                  <th>
+                    Level
+                  </th>
+                  <th>
+                    Group
+                  </th>
+                  <th>
+                    Language
+                  </th>
+                  <th>
+                    Status
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @students.select { |student| student.starting_future_study_period? }.each do |student| %>
+                    <tr>
+                      <th>
+                        <%= check_box_tag 'student_ids[]', student.id, false, disabled: student.current_study_period_with_active_eval.nil?, id: "student-id-#{student.id}" %>
+                      </th>
+                      <td>
+                        <%= student.complete_name_cap %>
+                      </td>
+                      <td>
+                        <%= student.study_period_with_active_eval_start_date %>
+                      </td>
+                      <td>
+                        <%= student.study_period_with_active_eval_end_date %>
+                      </td>
+                      <td>
+                        <% if student.age.to_s.empty? %>
+                            <%= student.get_age %>
+                        <% else %>
+                            <%= student.age %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= student.nationality %>
+                      </td>
+                      <td>
+                        <%= student.gender %>
+                      </td>
+                      <td>
+                        <%= student.level.humanize %>
+                      </td>
+                      <td>
+                        <%= student.group.humanize %>
+                      </td>
+                      <td>
+                        <%= student.study_period_with_active_eval_course_language.try(:humanize) %>
+                      </td>
+                      <td>
+                        <%= student.status %>
+                      </td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+              <%= submit_tag "Update Students", class: "mass_edit_update" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12 section-white margin-top">
+          <h3 class="margin-bottom">
+            Students already present (must be active to appear)
+          </h3>
+          <%= form_tag edit_multiple_students_path, method: :get do %>
+              <table class="table table-hover margin-top display">
+                <thead>
+                <tr>
+                  <th>
+                  </th>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Starting date
+                  </th>
+                  <th>
+                    End date
+                  </th>
+                  <th>
+                    Age
+                  </th>
+                  <th>
+                    Nationality
+                  </th>
+                  <th>
+                    Gender
+                  </th>
+                  <th>
+                    Level
+                  </th>
+                  <th>
+                    Group
+                  </th>
+                  <th>
+                    Language
+                  </th>
+                  <th>
+                    Status
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @students.select { |student| student.already_started_study_period? }.each do |student| %>
+                    <tr>
+                      <th>
+                        <%= check_box_tag 'student_ids[]', student.id, false, disabled: student.current_study_period_with_active_eval.nil?, id: "student-id-#{student.id}" %>
+                      </th>
+                      <td>
+                        <%= student.complete_name_cap %>
+                      </td>
+                      <td>
+                        <%= student.study_period_with_active_eval_start_date %>
+                      </td>
+                      <td>
+                        <%= student.study_period_with_active_eval_end_date %>
+                      </td>
+                      <td>
+                        <% if student.age.to_s.empty? %>
+                            <%= student.get_age %>
+                        <% else %>
+                            <%= student.age %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= student.nationality %>
+                      </td>
+                      <td>
+                        <%= student.gender %>
+                      </td>
+                      <td>
+                        <%= student.level.humanize %>
+                      </td>
+                      <td>
+                        <%= student.group.humanize %>
+                      </td>
+                      <td>
+                        <%= student.study_period_with_active_eval_course_language.try(:humanize) %>
+                      </td>
+                      <td>
+                        <%= student.status %>
+                      </td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+              <%= submit_tag "Update Students", class: "mass_edit_update" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

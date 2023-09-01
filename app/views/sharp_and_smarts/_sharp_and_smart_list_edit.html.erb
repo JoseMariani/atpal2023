@@ -1,0 +1,16 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel">Edit Sharp'n Smart</h4>
+    </div>
+    <div class="modal-body">
+      <%= form_for(@sharp, :url => sharp_and_smart_path(:evaluation_id => @evaluation.id, :id => @sharp.id, detail_view: @detail_view), remote:true, :html => {:method => :put, :id=>"sns-form-edit"}) do |f| %>
+          <%= render(:partial => "sharp_and_smarts/edit_form", :locals => {:f => f})%>
+          </div>
+          <div class="modal-footer">
+            <%= submit_tag("Edit Sharp'n Smart", :class => 'btn btn-success', :id=>"edit-sns") %>
+          </div>
+      <% end %>
+      </div>
+</div>

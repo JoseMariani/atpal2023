@@ -1,0 +1,78 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="text-center">
+				Programs Index
+			</h3>
+		</div>
+	</div>
+  <div class="row">
+    <div class="col-md-2 col-center margin-top margin-bottom">
+      <ul class="nav nav-tabs nav-justified red" id="margin-top">
+        <li class="nav-item">
+          <%= link_to "Create Program", new_program_path %>
+        </li>
+      </ul>
+    </div>
+  </div>
+	<div class="row">
+    <div class="col-md-12 margin-top padding-bottom padding-top section-white" id="student-panel soft-borders">
+      <h3 class="header3-bottom margin-bottom">
+        List of programs
+      </h3>
+			<table class="table table-hover margin-top" id="program_table">
+				<thead>
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							Type
+						</th>
+						<th>
+							Number of hours per week
+						</th>
+            <th>
+              Lessons per week
+            </th>
+						<th>
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @count = 0 %>
+					<% @programs.each do |program|%>
+					<tr>
+						<td>
+							<%= @count += 1 %>
+						</td>
+						<td>
+							<%= program.title %>
+						</td>
+						<td>
+							<% if program.hours.nil? %>
+								Not yet assigned
+							<% else %>
+								<% program.hours.each do |hour|%>
+									<%= hour.number %>
+								<% end %>
+							<% end %>
+						</td>
+            <td>
+              <%= program.lessons_per_week %>
+            </td>
+						<td>
+							<%= link_to "Edit program", edit_program_path(program.id) %>
+
+							<%= link_to "Delete program", delete_program_path(program.id) %>
+
+							<%= link_to "Show program",  program_path(program.id) %>
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

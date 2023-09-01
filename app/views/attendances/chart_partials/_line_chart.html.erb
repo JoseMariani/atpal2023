@@ -1,0 +1,10 @@
+<h4 class="text-center header4-bottom">
+  Line Chart
+</h4>
+<% limit = charted_attendances.size > 15? 15 : charted_attendances.size %>
+<%=  line_chart [{name: "Grade", data: charted_attendances.limit(limit).map{|t| [t.created_at, t.grade] }}], library: {vAxis: {
+    viewWindow: {
+        min: -3,
+        max: 110
+    },
+    ticks: [0, 25, 50, 75, 100]}, hAxis: {format: 'dd/MM/yy' }, curveType: 'function', legend: { position: 'right'}} %>

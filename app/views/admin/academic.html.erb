@@ -1,0 +1,64 @@
+<body id="page2">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <%= image_tag "logo3.png", :id=>"center_logo" %>
+          <h3 class="text-center main-title">
+            School Management System
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <%= link_to evaluations_path do %>
+                  <figure class="box fig-adm-aca">
+                    <h4>Academic Profiles</h4>
+                    <div class="ipc">
+                      <%= image_tag "evaluation.png", :id=>"img-format-aca" %>
+                    </div>
+                  </figure>
+              <% end %>
+            </div>
+            <div class="col-md-4">
+              <%= link_to active_students_path do %>
+                  <figure class="box fig-adm-aca">
+                    <h4>Active Students
+                    <p>Change Level</p></h4>
+                    <div class="ipc">
+                      <%= image_tag "active.png", :id=>"img-format-aca" %>
+                    </div>
+                  </figure>
+              <% end %>
+            </div>
+            <div class="col-md-4">
+              <%= link_to digital_tests_path do %>
+                  <figure class="box fig-adm-aca">
+                    <h4>Test files</h4>
+                    <div class="ipc">
+                      <%= image_tag "tests.png", :id=>"img-format-aca" %>
+                    </div>
+                  </figure>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

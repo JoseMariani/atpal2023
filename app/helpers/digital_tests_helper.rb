@@ -1,0 +1,2 @@
+module DigitalTestsHelper
+end

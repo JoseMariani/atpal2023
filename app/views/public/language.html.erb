@@ -1,0 +1,27 @@
+<body id="page2">
+
+<h2 class="text-center main-title"> Languages </h2>
+
+<div class="text-center row">
+
+  <div class="col-md-6 col-xs-12">
+    <%= link_to course_language_group_path(:english) do %>
+      <figure class="box fig-adm-aca">
+        <h4>English</h4>
+        <%= image_tag "flag-round-250.png", :id=>"img-format-main" %>
+      </figure>
+    <% end %>
+  </div>
+
+  <div class="col-md-6 col-xs-12">
+    <%= link_to course_language_group_path(:french) do %>
+      <figure class="box fig-adm-aca">
+        <h4>French</h4>
+        <%= image_tag "lys.png", :id=>"img-format-main" %>
+      </figure>
+    <% end %>
+  </div>
+
+</div>
+
+</body>

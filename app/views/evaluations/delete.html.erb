@@ -1,0 +1,7 @@
+<% if @evaluation.errors.full_messages.any? %>
+    <% @evaluation.errors.full_messages.each do |error_message| %>
+        <div class="notice flash-notice margin-top">
+          <%= error_message if @evaluation.errors.full_messages.first == error_message %><br />
+        </div>
+    <% end %>
+<% end %>

@@ -1,0 +1,4 @@
+$('#automatization_<%= @automatization.id %>').html("<%= j render "automatizations/automatization_row", automatization: @automatization %>")
+$('#automatization_grade_flow_chart').html("<%= j render "automatizations/chart_partials/grade_flow_chart", charted_automatizations: @charted_automatizations %>")
+$('#automatization_pie_chart').html("<%= j render "automatizations/chart_partials/pie_chart", charted_automatizations: @charted_automatizations %>")
+$('#edit_automatization_modal_<%= @student.id %>').modal('hide')

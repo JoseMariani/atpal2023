@@ -1,0 +1,17 @@
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		    <h4 class="modal-title" id="myModalLabel">Edit Special Activity</h4>
+		  </div>
+		  <div class="modal-body">
+	      	<%= form_for(:special_activity, :url => special_activity_path(:evaluation_id => @evaluation.id), remote:true, :html => {:method => :put, :id =>"edit_special_activity_form"}) do |f| %>
+	        	<%= render(:partial => "special_activities/edit_form", :locals => {:f => f})%>
+	      </div>
+	      <div class="modal-footer">
+	        <%= submit_tag("Edit Special Activity", :class => 'btn btn-success', :id=>"update_special_activity") %>
+	      </div>
+	      <% end %>
+	</div>
+</div>
+

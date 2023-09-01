@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_date: 2017-07-17
+  end_date: 2017-07-17
+  duration_weeks: 1
+  week_programs_hours: 1
+  total_hours: 1
+  program_id: 
+  total_amount: MyString
+  balance: MyString
+  documents_sent: MyString
+  arrival_date: 2017-07-17
+  certified_issued: MyString
+  course_language: MyString
+  accommodation_id: 
+  adulthood_id: 
+  student_id: 
+  entire_stay_duration: 1
+  program_cost: 1
+  cetificate_picture: MyString
+  accommodation_duration: 
+  week_program_range: 1
+  program_total: 
+  program_total: 
+  accommodation_total7: MyString
+  accommodation_total2: MyString
+  itinerary: MyString
+
+two:
+  start_date: 2017-07-17
+  end_date: 2017-07-17
+  duration_weeks: 1
+  week_programs_hours: 1
+  total_hours: 1
+  program_id: 
+  total_amount: MyString
+  balance: MyString
+  documents_sent: MyString
+  arrival_date: 2017-07-17
+  certified_issued: MyString
+  course_language: MyString
+  accommodation_id: 
+  adulthood_id: 
+  student_id: 
+  entire_stay_duration: 1
+  program_cost: 1
+  cetificate_picture: MyString
+  accommodation_duration: 
+  week_program_range: 1
+  program_total: 
+  program_total: 
+  accommodation_total7: MyString
+  accommodation_total2: MyString
+  itinerary: MyString

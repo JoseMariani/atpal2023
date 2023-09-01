@@ -1,0 +1,530 @@
+<body id="page1">
+<div class="container">
+  <span style="float: right"><%= link_to 'To PDF', student_pro_forma_path(student_id: @pro_forma.student.id, id: @pro_forma.id, :format => :pdf), :class =>'btn btn-danger btn-inverse' %></span>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4">
+          <%= image_tag('logo3.png', class: 'statement_logo') %>
+        </div>
+        <div class="col-md-4">
+          <h3 class="horizontal_align">
+            <span class="statement_title ntailu">STUDENT</span> <span class="statement_title ntailub">PRO FORMA</span>
+          </h3>
+        </div>
+        <div class="col-md-4 statement_date ntailu">
+          <p>
+            Date: <%= l @pro_forma.created_at.to_date, :format => :long %>
+          </p>
+          <p>
+            <% if @pro_forma.date_of_validity.nil? %>
+                Pro forma valid until: Date not set
+            <% else %>
+                Pro forma valid until: <%= @pro_forma.date_of_validity.to_formatted_s(:long) %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="">
+        <span class="statement_subtitle ntailu">Student</span> <span class="statement_subtitle ntailub">Details</span>
+      </h3>
+      <div class="row">
+        <div class="col-md-12 dotted-border">
+          <table class="table no-row-borders paragraph_letter ntailu small-vertical-margin" id="">
+            <tbody>
+            <tr id="row">
+              <div class="col-md-12">
+                <td class="col-md-2">
+                  Name:
+                </td>
+                <td class="col-md-2">
+                  <%= @pro_forma.student.first_name %> <%= @pro_forma.student.last_name %>
+                </td>
+                <td class="col-md-2">
+
+                </td>
+                <td class="col-md-2">
+
+                </td>
+                <td class="col-md-2">
+                  Agent:
+                </td>
+                <td class="col-md-2">
+                  <% if @pro_forma.agency.nil? or @pro_forma.agency.name == "" %>
+                      "None"
+                  <% else %>
+                      <%= @pro_forma.agency.name %>
+                  <% end %>
+                </td>
+              </div>
+            </tr>
+            <tr>
+              <td>
+                Nationality:
+              </td>
+              <td>
+                <%= @pro_forma.student.nationality %>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                Mobile:
+              </td>
+              <td>
+                <%= @pro_forma.student.phone_number %>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                E-mail:
+              </td>
+              <td>
+                <%= @pro_forma.student.email_address %>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row margin-top">
+    <div class="col-md-12">
+      <h3>
+        <span class="statement_subtitle ntailu">Nationality</span>
+        <span class="statement_subtitle ntailub">Special Promotion</span>
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 dotted-border">
+      <table class="table no-row-borders paragraph_letter ntailu small-vertical-margin" id="">
+        <tbody>
+        <% @promo_count = 0 %>
+        <% @pro_forma.promos.each do |promo| %>
+            <% @promo_count += 1 %>
+            <tr class="small-vertical-margin" id="">
+              <td>
+                <% if promo.type_of_promo == "Special rebate" %>
+                    <%= content_tag(:strong, :class=>"special-promo") do %>
+                        Special Promotion <%= @promo_count %>
+                    <% end %>
+                <% else %>
+                    Promotion <%= @promo_count %>
+                <% end %>
+              </td>
+              <td>
+                <% if promo.type_of_promo == "Special rebate" %>
+                    <%= content_tag(:strong, :class=>"special-promo") do %>
+                        <%= simple_format(promo.description) %>
+                    <% end %>
+                <% else %>
+                    <%= simple_format(promo.description) %>
+                <% end %>
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                Valid until:
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+                <% if promo.valid_until.nil? %>
+
+                <% else %>
+                    <%= promo.valid_until.to_formatted_s(:long) %>
+                <% end %>
+              </td>
+            </tr>
+        <% end %>
+        <% @pro_forma.fixed_duration_programs.each do |fdp| %>
+            <% fdp.promos.each do |promo| %>
+                <% @promo_count += 1 %>
+                <tr id="row">
+                  <td>
+                    <% if promo.type_of_promo == "Special rebate" %>
+                        <%= content_tag(:strong, :class=>"special-promo") do %>
+                            Special Promotion <%= @promo_count %>
+                        <% end %>
+                    <% else %>
+                        Promotion <%= @promo_count %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if promo.type_of_promo == "Special rebate" %>
+                        <%= content_tag(:strong, :class=>"special-promo") do %>
+                            <%= simple_format(promo.description) %>
+                        <% end %>
+                    <% else %>
+                        <%= simple_format(promo.description) %>
+                    <% end %>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    Valid until:
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <% if promo.valid_until.nil? %>
+
+                    <% else %>
+                        <%= promo.valid_until.to_formatted_s(:long) %>
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row margin-bottom">
+    <div class="col-md-6 note_letter small-vertical-margin">
+      <p>
+        Registration must be received before the validity date
+      </p>
+      <p>
+        *Promotion applicable to Intensive Training only
+      </p>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row margin-top margin-bottom-40">
+    <div class="col-md-12 dotted-border">
+      <table class="table no-row-borders paragraph_letter ntailu small-vertical-margin" id="margin-top">
+        <tbody>
+        <% @program_count = 0 %>
+        <tr id="row">
+          <td>
+            <strong>Program <%= @program_count += 1 %></strong>
+          </td>
+          <td>
+            <% if !@pro_forma.program.nil? %>
+                <p><%= @pro_forma.program.title %></p>
+                <% @pro_forma.program.hours.each do |hour| %>
+                    <p><%= hour.number %> / <%= @pro_forma.program.lessons_per_week %> lessons per week</p>
+                <% end %>
+            <% else %>
+                <p>Program not chosen</p>
+            <% end %>
+          </td>
+          <td></td>
+          <td></td>
+          <td>
+            Duration:
+          </td>
+          <td>
+            <%= @pro_forma.entire_stay_duration %> weeks
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Timetable:</strong>
+          </td>
+          <td>
+            <%= @pro_forma.program.time_table %>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% @pro_forma.fixed_duration_programs.each do |fdp| %>
+            <tr id="row">
+              <td>
+                <strong>Program <%= @program_count += 1 %></strong>
+              </td>
+              <td>
+                <p><%= fdp.name %></p>
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+                Duration:
+              </td>
+              <td>
+                <%= fdp.duration_weeks %> weeks
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>Timetable:</strong>
+              </td>
+              <td>
+                <%= fdp.time_table %>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row margin-top">
+    <div class="col-md-12 dotted-border no-padding-sides">
+      <table class="table table-bordered paragraph_letter no-margin-bottom">
+        <thead>
+        <tr>
+          <th>
+            Description
+          </th>
+          <th>
+            Program / weeks
+          </th>
+          <th>
+            Price per unit
+          </th>
+          <th>
+            Special Promotion
+          </th>
+          <th>
+            Total
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <% if !@pro_forma.program.nil? %>
+                <%= @pro_forma.program.title %>
+            <% else %>
+                <p>Program not chosen</p>
+            <% end %>
+          </td>
+          <td>
+            <%= @pro_forma.duration_weeks %>
+          </td>
+          <td>
+            <% if !@pro_forma.program.nil? %>
+                <%= to_cad(number_with_precision(@pro_forma.post_rebate_program_cost, :precision =>2)) %>
+            <% else %>
+                <p>Program not chosen</p>
+            <% end %>
+          </td>
+          <td class="no-padding">
+            <table class="table no-margin-bottom" width="100%">
+              <tbody>
+              <% @sum = 0 %>
+              <% @i = 0%>
+              <% @pro_forma.promos.where(:type_of_promo => "rebate").each do |promo| %>
+                  <% @i += 1%>
+                  <tr>
+                    <td id="">
+                      <%= promo.percentage %>%
+                    </td>
+                    <td id="">
+                      <% if @i == 1 %>
+                          <% @sum = @pro_forma.rebate_result(@pro_forma.post_rebate_program_cost, promo.number)%>
+                          <%= number_with_precision(@pro_forma.rebate_result(@pro_forma.post_rebate_program_cost, promo.number).to_f, :precision => 2) %>
+                      <% else %>
+                          <%= number_with_precision(@pro_forma.rebate_result(@sum, promo.number).to_f, :precision => 2) %>
+                          <% @sum = @pro_forma.rebate_result(@sum, promo.number) %>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+              <% @sum = 0 %>
+              <% @i = 0%>
+              <% @pro_forma.promos.where(:type_of_promo => "Special rebate").each do |promo| %>
+                  <% @i += 1%>
+                  <tr>
+                    <td id="soft-borders">
+                      <%= content_tag(:strong, :class=>"special-promo") do %>
+                          <%= promo.percentage %>%
+                      <% end %>
+                    </td>
+                    <td id="soft-borders">
+                      <%= content_tag(:strong, :class=>"special-promo") do %>
+                          <% if @i == 1 %>
+                              <% @sum = @pro_forma.rebate_result(@pro_forma.post_rebate_program_cost, promo.number)%>
+                              <%= number_with_precision(@pro_forma.rebate_result(@pro_forma.post_rebate_program_cost, promo.number).to_f, :precision => 2) %>
+                          <% else %>
+                              <%= number_with_precision(@pro_forma.rebate_result(@sum, promo.number).to_f, :precision => 2) %>
+                              <% @sum = @pro_forma.rebate_result(@sum, promo.number) %>
+                          <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </td>
+          <td>
+            <%= to_cad(@pro_forma.program_total.round.to_f) %>
+          </td>
+        </tr>
+        <% @pro_forma.fixed_duration_programs.each do |fdp| %>
+            <tr>
+              <td>
+                <%= fdp.name %>
+              </td>
+              <td>
+                <%= fdp.duration_weeks %>
+              </td>
+              <td>
+                <%= to_cad(number_with_precision(fdp.cost, :precision =>2)) %>
+              </td>
+              <td class="no-padding">
+                <table class="table no-margin-bottom" width="100%">
+                  <tbody>
+                  <% @sum = 0 %>
+                  <% @i = 0%>
+                  <% fdp.promos.where(:type_of_promo => "rebate").each do |promo| %>
+                      <% @i += 1%>
+                      <tr>
+                        <td id="soft-borders">
+                          <%= promo.percentage %>%
+                        </td>
+                        <td id="soft-borders">
+                          <% if @i == 1 %>
+                              <% @sum = @pro_forma.rebate_result(fdp.cost, promo.number)%>
+                              <%= number_with_precision(@pro_forma.rebate_result(fdp.cost, promo.number).to_f, :precision => 2) %>
+                          <% else %>
+                              <%= number_with_precision(@pro_forma.rebate_result(@sum, promo.number).to_f, :precision => 2) %>
+                              <% @sum = @pro_forma.rebate_result(@sum, promo.number) %>
+                          <% end %>
+                        </td>
+                      </tr>
+                  <% end %>
+                  <% @sum = 0 %>
+                  <% @i = 0%>
+                  <% fdp.promos.where(:type_of_promo => "Special rebate").each do |promo| %>
+                      <% @i += 1%>
+                      <tr>
+                        <td id="soft-borders">
+                          <%= content_tag(:strong, :class=>"special-promo") do %>
+                              <%= promo.percentage %>%
+                          <% end %>
+                        </td>
+                        <td id="soft-borders">
+                          <%= content_tag(:strong, :class=>"special-promo") do %>
+                              <% if @i == 1 %>
+                                  <% @sum = @pro_forma.rebate_result(fdp.cost, promo.number)%>
+                                  <%= number_with_precision(@pro_forma.rebate_result(fdp.cost, promo.number).to_f, :precision => 2) %>
+                              <% else %>
+                                  <%= number_with_precision(@pro_forma.rebate_result(@sum, promo.number).to_f, :precision => 2) %>
+                                  <% @sum = @pro_forma.rebate_result(@sum, promo.number) %>
+                              <% end %>
+                          <% end %>
+                        </td>
+                      </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </td>
+              <td>
+                <%= to_cad(fdp.price_after_promotions) %>
+              </td>
+            </tr>
+        <% end %>
+        <% if @pro_forma.accommodation.present? && @pro_forma.accommodation.type_of_accommodation != "None" %>
+            <tr>
+              <td>
+                <%= @pro_forma.accommodation.type_of_accommodation %> from <%= @pro_forma.start_date_accommodation %> to <%= @pro_forma.end_date_accommodation %>
+              </td>
+              <td>
+                <%= @pro_forma.accommodation_duration %>
+              </td>
+              <td>
+                <%= to_cad(number_with_precision(@pro_forma.accommodation.cost, :precision =>2)) %>
+              </td>
+              <td>
+              </td>
+              <td>
+                <%= to_cad(number_with_precision(@pro_forma.accommodation_total, :precision =>2)) %>
+              </td>
+            </tr>
+        <% end %>
+        <% @pro_forma.items.each do |item| %>
+            <tr>
+              <td>
+                <%= item.name %>
+              </td>
+              <td>
+                <%= item.quantity %>
+              </td>
+              <td>
+                C$ <%= number_with_precision(item.price_per_unit, :precision =>2) %>
+              </td>
+              <td>
+              </td>
+              <td>
+                C$ <%= number_with_precision(item.total, :precision =>2) %>
+              </td>
+            </tr>
+        <% end %>
+        <% if @pro_forma.insurance.present? %>
+            <tr>
+              <td>
+                <%= @pro_forma.insurance.name %> from <%= @pro_forma.start_date_insurance %> to <%= @pro_forma.end_date_insurance %>
+              </td>
+              <td>
+                <%= @pro_forma.insurance_cover_period %>
+              </td>
+              <td>
+                C$ <%= number_with_precision(@pro_forma.insurance.cost, :precision =>2) %>
+              </td>
+              <td>
+              </td>
+              <td>
+                C$ <%= number_with_precision(@pro_forma.insurance_cost, :precision =>2) %>
+              </td>
+            </tr>
+        <% end %>
+        <tr>
+          <td>
+            <strong>Total</strong>
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+          <td>
+            <%= to_cad(number_with_precision(@pro_forma.total_amount, :precision =>2)) %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>

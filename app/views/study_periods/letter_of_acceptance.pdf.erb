@@ -1,0 +1,212 @@
+<body id="page1">
+<div class="container width-eighty">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-4">
+          <%= wicked_pdf_image_tag 'logo3.png', {:size => '179x115', :align => 'left'} %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-11">
+      <p class="pdf_letter_subtitle font-open-sans text-align-right">
+        Montreal <%= l Time.now.to_date, :format => :long %>
+      </p>
+    </div>
+    <div class="col-xs-1">
+
+    </div>
+  </div>
+  <div class="row margin-top">
+    <div class="col-xs-3">
+
+    </div>
+    <div class="col-xs-6">
+      <p class="text-center pdf_letter_subtitle font-open-sans">
+        Accredited by the Government of Quebec </br>
+        Accreditation Number 99-06-2376
+      </p>
+    </div>
+    <div class="col-xs-3">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 pdf-letter-sub-title font-open-sans text-center">
+      LETTER OF ACCEPTANCE
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1">
+
+    </div>
+    <div class="col-xs-10 pdf_paragraph_letter_acceptance font-open-sans ">
+      We hereby certify that the person identified below is registered in this school and
+      admitted as a regular student in a <%= get_full_or_part_time(@study_period) %> <%= get_course(@study_period) %>
+      <%= get_program_hours(@study_period) %> session.
+    </div>
+    <div class="col-xs-1">
+
+    </div>
+  </div>
+  <div class="row margin-top">
+    <div class="col-xs-1">
+
+    </div>
+    <div class="col-xs-10 pdf_paragraph_letter_acceptance font-open-sans">
+      <table>
+        <tbody>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Name of Student:
+            </td>
+            <td class="col-xs-8">
+              <%= @student.first_name %> <%= @student.last_name %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Date of Birth:
+            </td>
+            <td class="col-xs-8">
+              <%= @student.date_of_birth %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Nationality:
+            </td>
+            <td class="col-xs-8">
+              <%= @student.nationality %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Gender:
+            </td>
+            <td class="col-xs-8">
+              <%= @student.gender %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Institution:
+            </td>
+            <td class="col-xs-8">
+              ATPAL Westminster
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Registration #:
+            </td>
+            <td class="col-xs-8">
+              <%= @student.try(:student_id) %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4 address-vertical-align">
+               Address:
+            </td>
+            <td class="col-xs-8">
+              1117 St. Catherine W, Suite 507 Montreal, Qc H3B 1H9. (514) 840 9075
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Name of Program:
+            </td>
+            <td class="col-xs-8">
+              <%= get_name_of_program(@study_period) %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Type of Program:
+            </td>
+            <td class="col-xs-8">
+              <%= get_type_of_program(@study_period) %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Program Start Date:
+            </td>
+            <td class="col-xs-8">
+              <%= @study_period.start_date %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Program End Date:
+            </td>
+            <td class="col-xs-8">
+              <%= @study_period.end_date %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Total weeks:
+            </td>
+            <td class="col-xs-8">
+              <%= @study_period.try(:duration_weeks) %>
+            </td>
+          </div>
+        </tr>
+        <tr id="row">
+          <div class="col-xs-12">
+            <td class="col-xs-4">
+              Total hours:
+            </td>
+            <td class="col-xs-8">
+              <%= @study_period.try(:total_hours) %>
+            </td>
+          </div>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-1">
+
+    </div>
+  </div>
+  <div class="row margin-top-signature">
+    <div class="col-xs-1">
+    </div>
+    <p class="col-xs-11 pdf_letter_subtitle font-open-sans">
+      <%= wicked_pdf_image_tag 'https://s3.us-east-2.amazonaws.com/school-management-system-develop/photos/atpal_signature.png', {:size => '169x105', :align => 'left'} %>
+    </p>
+    <div class="col-xs-1">
+    </div>
+    <p class="col-xs-11 pdf_letter_subtitle font-open-sans">
+      Carolina Cook </br>
+      Director
+    </p>
+  </div>
+</div>
+</body>

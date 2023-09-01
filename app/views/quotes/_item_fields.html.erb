@@ -1,0 +1,20 @@
+<div class="nested-fields">
+	<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th><%= f.label(:name, "Name")%></th>
+        <th><%= f.label(:quantity, "Quantity")%></th>
+        <th><%= f.label(:price_per_unit, "Price per unit")%></th>
+        <th><%= f.label(:total, "Total")%></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= f.text_field(:name, :class=>"form-control item_name", :id=>"name") %></td>
+        <td><%= f.text_field(:quantity, :class=>"form-control item_quantity", :id=>"quantity") %></td>
+        <td><%= f.text_field(:price_per_unit, :class=>"form-control item_price", :id=>"precio") %></td>
+        <td><%= f.text_field(:total, :class=>"form-control total", :id=>"total") %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

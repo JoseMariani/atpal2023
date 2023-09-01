@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="col-xs-12"  id="create-button">
+    <h2>Delete User</h2>
+
+    <%= form_for(:user, :url => user_path, :html => { :method => :delete }) do |f| %>
+        <table class ="table table-bordered table-hover margin-top margin-bottom" summary="Subject detail view">
+          <tr>
+            <th>First Name</th>
+            <td><%= @user.first_name %><td>
+          </tr>
+          <tr>
+            <th>Last Name</th>
+            <td><%= @user.last_name %><td>
+          </tr>
+          <tr>
+            <th>User Name</th>
+            <td><%= @user.user_name %><td>
+          </tr>
+        </table>
+
+        <div class="form-buttons pad">
+          <p id="user">Are you sure you want to delete the above user</p>
+          <%= submit_tag("Delete user" , :id=> 'submit-cancel-user-devide', :class=>"btn btn-danger") %>
+        </div>
+    <% end %>
+  </div>
+</div>

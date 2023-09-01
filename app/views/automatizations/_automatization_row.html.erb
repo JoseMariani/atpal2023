@@ -1,0 +1,31 @@
+<td>
+  <%= (l automatization.created_at.to_date, :format => :long) %>
+</td>
+<td>
+  <%= (l automatization.date, :format => :long) %>
+</td>
+<td>
+  <%= automatization.description %>
+</td>
+<td>
+  <%= automatization.letter_grade %>
+</td>
+<td>
+  <% if policy(:automatization).edit? %>
+  <div class="col-md-12">
+    <%= link_to "Edit", edit_automatization_path(:id => automatization.id, :evaluation_id=>@evaluation.id, detail_view: 1),
+                remote: true, class: "btn btn-default link-justify-absence", title: t('justify_absence'), 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+
+  </div>
+  <% end %>
+</td>
+<div class="modal fade" id="edit_automatization_modal_<%= automatization.evaluation.study_period.student.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Automatization</h4>
+      </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<% if @attendance.errors.any? %>
+$('.container').html("<div class=\"alert alert-warning fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button><%= @attendance.errors.full_messages.join(', ') %></div>\n");
+<% else %>
+$('.container').html("<div class=\"alert alert-success fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button>Attendance updated successfully for <%= @student.first_name %></div>\n");
+<% end %>
+$('#student_<%= @student.id %>').html("<%= j render "attendances/attendance_table", student: @student %>")
+$('#edit_attendance_modal_<%= @student.id %>').modal('hide')

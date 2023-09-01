@@ -1,0 +1,65 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="text-center">
+				Quotes Index
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 margin-top padding-bottom padding-top section-white" id="student-panel soft-borders">
+      <h3 class="header3-bottom margin-bottom">
+        List of Quotes
+      </h3>
+			<table class="table table-hover" id="program_table">
+				<thead>
+					<tr>
+						<th>
+							Student Name
+						</th>
+						<th>
+							Student Nationality
+						</th>
+            <th>
+              Date of creation
+            </th>
+						<th>
+							Valid until
+						</th>
+						<th>
+							Total
+						</th>
+            <th>
+              Actions
+            </th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @quotes.each do |quote| %>
+					<tr>
+						<td>
+							<%= link_to quote.student.complete_name_cap, student_quote_path(student_id: quote.student.id, id: quote.id) %>
+						</td>
+						<td>
+							<%= quote.student.nationality %>
+						</td>
+            <td>
+              <%= l quote.created_at, :format => :long %>
+            </td>
+						<td>
+							<%= quote.date_of_validity %>
+						</td>
+						<td>
+							<%= to_cad(number_with_precision(quote.total_amount, :precision => 2)) %>
+						</td>
+            <td>
+              <%= link_to 'Delete', delete_statement_path(quote.id) %>
+              <%= link_to 'Load configuration', load_config_student_quote_path(student_id: quote.student.id, id: quote.id) %>
+            </td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

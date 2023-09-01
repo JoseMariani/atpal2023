@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Add new Region
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(:region, :url => regions_path, :html => {:class=>"regions_id"}) do |f| %>
+
+          <%= render(:partial => "form", :locals => {:f => f})%>
+
+          <%= submit_tag("Add region", :class => 'btn btn-success')%>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+

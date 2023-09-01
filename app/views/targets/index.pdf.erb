@@ -1,0 +1,25 @@
+<h3 class="text-center font-open-sans">
+  Target Report for <%= @evaluation.study_period.student.first_name%> <%= @evaluation.study_period.student.last_name%>
+</h3>
+            <div class="margin-top">
+              <h5 class="text-center">
+                Line Chart
+              </h5>
+              <%= line_chart [{name: "Grade", data: @targets.map{|t| [t.date, human_abc(t.letter_grade)] }},
+                              {name: "Student Input", data: @targets.map{|t| [t.date, t.student_input] }}], width: '1230px', height: '195px', library: {vAxis: {
+                  viewWindow: {
+                      min: 0,
+                      max: 105
+                  },
+                  ticks: [0, 25, 50, 75, 100]}, hAxis: {format: 'dd/MM/yy' }, curveType: 'function', legend: { position: 'right'}} %>
+            </div>
+            <footer class="col-md-offset-1">
+              <p>Grade: A = 90-100, B = 75-89, C = < 75</p>
+            </footer>
+            <div class="margin-top">
+              <h5 class="text-center">
+                Pie Chart
+              </h5>
+              <%= pie_chart @targets.group(:letter_grade).count, width: '1230px', height: '195px', library: {legend: {position: 'bottom', textStyle: {color: 'black', fontSize: 14}},
+                                                                           colors: ['#729f98', '#aa863a', '#e6af4b', '#bcd5d1', '#f6c7b6']} %>
+            </div>

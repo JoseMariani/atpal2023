@@ -1,0 +1,8 @@
+<% if @special_activity.errors.any? %>
+$('.container').html("<div class=\"alert alert-warning fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button><%= @special_activity.errors.full_messages.join(', ') %></div>\n");
+<% else %>
+$('.container').html("<div class=\"alert alert-success fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button>Special Activity created successfully</div>\n");
+<% end %>
+$('.special_activities').html("<%= j render "special_activities/special_activity_list" %>")
+$('#new_activity_modal').modal('hide')
+$('#new_activity_modal').find('form input[type="text"]').val('')

@@ -1,0 +1,37 @@
+<td>
+  <%= (l attendance.created_at.to_date, :format => :long) %>
+</td>
+<td>
+  <%= attendance.hour.try(:strftime, '%r') %>
+</td>
+<td>
+  <%= attendance.absent.titleize %>
+</td>
+<td>
+  <%= attendance.grade %>
+</td>
+<td>
+  <% if policy(:attendance).edit? %>
+  <div class="col-md-12">
+    <%= link_to "Edit", edit_attendance_path(:id => attendance.id, :evaluation_id=>@evaluation.id, detail_view: 1),
+                remote: true, class: "btn btn-default link-justify-absence", title: t('justify_absence'), 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+
+  </div>
+  <% end %>
+  <% if policy(:attendance).justify_absence? %>
+  <div class="col-md-12">
+    <%= link_to "Justify Absence", justify_absence_attendance_path(evaluation_id: @evaluation.id, id: attendance.id),
+                remote: true, method: :patch, class: "btn btn-warning link-justify-absence", title: t('justify_absence'), 'data-toggle' => 'tooltip', 'data-placement' => 'top' %>
+  </div>
+  <% end %>
+</td>
+<div class="modal fade" id="edit_attendance_modal_<%= attendance.evaluation.study_period.student.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Edit Attendance</h4>
+      </div>
+    </div>
+  </div>
+</div>

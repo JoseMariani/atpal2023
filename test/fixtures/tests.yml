@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  evaluation_id: 
+  date: 2016-05-04
+  level: MyString
+  letter_grade: MyString
+  grade_percentage: 9.99
+
+two:
+  evaluation_id: 
+  date: 2016-05-04
+  level: MyString
+  letter_grade: MyString
+  grade_percentage: 9.99

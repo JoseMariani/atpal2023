@@ -1,0 +1,45 @@
+
+<div class="nested-fields">
+    <div class="section-white inner-padding margin-bottom">
+      <h5 class="header5-bottom margin-bottom">Contact</h5>
+    <div class="field">
+      <%= f.label(:name, "First name")%>
+      </br>
+      <%= f.text_field(:name, :class=>"form-control") %>
+    </div>
+
+    <div class="field">
+      <%= f.label(:last_name, "Last name")%>
+      </br>
+      <%= f.text_field(:last_name, :class=>"form-control") %>
+    </div>
+
+    <div class="field">
+      <%= f.label(:email_address, "Email")%>
+      </br>
+      <%= f.text_field(:email_address, :class=>"form-control") %>
+    </div>
+
+    <div class="field">
+      <%= f.label(:phone_number, "Phone number")%>
+      </br>
+      <%= f.text_field(:phone_number, :class=>"form-control") %>
+    </div>
+
+    <div class="field">
+      <%= f.label(:position, "Position")%>
+      </br>
+      <%= f.text_field(:position, :class=>"form-control") %>
+    </div>
+
+    <div class="field">
+      <%= f.label(:branch, "Branch")%>
+      </br>
+      <%= f.text_field(:branch, :class=>"form-control") %>
+    </div>
+
+      <div class="padding-bottom">
+      <%= link_to_remove_association "Remove", f, class: "btn btn-danger margin-top" %>
+      </div>
+  </div>
+</div>

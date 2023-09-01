@@ -1,0 +1,68 @@
+<td class="center-vertically-table-cell empty-table-cell"><%= student.complete_name_cap %></td>
+<% if student.latest_target.blank? %>
+    <td class="center-vertically-table-cell empty-table-cell empty-td">
+      No targets recorded
+    </td>
+    <td class="empty-table-cell empty-td">
+    </td>
+    <td class="empty-table-cell empty-td">
+    </td>
+    <td class="empty-table-cell empty-td">
+    </td>
+<% else %>
+    <td class="center-vertically-table-cell empty-td">
+      <% unless student.latest_target.letter_grade.nil? %>
+          <% if policy(student.latest_target).update? %>
+              <%= link_to (l student.latest_target.created_at, :format => :short), edit_target_path(:id => student.latest_target.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+          <% else %>
+              <%= l student.latest_target.created_at, :format => :short %>
+          <% end %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell empty-td">
+      <% if policy(student.latest_target).update? %>
+          <%= link_to student.latest_target.description, edit_target_path(:id => student.latest_target.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+      <% else %>
+          <%= student.latest_target.description %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell empty-td">
+      <% if policy(student.latest_target).update? %>
+          <%= link_to student.latest_target.student_input, edit_target_path(:id => student.latest_target.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+      <% else %>
+          <%= student.latest_target.student_input %>
+      <% end %>
+    </td>
+    <td class="center-vertically-table-cell empty-td">
+      <% unless student.latest_target.letter_grade.nil? %>
+          <% if policy(student.latest_target).update? %>
+              <%= link_to student.latest_target.letter_grade, edit_target_path(:id => student.latest_target.id, :evaluation_id=>student.latest_evaluation.id), remote: true%>
+          <% else %>
+              <%= student.latest_target.letter_grade %>
+          <% end %>
+      <% end %>
+    </td>
+<% end %>
+<td class="center-vertically-table-cell empty-td">
+  <% if student.latest_evaluation.nil? %>
+      <row>
+        <div class="col-xs-6 text-center no-padding">
+          This student does not have an academic profile
+        </div>
+        <div class="col-xs-6 text-center no-padding">
+          <% if policy(student).update? %>
+              <%= link_to "Edit this student", student_path(:id => student.id), class: "btn btn-default" %>
+          <% end %>
+        </div>
+      </row>
+  <% else %>
+      <row>
+        <div class="col-xs-6 text-center no-padding">
+          <%= link_to 'New target'.html_safe, "#new_target_modal_#{student.id}", 'data-toggle' => 'modal', class: "btn btn-primary" %>
+        </div>
+        <div class="col-xs-6 text-center no-padding">
+          <%= link_to "Target details", targets_path(:evaluation_id=>student.latest_evaluation.id), class: "btn btn-default" %>
+        </div>
+      </row>
+  <% end %>
+</td>

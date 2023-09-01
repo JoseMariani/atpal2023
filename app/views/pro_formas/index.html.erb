@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="text-center">
+        Pro Formas
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 margin-top padding-bottom padding-top section-white" id="student-panel soft-borders">
+      <h3 class="header3-bottom margin-bottom">
+        List of Pro Formas
+      </h3>
+      <table class="table table-hover margin-top" id="program_table">
+        <thead>
+        <tr>
+          <th>
+            Student Name
+          </th>
+          <th>
+            Student Nationality
+          </th>
+          <th>
+            Date of creation
+          </th>
+          <th>
+            Valid until
+          </th>
+          <th>
+            Total
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @pro_formas.each do |pro_forma| %>
+            <tr>
+              <td>
+                <%= link_to pro_forma.student.complete_name_cap, student_pro_forma_path(student_id: pro_forma.student.id, id: pro_forma.id) %>
+              </td>
+              <td>
+                <%= pro_forma.student.nationality %>
+              </td>
+              <td>
+                <%= l pro_forma.created_at, :format => :long %>
+              </td>
+              <td>
+                <%= pro_forma.date_of_validity %>
+              </td>
+              <td>
+                <%= to_cad(number_with_precision(pro_forma.total_amount, :precision => 2)) %>
+              </td>
+              <td>
+                <%= link_to 'Delete', delete_statement_path(pro_forma.id) %>
+                <%= link_to 'Load configuration', load_config_student_pro_forma_path(student_id: pro_forma.student.id, id: pro_forma.id) %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

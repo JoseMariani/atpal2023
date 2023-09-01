@@ -1,0 +1,7 @@
+<% if @sharp.errors.any? %>
+$('.container').html("<div class=\"alert alert-warning fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button><%= @sharp.errors.full_messages.join(', ') %></div>\n");
+<% else %>
+$('.container').html("<div class=\"alert alert-success fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button>Sharp n' smart updated successfully for <%= @student.first_name %></div>\n");
+<% end %>
+$('#student_<%= @student.id %>').html("<%= j render "sharp_and_smarts/sharp_and_smart_table", student: @student %>")
+$('#edit_sharp_and_smart_modal_<%= @student.id %>').modal('hide')

@@ -1,0 +1,4 @@
+$('#target_<%= @target.id %>').html("<%= j render "targets/target_row", target: @target %>")
+$('#target_line_chart').html("<%= j render "targets/chart_partials/line_chart", charted_targets: @charted_targets %>")
+$('#target_pie_chart').html("<%= j render "targets/chart_partials/pie_chart", charted_targets: @charted_targets %>")
+$('#edit_target_modal_<%= @student.id %>').modal('hide')

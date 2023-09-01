@@ -1,0 +1,7 @@
+<% if @quiz.errors.any? %>
+$('.container').html("<div class=\"alert alert-warning fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button><%= @quiz.errors.full_messages.join(', ') %></div>\n");
+<% else %>
+$('.container').html("<div class=\"alert alert-success fade in\"><button class=\"close\" data-dismiss=\"alert\">x</button>Quiz updated successfully for <%= @student.first_name %></div>\n");
+<% end %>
+$('.quizzes').html("<%= j render "quizzes/quiz_list" %>")
+$('#edit_quiz_modal').modal('hide')

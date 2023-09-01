@@ -1,0 +1,23 @@
+<div class="form-group field col-xs-12">
+  <div class="">
+    <%= f.label(:date, "Date of entry")%>
+    <%= f.text_field(:date, :class=>"form-control datepicker", :id=>'') %>
+  </div>
+
+  <div class="">
+    <%= f.label(:description, "Comments")%>
+    <%= f.text_field(:description, :class=>"form-control", :id=>"sns_description") %>
+  </div>
+</div>
+
+<div class="radio-toolbar col-xs-12">
+  <div class="col-xs-3 dropdown"><%= f.select(:color, ::SharpAndSmart::COLORS, {}, { class: "color-dropdown" })%></div>
+  <span class="left-element"><%= f.radio_button :score, 0, :id=>"sns_0", checked: true %> <%= f.label :score, "0"%></span>
+  <span class=""><%= f.radio_button :score, 1, :id=>"sns_1" %> <%= f.label :score, "1"%></span>
+  <span class=""><%= f.radio_button :score, 2, :id=>"sns_2" %> <%= f.label :score, "2"%></span>
+  <span class=""><%= f.radio_button :score, 3, :id=>"sns_3" %> <%= f.label :score, "3"%></span>
+  <span class=""><%= f.radio_button :score, 4, :id=>"sns_4" %> <%= f.label :score, "4"%></span>
+  <span class=""><%= f.radio_button :score, 5, :id=>"sns_5" %> <%= f.label :score, "5"%></span>
+</div>
+
+<div class="col-xs-12"><label for="sharp_and_smart[score]" class="error" style="display:none;">Please choose one.</label></div>
